@@ -1,9 +1,15 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
+import { Note } from "../interfaces/notes"
+import { notesApi } from "../services/noteService"
 
-type Props = {}
+const Notes = () => {
+	const [notes, setNotes] = useState<Note[]>([])
 
-const Notes = (props: Props) => {
-	return <div>Notes</div>
+	useEffect(() => {
+		notesApi.getNotes().then(setNotes)
+	}, [notes])
+
+	return <div style={{ color: "red" }}>{notes[0]?.title}</div>
 }
 
 export { Notes }

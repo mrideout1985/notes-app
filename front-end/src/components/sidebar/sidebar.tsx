@@ -1,5 +1,6 @@
 import React from "react"
 import { NavLink } from "react-router-dom"
+import { Authentication } from "../authentication/authentication"
 import { Button } from "../button/button"
 import { Title } from "../title/title"
 import styles from "./sidebar.module.scss"
@@ -48,6 +49,7 @@ const Sidebar = ({ links }: SidebarProps) => {
 						))}
 				</ul>
 				<div className={styles["btn-container"]}>
+					<Authentication />
 					<Button type='button' text='new note' />
 				</div>
 			</div>

@@ -1,10 +1,16 @@
-import axios from "axios";
+import axios from "axios"
+import { Note } from "../interfaces/notes"
 
 class NoteService {
-  public async getData(): Promise<any> {
-    const res = await axios.get(`http://localhost:3000/notes`);
-    return res.data;
-  }
+	public async getNotes(): Promise<Note[]> {
+		let response
+		await axios.get(`http://localhost:3000/notes`).then(res => {
+			response = res.data
+		})
+		return response ?? []
+	}
 }
 
-export { NoteService };
+const notesApi = new NoteService()
+
+export { notesApi }

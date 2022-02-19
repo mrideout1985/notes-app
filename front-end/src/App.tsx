@@ -7,7 +7,6 @@ import Profile from "./pages/profile"
 import Settings from "./pages/settings"
 
 function App() {
-	// const noteData = new NoteService().getData();
 	return (
 		<Layout>
 			<Routes>
