@@ -1,18 +1,18 @@
-import React from "react";
-import { Sidebar } from "../sidebar/sidebar";
-import styles from "./layout.module.scss";
+import React from "react"
+import { Sidebar } from "../sidebar/sidebar"
+import styles from "./layout.module.scss"
 
 interface LayoutProps {
-  children: React.ReactNode;
+	children: React.ReactNode
 }
 
 const Layout = ({ children }: LayoutProps): JSX.Element => {
-  return (
-    <div className={styles["root"]}>
-      <Sidebar />
-      <div className={styles["layout"]}>{children}</div>
-    </div>
-  );
-};
+	return (
+		<div className={styles["root"]}>
+			<Sidebar links={["profile", "dashboard", "notes", "settings"]} />
+			<div className={styles["layout"]}>{children}</div>
+		</div>
+	)
+}
 
-export { Layout };
+export { Layout }
