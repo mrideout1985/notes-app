@@ -1,8 +1,8 @@
 import { NoteSchema } from "src/schemas/note.schema"
-import { NoteDto } from "./../schemas/note.schema"
+import { NoteDto } from "../schemas/note.schema"
 import { Inject, Injectable } from "@nestjs/common"
 import { Model } from "mongoose"
-import { Note } from "./entities/note.entity"
+import { Note } from "../entities/note.entity"
 
 @Injectable()
 export class NoteService {

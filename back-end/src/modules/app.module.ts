@@ -1,7 +1,7 @@
-import { NotesModule } from "./notes/notes.module"
+import { NotesModule } from "./notes.module"
 import { Module } from "@nestjs/common"
-import { AppController } from "./app.controller"
-import { AppService } from "./app.service"
+import { AppController } from "../controllers/app.controller"
+import { AppService } from "../services/app.service"
 import { ConfigModule } from "@nestjs/config"
 
 @Module({

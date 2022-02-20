@@ -1,4 +1,4 @@
-import { NoteService } from "./notes.service"
+import { NoteService } from "../services/notes.service"
 
 import {
 	Controller,
