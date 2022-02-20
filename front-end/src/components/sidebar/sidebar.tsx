@@ -1,3 +1,4 @@
+import { useAuth0 } from "@auth0/auth0-react"
 import React from "react"
 import { NavLink } from "react-router-dom"
 import { Authentication } from "../authentication/authentication"
@@ -10,7 +11,8 @@ type SidebarProps = {
 }
 
 const Sidebar = ({ links }: SidebarProps) => {
-	const user = "DAVID KELSHAW" //FAKE USER
+	const { user } = useAuth0()
+	console.log(user)
 	const handleLinks = (link: string) => {
 		if (link !== "profile" && user === undefined) {
 			return (
