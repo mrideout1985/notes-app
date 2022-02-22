@@ -5,11 +5,8 @@ import {
 	Param,
 	Post,
 	Body,
-	HttpCode,
-	HttpStatus,
 	Patch,
 	Delete,
-	Query,
 } from "@nestjs/common"
 @Controller("notes")
 export class NotesController {
