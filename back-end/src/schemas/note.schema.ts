@@ -2,7 +2,7 @@ import * as mongoose from "mongoose"
 
 interface Note {
 	title: string
-	message: string
+	description: string
 }
 
 export interface NoteDto extends Note {
@@ -12,5 +12,5 @@ export interface NoteDto extends Note {
 
 export const NoteSchema = new mongoose.Schema<Note>({
 	title: String,
-	message: String,
+	description: String,
 })
