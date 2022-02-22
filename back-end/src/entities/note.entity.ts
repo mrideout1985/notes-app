@@ -1,4 +1,4 @@
 export class Note {
 	title: string
-	message: string
+	description: string
 }

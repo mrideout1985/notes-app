@@ -1,5 +1,4 @@
 import { NoteService } from "../services/notes.service"
-
 import {
 	Controller,
 	Get,
@@ -16,7 +15,7 @@ import {
 export class NotesController {
 	constructor(private readonly noteService: NoteService) {}
 	@Get()
-	findAll(@Query() query) {
+	findAll() {
 		return this.noteService.findAll()
 	}
 
@@ -26,7 +25,6 @@ export class NotesController {
 	}
 
 	@Post()
-	@HttpCode(HttpStatus.GONE)
 	create(@Body() body) {
 		return this.noteService.create(body)
 	}
