@@ -60,4 +60,17 @@ export class UserService {
 
 		user[0].save()
 	}
+
+	async removeUserNote({
+		userId,
+		noteId,
+	}: {
+		userId: string
+		noteId: string
+	}): Promise<void> {
+		let user
+		if (noteId) user = await this.userModel.find({ _id: userId }).exec()
+		user[0].notes.filter((note: string) => note !== noteId)
+		user[0].save()
+	}
 }

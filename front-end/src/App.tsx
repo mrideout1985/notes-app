@@ -1,4 +1,3 @@
-import { useAuth0 } from "@auth0/auth0-react"
 import React from "react"
 import { Routes, Route } from "react-router-dom"
 import { Layout } from "./components/layout/layout"
@@ -9,10 +8,8 @@ import Settings from "./pages/settings"
 import { UserContext } from "./stores/userContext"
 
 function App() {
-	const { user } = useAuth0()
-
 	return (
-		<UserContext.Provider value={user}>
+		<UserContext.Provider value={"n/a"}>
 			<Layout>
 				<Routes>
 					<Route path='/' element={<Dashboard />} />

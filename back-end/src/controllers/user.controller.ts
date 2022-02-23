@@ -9,6 +9,7 @@ import {
 	Put,
 	Res,
 	Query,
+	Delete,
 } from "@nestjs/common"
 import { UserService } from "src/services/user.service"
 import { Response, Request } from "express"
@@ -68,6 +69,11 @@ export class UserController {
 		return {
 			message: "success",
 		}
+	}
+
+	@Delete()
+	remove(@Body() noteId) {
+		return this.userService.removeUserNote(noteId)
 	}
 
 	@Get()

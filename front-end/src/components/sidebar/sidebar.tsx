@@ -1,7 +1,5 @@
-import { useAuth0 } from "@auth0/auth0-react"
 import React from "react"
 import { NavLink } from "react-router-dom"
-import { Authentication } from "../authentication/authentication"
 import { Button } from "../button/button"
 import { Title } from "../title/title"
 import styles from "./sidebar.module.scss"
@@ -11,10 +9,8 @@ type SidebarProps = {
 }
 
 const Sidebar = ({ links }: SidebarProps) => {
-	const { user } = useAuth0()
-	console.log(user)
 	const handleLinks = (link: string) => {
-		if (link !== "profile" && user === undefined) {
+		if (link !== "profile" && "user" === undefined) {
 			return (
 				<NavLink
 					className={({ isActive }) =>
@@ -26,7 +22,7 @@ const Sidebar = ({ links }: SidebarProps) => {
 					{link}
 				</NavLink>
 			)
-		} else if (user) {
+		} else if ("user") {
 			return (
 				<NavLink
 					className={({ isActive }) =>
@@ -51,7 +47,6 @@ const Sidebar = ({ links }: SidebarProps) => {
 						))}
 				</ul>
 				<div className={styles["btn-container"]}>
-					<Authentication />
 					<Button type='button' text='new note' />
 				</div>
 			</div>

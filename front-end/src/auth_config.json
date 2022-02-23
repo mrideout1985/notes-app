@@ -1,7 +1,0 @@
-{
-	"domain": "dev-3slufkfu.us.auth0.com",
-	"clientId": "CVAYyTNFuQL7h374lxbCsM7TsuDzX4m3",
-	"audience": "https://dev-3slufkfu.us.auth0.com/api/v2/",
-	"appOrigin": "{OPTIONAL: THE BASE URL OF YOUR APPLICATION (default: http://localhost:3000)}",
-	"apiOrigin": "{OPTIONAL: THE BASE URL OF YOUR API (default: http://localhost:3001)}"
-}
