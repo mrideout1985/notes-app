@@ -1,8 +1,9 @@
 import * as mongoose from "mongoose"
 
 export const UserSchema = new mongoose.Schema({
-	name: String,
-	id: String,
+	id: Number,
+	email: String,
+	password: String,
 	notes: [
 		{
 			type: mongoose.Schema.Types.ObjectId,
