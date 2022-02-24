@@ -37,6 +37,7 @@ const Notes = () => {
 						{note.title}
 						<br />
 						{note.description}
+						<button>Remove</button>
 					</li>
 				))}
 			</ul>

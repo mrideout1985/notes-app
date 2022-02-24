@@ -8,7 +8,6 @@ import {
 	Req,
 	Put,
 	Res,
-	Query,
 	Delete,
 } from "@nestjs/common"
 import { UserService } from "src/services/user.service"
@@ -16,7 +15,7 @@ import { Response, Request } from "express"
 import { JwtService } from "@nestjs/jwt"
 import * as bcrypt from "bcrypt"
 
-@Controller("user")
+@Controller("users")
 export class UserController {
 	constructor(
 		private readonly userService: UserService,
@@ -25,7 +24,6 @@ export class UserController {
 
 	@Post("register")
 	async register(
-		@Body("name") name: string,
 		@Body("email") email: string,
 		@Body("password") password: string
 	) {
@@ -35,7 +33,8 @@ export class UserController {
 			email,
 			password: hashedPassword,
 		})
-		delete user.password
+
+		delete user[password]
 
 		return user
 	}
@@ -62,9 +61,11 @@ export class UserController {
 			)
 		}
 
-		const jwt = await this.jwtService.signAsync({ id: user.id })
+		const jwt = await this.jwtService.signAsync({ email: email })
 
-		response.cookie("jwt", jwt, { httpOnly: true })
+		response.cookie("jwt", jwt, {
+			httpOnly: true,
+		})
 
 		return {
 			message: "success",
@@ -76,15 +77,36 @@ export class UserController {
 		return this.userService.removeUserNote(noteId)
 	}
 
+	@Get("user")
+	async user(@Req() request: Request) {
+		const cookie = request.cookies["jwt"]
+		let data
+
+		if (cookie !== undefined) {
+			data = await this.jwtService.verifyAsync(cookie)
+		}
+		if (!data) {
+			throw new HttpException("Unauthorised", HttpStatus.UNAUTHORIZED)
+		}
+
+		let user = await this.userService.findOne({ email: data["email"] })
+
+		return user
+	}
+
+	@Post("logout")
+	async logout(@Res({ passthrough: true }) response: Response) {
+		response.clearCookie("jwt")
+		return {
+			message: "successfull log out",
+		}
+	}
+
 	@Get()
 	getAllUsers() {
 		return this.userService.getAllUsers()
 	}
 
-	@Get()
-	getUser(@Body() body) {
-		return this.userService.getUser(body)
-	}
 	@Put()
 	addUserNote(@Body() body) {
 		return this.userService.addUserNote(body)

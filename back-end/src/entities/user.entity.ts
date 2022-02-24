@@ -1,7 +1,7 @@
 import mongoose from "mongoose"
 
 export class User {
-	id: number
+	id: string
 	email: string
 	password: string
 	notes: any

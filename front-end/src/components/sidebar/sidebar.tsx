@@ -1,14 +1,35 @@
-import React from "react"
 import { NavLink } from "react-router-dom"
-import { Button } from "../button/button"
 import { Title } from "../title/title"
 import styles from "./sidebar.module.scss"
+import { userService } from "../../services/userService"
+import { UserContext } from "../../stores/userContext"
+import { useContext, useEffect } from "react"
 
 type SidebarProps = {
 	links?: string[]
 }
 
 const Sidebar = ({ links }: SidebarProps) => {
+	const { user, setUser } = useContext(UserContext)
+
+	const handleLoggedInUser = () => {
+		userService.getLoggedInUser().then(data => {
+			setUser(data.email)
+		})
+	}
+
+	const handleLogOut = () => {
+		userService.logout()
+		setUser(null)
+	}
+
+	useEffect(() => {
+		if (user === typeof String) {
+			return
+		}
+		handleLoggedInUser()
+	}, [user])
+
 	const handleLinks = (link: string) => {
 		if (link !== "profile" && "user" === undefined) {
 			return (
@@ -29,7 +50,7 @@ const Sidebar = ({ links }: SidebarProps) => {
 						isActive ? styles["active"] : styles["nav-link"]
 					}
 					end
-					to={`${link === "dashboard" ? "/" : link}`}
+					to={`${link === "profile" ? "/" : link}`}
 				>
 					{link}
 				</NavLink>
@@ -47,7 +68,13 @@ const Sidebar = ({ links }: SidebarProps) => {
 						))}
 				</ul>
 				<div className={styles["btn-container"]}>
-					<Button type='button' text='new note' />
+					{user ? (
+						<button onClick={handleLogOut}>logout</button>
+					) : (
+						<button>
+							<NavLink to='/login'>Log in</NavLink>
+						</button>
+					)}
 				</div>
 			</div>
 		</nav>
