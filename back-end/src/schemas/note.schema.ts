@@ -1,16 +1,22 @@
 import * as mongoose from "mongoose"
+import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose"
+import { Document } from "mongoose"
 
-interface Note {
+export type NoteDocument = Note & Document
+
+@Schema()
+export class Note {
+	@Prop()
 	title: string
+	@Prop()
 	description: string
+	@Prop()
+	author: [
+		{
+			type: mongoose.Schema.Types.ObjectId
+			ref: "USER"
+		}
+	]
 }
 
-export interface NoteDto extends Note {
-	_id: string
-	__v: number
-}
-
-export const NoteSchema = new mongoose.Schema<Note>({
-	title: String,
-	description: String,
-})
+export const NoteSchema = SchemaFactory.createForClass(Note)

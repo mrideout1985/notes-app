@@ -23,8 +23,8 @@ export class NotesController {
 	}
 
 	@Post()
-	create(@Body() body) {
-		return this.noteService.create(body)
+	create(@Body() body, author: any) {
+		return this.noteService.create(body, author)
 	}
 
 	@Patch(":id")

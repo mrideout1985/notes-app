@@ -96,10 +96,10 @@ export class UserController {
 		}
 	}
 
-	@Get()
-	async getUserNotes(@Body() body) {
-		return this.userService.getUserNotes(body)
-	}
+	// @Get()
+	// async getUserNotes(@Body() body) {
+	// 	return this.userService.getUserNotes(body)
+	// }
 
 	@Post("logout")
 	async logout(@Res({ passthrough: true }) response: Response) {
