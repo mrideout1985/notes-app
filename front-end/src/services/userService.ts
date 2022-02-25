@@ -46,7 +46,7 @@ class UserService {
 		})
 
 		if (res.status === 401) {
-			return console.log("gaybars")
+			return console.log("123")
 		}
 
 		return res.data

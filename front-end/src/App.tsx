@@ -5,20 +5,17 @@ import { Login } from "./pages/login"
 import { Notes } from "./pages/notes"
 import Profile from "./pages/profile"
 import { Register } from "./pages/register"
-import Settings from "./pages/settings"
 import { UserContext } from "./stores/userContext"
 
 function App() {
 	const [user, setUser] = useState(null)
 	const value = useMemo(() => ({ user, setUser }), [user, setUser])
-	console.log(user)
 	return (
 		<UserContext.Provider value={value}>
 			<Layout>
 				<Routes>
 					<Route path='/' element={<Profile />} />
 					<Route path='/notes' element={<Notes />} />
-					<Route path='/settings' element={<Settings />} />
 					<Route path='/login' element={<Login />} />
 					<Route path='/register' element={<Register />} />
 				</Routes>

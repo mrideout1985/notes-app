@@ -1,5 +1,8 @@
+import { Note } from "src/entities/note.entity"
+
 export interface User {
-	id: string
+	_id: string
 	email: string
 	password: string
+	notes: Note[]
 }

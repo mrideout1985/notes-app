@@ -37,6 +37,18 @@ export class UserService {
 		return this.userModel.findOne(email)
 	}
 
+	async getUserNotes({
+		noteId,
+		userId,
+	}: {
+		userId: string
+		noteId: string
+	}): Promise<void> {
+		let user
+		if (noteId) user = await this.userModel.find({ email: userId }).exec()
+		user.notes.filter((note) => (note === noteId ? note : null))
+	}
+
 	async addUserNote({
 		userId,
 		noteId,
@@ -45,7 +57,7 @@ export class UserService {
 		noteId: string
 	}): Promise<void> {
 		let user
-		if (noteId) user = await this.userModel.find({ _id: userId }).exec()
+		if (noteId) user = await this.userModel.find({ email: userId }).exec()
 
 		user[0].notes = [...user[0].notes, noteId]
 

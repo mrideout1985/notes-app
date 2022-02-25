@@ -12,26 +12,25 @@ type SidebarProps = {
 const Sidebar = ({ links }: SidebarProps) => {
 	const { user, setUser } = useContext(UserContext)
 
-	const handleLoggedInUser = () => {
-		userService.getLoggedInUser().then(data => {
-			setUser(data.email)
-		})
-	}
-
 	const handleLogOut = () => {
 		userService.logout()
 		setUser(null)
 	}
 
 	useEffect(() => {
+		const handleLoggedInUser = () => {
+			userService.getLoggedInUser().then(data => {
+				setUser(data.email)
+			})
+		}
 		if (user === typeof String) {
 			return
 		}
 		handleLoggedInUser()
-	}, [user])
+	}, [setUser, user])
 
 	const handleLinks = (link: string) => {
-		if (link !== "profile" && "user" === undefined) {
+		if (link !== "profile" && user === null) {
 			return (
 				<NavLink
 					className={({ isActive }) =>
@@ -43,7 +42,7 @@ const Sidebar = ({ links }: SidebarProps) => {
 					{link}
 				</NavLink>
 			)
-		} else if ("user") {
+		} else if (user) {
 			return (
 				<NavLink
 					className={({ isActive }) =>
@@ -57,6 +56,7 @@ const Sidebar = ({ links }: SidebarProps) => {
 			)
 		}
 	}
+
 	return (
 		<nav className={styles["sidebar"]}>
 			<Title title='title' />

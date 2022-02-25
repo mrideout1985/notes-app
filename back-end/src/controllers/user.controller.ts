@@ -81,7 +81,6 @@ export class UserController {
 	async user(@Req() request: Request) {
 		const cookie = request.cookies["jwt"]
 		let data
-
 		if (cookie !== undefined) {
 			data = await this.jwtService.verifyAsync(cookie)
 		}
@@ -89,9 +88,17 @@ export class UserController {
 			throw new HttpException("Unauthorised", HttpStatus.UNAUTHORIZED)
 		}
 
-		let user = await this.userService.findOne({ email: data["email"] })
+		const user = await this.userService.findOne({ email: data["email"] })
 
-		return user
+		return {
+			id: user._id,
+			email: user.email,
+		}
+	}
+
+	@Get()
+	async getUserNotes(@Body() body) {
+		return this.userService.getUserNotes(body)
 	}
 
 	@Post("logout")
