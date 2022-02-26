@@ -11,6 +11,7 @@ export class NoteService {
 	) {}
 
 	async create(createNoteDto: NoteDto, author: string): Promise<any> {
+		console.log(author)
 		const createNote = new this.noteModel({
 			...createNoteDto,
 			author,
