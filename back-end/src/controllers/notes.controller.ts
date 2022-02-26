@@ -1,4 +1,5 @@
 import { NoteService } from "../services/notes.service"
+import { UserService } from "src/services/user.service"
 import {
 	Controller,
 	Get,
@@ -22,8 +23,8 @@ export class NotesController {
 	}
 
 	@Post()
-	create(@Body() body) {
-		return this.noteService.create(body)
+	create(@Body() body, author: any) {
+		return this.noteService.create(body, author)
 	}
 
 	@Patch(":id")

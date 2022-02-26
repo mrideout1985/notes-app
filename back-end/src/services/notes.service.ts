@@ -1,6 +1,6 @@
-import { NoteDto } from "../schemas/note.schema"
 import { Inject, Injectable } from "@nestjs/common"
 import { Model } from "mongoose"
+import { NoteDto } from "src/dto/userDto"
 import { Note } from "../entities/note.entity"
 
 @Injectable()
@@ -10,13 +10,17 @@ export class NoteService {
 		private noteModel: Model<Note>
 	) {}
 
-	async create(createNoteDto: NoteDto): Promise<Note> {
-		const createNote = new this.noteModel(createNoteDto)
+	async create(createNoteDto: NoteDto, author: string): Promise<any> {
+		console.log(author)
+		const createNote = new this.noteModel({
+			...createNoteDto,
+			author,
+		})
 		return createNote.save()
 	}
 
 	async findAll(): Promise<Note[]> {
-		return this.noteModel.find().exec()
+		return this.noteModel.find().populate("author").exec()
 	}
 
 	async findNote(id: string): Promise<Note[]> {

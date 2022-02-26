@@ -9,7 +9,7 @@ interface LayoutProps {
 const Layout = ({ children }: LayoutProps): JSX.Element => {
 	return (
 		<div className={styles["root"]}>
-			<Sidebar links={["profile", "dashboard", "notes", "settings"]} />
+			<Sidebar links={["profile", "notes"]} />
 			<div className={styles["layout"]}>{children}</div>
 		</div>
 	)

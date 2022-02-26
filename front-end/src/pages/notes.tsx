@@ -1,17 +1,15 @@
-import { useAuth0, User } from "@auth0/auth0-react"
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useContext } from "react"
 import { Note } from "../interfaces/notes"
 import { notesApi } from "../services/noteService"
+import { UserContext } from "../stores/userContext"
 
 const Notes = () => {
 	const [notes, setNotes] = useState<Note[]>([])
-	const { user } = useAuth0()
 	const [newNote, setNewNote] = useState<Note>({
 		title: "",
 		description: "",
 	})
-
-	console.log(user)
+	const { user } = useContext(UserContext)
 
 	useEffect(() => {
 		notesApi.getNotes(user).then(setNotes)
@@ -23,7 +21,7 @@ const Notes = () => {
 
 	const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
-		notesApi.addNote(newNote, (user as User).sub as string)
+		notesApi.addNote(newNote, user as string)
 	}
 
 	return (
@@ -41,6 +39,7 @@ const Notes = () => {
 						{note.title}
 						<br />
 						{note.description}
+						<button>Remove</button>
 					</li>
 				))}
 			</ul>

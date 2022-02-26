@@ -1,20 +1,36 @@
-import { useAuth0 } from "@auth0/auth0-react"
-import React from "react"
 import { NavLink } from "react-router-dom"
-import { Authentication } from "../authentication/authentication"
-import { Button } from "../button/button"
 import { Title } from "../title/title"
 import styles from "./sidebar.module.scss"
+import { userService } from "../../services/userService"
+import { UserContext } from "../../stores/userContext"
+import { useContext, useEffect } from "react"
 
 type SidebarProps = {
 	links?: string[]
 }
 
 const Sidebar = ({ links }: SidebarProps) => {
-	const { user } = useAuth0()
-	console.log(user)
+	const { user, setUser } = useContext(UserContext)
+
+	const handleLogOut = () => {
+		userService.logout()
+		setUser(null)
+	}
+
+	useEffect(() => {
+		const handleLoggedInUser = () => {
+			userService.getLoggedInUser().then(data => {
+				setUser(data.email)
+			})
+		}
+		if (user === typeof String) {
+			return
+		}
+		handleLoggedInUser()
+	}, [setUser, user])
+
 	const handleLinks = (link: string) => {
-		if (link !== "profile" && user === undefined) {
+		if (link !== "profile" && user === null) {
 			return (
 				<NavLink
 					className={({ isActive }) =>
@@ -33,13 +49,14 @@ const Sidebar = ({ links }: SidebarProps) => {
 						isActive ? styles["active"] : styles["nav-link"]
 					}
 					end
-					to={`${link === "dashboard" ? "/" : link}`}
+					to={`${link === "profile" ? "/" : link}`}
 				>
 					{link}
 				</NavLink>
 			)
 		}
 	}
+
 	return (
 		<nav className={styles["sidebar"]}>
 			<Title title='title' />
@@ -51,8 +68,13 @@ const Sidebar = ({ links }: SidebarProps) => {
 						))}
 				</ul>
 				<div className={styles["btn-container"]}>
-					<Authentication />
-					<Button type='button' text='new note' />
+					{user ? (
+						<button onClick={handleLogOut}>logout</button>
+					) : (
+						<button>
+							<NavLink to='/login'>Log in</NavLink>
+						</button>
+					)}
 				</div>
 			</div>
 		</nav>

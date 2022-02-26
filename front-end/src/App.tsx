@@ -1,24 +1,23 @@
-import { useAuth0 } from "@auth0/auth0-react"
-import React from "react"
+import React, { useMemo, useState } from "react"
 import { Routes, Route } from "react-router-dom"
 import { Layout } from "./components/layout/layout"
-import { Dashboard } from "./pages/dashboard"
+import { Login } from "./pages/login"
 import { Notes } from "./pages/notes"
 import Profile from "./pages/profile"
-import Settings from "./pages/settings"
+import { Register } from "./pages/register"
 import { UserContext } from "./stores/userContext"
 
 function App() {
-	const { user } = useAuth0()
-
+	const [user, setUser] = useState(null)
+	const value = useMemo(() => ({ user, setUser }), [user, setUser])
 	return (
-		<UserContext.Provider value={user}>
+		<UserContext.Provider value={value}>
 			<Layout>
 				<Routes>
-					<Route path='/' element={<Dashboard />} />
+					<Route path='/' element={<Profile />} />
 					<Route path='/notes' element={<Notes />} />
-					<Route path='/settings' element={<Settings />} />
-					<Route path='/profile' element={<Profile />} />
+					<Route path='/login' element={<Login />} />
+					<Route path='/register' element={<Register />} />
 				</Routes>
 			</Layout>
 		</UserContext.Provider>
