@@ -49,31 +49,31 @@ export class UserService {
 	// 	user.notes.filter((note) => (note === noteId ? note : null))
 	// }
 
-	async addUserNote({
-		userId,
-		noteId,
-	}: {
-		userId: string
-		noteId: string
-	}): Promise<void> {
-		let user
-		if (noteId) user = await this.userModel.find({ email: userId }).exec()
+	// async addUserNote({
+	// 	userId,
+	// 	noteId,
+	// }: {
+	// 	userId: string
+	// 	noteId: string
+	// }): Promise<void> {
+	// 	let user
+	// 	if (noteId) user = await this.userModel.find({ email: userId }).exec()
 
-		user[0].notes = [...user[0].notes, noteId]
+	// 	user[0].notes = [...user[0].notes, noteId]
 
-		user[0].save()
-	}
+	// 	user[0].save()
+	// }
 
-	async removeUserNote({
-		userId,
-		noteId,
-	}: {
-		userId: string
-		noteId: string
-	}): Promise<void> {
-		let user
-		if (noteId) user = await this.userModel.find({ _id: userId }).exec()
-		user[0].notes.filter((note: string) => note !== noteId)
-		user[0].save()
-	}
+	// async removeUserNote({
+	// 	userId,
+	// 	noteId,
+	// }: {
+	// 	userId: string
+	// 	noteId: string
+	// }): Promise<void> {
+	// 	let user
+	// 	if (noteId) user = await this.userModel.find({ _id: userId }).exec()
+	// 	user[0].notes.filter((note: string) => note !== noteId)
+	// 	user[0].save()
+	// }
 }
