@@ -4,12 +4,13 @@ import { notesApi } from "../services/noteService"
 import { UserContext } from "../stores/userContext"
 
 const Notes = () => {
+	const { user } = useContext(UserContext)
 	const [notes, setNotes] = useState<Note[]>([])
 	const [newNote, setNewNote] = useState<Note>({
 		title: "",
 		description: "",
+		user: user,
 	})
-	const { user } = useContext(UserContext)
 
 	useEffect(() => {
 		notesApi.getNotes(user).then(setNotes)
@@ -21,7 +22,7 @@ const Notes = () => {
 
 	const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
-		notesApi.addNote(newNote, user as string)
+		notesApi.addNote(newNote)
 	}
 
 	return (

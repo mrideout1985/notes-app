@@ -1,4 +1,5 @@
 import React from "react"
+import { Navbar } from "../navbar/navbar"
 import { Sidebar } from "../sidebar/sidebar"
 import styles from "./layout.module.scss"
 
@@ -8,10 +9,10 @@ interface LayoutProps {
 
 const Layout = ({ children }: LayoutProps): JSX.Element => {
 	return (
-		<div className={styles["root"]}>
-			<Sidebar links={["profile", "notes"]} />
+		<>
+			<Navbar />
 			<div className={styles["layout"]}>{children}</div>
-		</div>
+		</>
 	)
 }
 
