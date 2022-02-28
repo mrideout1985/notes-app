@@ -6,7 +6,6 @@ export interface UserDto {
 interface Note {
 	title: string
 	description: string
-	author: []
 }
 
 export interface NoteDto extends Note {

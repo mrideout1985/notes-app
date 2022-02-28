@@ -72,10 +72,10 @@ export class UserController {
 		}
 	}
 
-	@Delete()
-	remove(@Body() noteId) {
-		return this.userService.removeUserNote(noteId)
-	}
+	// @Delete()
+	// remove(@Body() noteId) {
+	// 	return this.userService.removeUserNote(noteId)
+	// }
 
 	@Get("user")
 	async user(@Req() request: Request) {
@@ -91,15 +91,9 @@ export class UserController {
 		const user = await this.userService.findOne({ email: data["email"] })
 
 		return {
-			id: user._id,
 			email: user.email,
 		}
 	}
-
-	// @Get()
-	// async getUserNotes(@Body() body) {
-	// 	return this.userService.getUserNotes(body)
-	// }
 
 	@Post("logout")
 	async logout(@Res({ passthrough: true }) response: Response) {
@@ -114,8 +108,8 @@ export class UserController {
 		return this.userService.getAllUsers()
 	}
 
-	@Put()
-	addUserNote(@Body() body) {
-		return this.userService.addUserNote(body)
-	}
+	// @Put()
+	// addUserNote(@Body() body) {
+	// 	return this.userService.addUserNote(body)
+	// }
 }
