@@ -11,12 +11,7 @@ export class Note {
 	@Prop()
 	description: string
 	@Prop()
-	author: [
-		{
-			type: mongoose.Schema.Types.ObjectId
-			ref: "USER"
-		}
-	]
+	user: string
 }
 
 export const NoteSchema = SchemaFactory.createForClass(Note)
