@@ -44,11 +44,6 @@ class UserService {
 		const res = await axios.get(`http://localhost:3000/users/user`, {
 			withCredentials: true,
 		})
-
-		if (res.status === 401) {
-			return console.log("123")
-		}
-
 		return res.data
 	}
 

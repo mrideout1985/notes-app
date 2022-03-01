@@ -1,9 +1,9 @@
 import { NavLink } from "react-router-dom"
+import { UserContext } from "../../stores/userContext"
+import { useContext, useEffect } from "react"
 import { Title } from "../title/title"
 import styles from "./sidebar.module.scss"
 import { userService } from "../../services/userService"
-import { UserContext } from "../../stores/userContext"
-import { useContext, useEffect } from "react"
 
 type SidebarProps = {
 	links?: string[]

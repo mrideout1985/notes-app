@@ -10,4 +10,4 @@ const Profile = (props: Props) => {
 	return <div className={styles["container"]}>{user}</div>
 }
 
-export default Profile
+export { Profile }

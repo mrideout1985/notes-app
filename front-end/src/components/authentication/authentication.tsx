@@ -1,25 +1,15 @@
-import { useContext, useEffect } from "react"
 import { NavLink } from "react-router-dom"
-import { userService } from "../../services/userService"
-import { UserContext } from "../../stores/userContext"
+
 import styles from "./authentication.module.scss"
-type Props = {}
+type Props = {
+	user: string | null
+	handleLogOut: () => void
+}
 
-const Authentication = (props: Props) => {
-	const { user, setUser } = useContext(UserContext)
-	const handleLogOut = () => {
-		userService.logout()
-		setUser(null)
-	}
-	useEffect(() => {
-		userService.getLoggedInUser().then(data => {
-			setUser(data.email)
-		})
-	}, [setUser, user])
-
+const Authentication = ({ user, handleLogOut }: Props) => {
 	return (
 		<div className={styles.container}>
-			{user === null ? (
+			{/* {!user ? (
 				<>
 					<NavLink
 						className={({ isActive }) =>
@@ -40,7 +30,14 @@ const Authentication = (props: Props) => {
 				</>
 			) : (
 				<button onClick={handleLogOut}>Logout</button>
-			)}
+			)} */}
+			{user && user ? <NavLink to='/notes'>Notes</NavLink> : null}
+			{user && user ? (
+				<button onClick={handleLogOut}>Logout</button>
+			) : null}
+			{!user || user === undefined ? (
+				<NavLink to='/login'>Login</NavLink>
+			) : null}
 		</div>
 	)
 }

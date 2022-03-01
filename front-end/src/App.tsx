@@ -1,11 +1,11 @@
-import React, { useMemo, useState } from "react"
+import React, { useEffect, useMemo, useState } from "react"
 import { Routes, Route } from "react-router-dom"
 import { Layout } from "./components/layout/layout"
 import { Login } from "./pages/login"
 import { Notes } from "./pages/notes"
-import Profile from "./pages/profile"
 import { Register } from "./pages/register"
 import { UserContext } from "./stores/userContext"
+import { Profile } from "./pages/profile"
 
 function App() {
 	const [user, setUser] = useState(null)

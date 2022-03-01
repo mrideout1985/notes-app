@@ -12,7 +12,7 @@ const Login = () => {
 	const submit = async (e: SyntheticEvent) => {
 		e.preventDefault()
 		userService.login(email, password).then(user => {
-			setUser(user)
+			setUser(user.email)
 		})
 		setRedirect(true)
 	}
