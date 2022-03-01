@@ -1,59 +1,56 @@
 import React, { SyntheticEvent, useContext, useState } from "react"
-import { Navigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { userService } from "../services/userService"
 import { UserContext } from "../stores/userContext"
 
 const Login = () => {
 	const [email, setEmail] = useState("")
 	const [password, setPassword] = useState("")
-	const [redirect, setRedirect] = useState(false)
 	const { setUser } = useContext(UserContext)
+	const navigate = useNavigate()
 
 	const submit = async (e: SyntheticEvent) => {
 		e.preventDefault()
-		userService.login(email, password).then(user => {
-			setUser(user.email)
+		userService.login(email, password).then(res => {
+			if (res.status === 201) {
+				userService
+					.getLoggedInUser()
+					.then(res => setUser(() => setUser(res.email)))
+				navigate("/notes")
+			}
 		})
-		setRedirect(true)
 	}
 
 	return (
 		<>
-			{!redirect ? (
-				<form
-					style={{
-						display: "flex",
-						flexDirection: "column",
-						justifyContent: "center",
-						alignItems: "center",
-					}}
-					onSubmit={submit}
-				>
-					<h1>Please sign in</h1>
-					<input
-						type='email'
-						placeholder='Email address'
-						required
-						onChange={e => setEmail(e.target.value)}
-					/>
+			<form
+				style={{
+					display: "flex",
+					flexDirection: "column",
+					justifyContent: "center",
+					alignItems: "center",
+				}}
+				onSubmit={submit}
+			>
+				<h1>Please sign in</h1>
+				<input
+					type='email'
+					placeholder='Email address'
+					required
+					onChange={e => setEmail(e.target.value)}
+				/>
 
-					<input
-						type='password'
-						placeholder='Password'
-						required
-						onChange={e => setPassword(e.target.value)}
-					/>
+				<input
+					type='password'
+					placeholder='Password'
+					required
+					onChange={e => setPassword(e.target.value)}
+				/>
 
-					<button
-						className='w-100 btn btn-lg btn-primary'
-						type='submit'
-					>
-						Sign in
-					</button>
-				</form>
-			) : (
-				<Navigate to='/' />
-			)}
+				<button className='w-100 btn btn-lg btn-primary' type='submit'>
+					Sign in
+				</button>
+			</form>
 		</>
 	)
 }

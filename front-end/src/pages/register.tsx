@@ -1,20 +1,27 @@
 import React, { SyntheticEvent, useState } from "react"
 import { userService } from "../services/userService"
-import { Navigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 const Register = () => {
 	const [email, setEmail] = useState("")
 	const [password, setPassword] = useState("")
-	const [redirect, setRedirect] = useState(false)
+	let navigate = useNavigate()
 
 	const submit = async (e: SyntheticEvent) => {
 		e.preventDefault()
-		userService.signUp(email, password)
-		setRedirect(true)
-	}
-
-	if (redirect) {
-		return <Navigate to='/login' />
+		await userService
+			.signUp(email, password)
+			.then(res => {
+				if (res.status === 201) {
+					navigate("/login")
+				}
+			})
+			.catch(err => {
+				if (err) {
+					navigate("/register")
+					alert("Already registered")
+				}
+			})
 	}
 
 	return (

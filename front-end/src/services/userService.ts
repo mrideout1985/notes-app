@@ -1,35 +1,24 @@
 import axios from "axios"
 
 class UserService {
-	public async signUp(email: string, password: string): Promise<void> {
-		await axios
-			.post(`http://localhost:3000/users/register`, {
-				email,
-				password,
-			})
-			.then(res => {
-				if (res.status === 401) {
-					alert("E-mail already in use. Please use another e-mail. ")
-				}
-
-				if (res.status === 201) {
-					alert("Success")
-				}
-			})
+	public async signUp(email: string, password: string): Promise<any> {
+		const res = await axios.post(`http://localhost:3000/users/register`, {
+			email,
+			password,
+		})
+		return res
 	}
 
 	public async login(email: string, password: string): Promise<any> {
-		await axios
-			.post(
-				`http://localhost:3000/users/login`,
-				{
-					email,
-					password,
-				},
-				{ withCredentials: true }
-			)
-			.then(function (response) {})
-			.catch(function (err) {})
+		const res = await axios.post(
+			`http://localhost:3000/users/login`,
+			{
+				email,
+				password,
+			},
+			{ withCredentials: true }
+		)
+		return res
 	}
 
 	public async logout(): Promise<void> {
@@ -45,13 +34,6 @@ class UserService {
 			withCredentials: true,
 		})
 		return res.data
-	}
-
-	public async addNoteId(noteId: string, userId: string): Promise<void> {
-		await axios.put(`http://localhost:3000/users`, {
-			noteId,
-			userId,
-		})
 	}
 }
 
