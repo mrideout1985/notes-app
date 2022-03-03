@@ -1,14 +1,17 @@
 import { Inject, Injectable } from "@nestjs/common"
+import { InjectModel } from "@nestjs/mongoose"
 import { Model } from "mongoose"
-import { NoteDto } from "src/dto/userDto"
-import { User } from "src/schemas/user.schema"
-import { Note } from "../entities/note.entity"
+import { NoteDto } from "src/dto/noteDto"
+import { Note } from "src/entities/note.entity"
+import { User } from "src/entities/user.entity"
 
 @Injectable()
 export class NoteService {
 	constructor(
-		@Inject("NOTE")
-		private noteModel: Model<Note>
+		@InjectModel("Note")
+		private noteModel: Model<Note>,
+		@InjectModel("User")
+		private userModel: Model<User>
 	) {}
 
 	async create(createNoteDto: NoteDto): Promise<any> {

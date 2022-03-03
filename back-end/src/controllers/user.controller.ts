@@ -18,7 +18,7 @@ import * as bcrypt from "bcrypt"
 @Controller("users")
 export class UserController {
 	constructor(
-		private readonly userService: UserService,
+		private userService: UserService,
 		private jwtService: JwtService
 	) {}
 
@@ -72,27 +72,9 @@ export class UserController {
 		}
 	}
 
-	// @Delete()
-	// remove(@Body() noteId) {
-	// 	return this.userService.removeUserNote(noteId)
-	// }
-
 	@Get("user")
 	async user(@Req() request: Request) {
-		const cookie = request.cookies["jwt"]
-		let data
-		if (cookie !== undefined) {
-			data = await this.jwtService.verifyAsync(cookie)
-		}
-		if (!data) {
-			throw new HttpException("Unauthorised", HttpStatus.UNAUTHORIZED)
-		}
-
-		const user = await this.userService.findOne({ email: data["email"] })
-
-		return {
-			email: user.email,
-		}
+		return this.userService.getLoggedInUser(request)
 	}
 
 	@Post("logout")
@@ -107,9 +89,4 @@ export class UserController {
 	getAllUsers() {
 		return this.userService.getAllUsers()
 	}
-
-	// @Put()
-	// addUserNote(@Body() body) {
-	// 	return this.userService.addUserNote(body)
-	// }
 }

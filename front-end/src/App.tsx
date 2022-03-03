@@ -9,24 +9,20 @@ import { Profile } from "./pages/profile"
 
 function App() {
 	const [user, setUser] = useState(null)
+	const value = useMemo(() => ({ user, setUser }), [user])
 
-	const value = useMemo(() => ({ user, setUser }), [user, setUser])
 	return (
 		<UserContext.Provider value={value}>
 			<Layout>
-				{console.log(user)}
 				<Routes>
-					{user && user ? (
-						<>
-							<Route path='/' element={<Profile />} />
-							<Route path='/notes' element={<Notes />} />
-						</>
-					) : (
-						<>
-							<Route path='/login' element={<Login />} />
-							<Route path='/register' element={<Register />} />
-						</>
-					)}
+					<>
+						<Route path='/' element={<Profile />} />
+						<Route path='/notes' element={<Notes />} />
+					</>
+					<>
+						<Route path='/login' element={<Login />} />
+						<Route path='/register' element={<Register />} />
+					</>
 				</Routes>
 			</Layout>
 		</UserContext.Provider>

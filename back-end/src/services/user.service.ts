@@ -1,13 +1,23 @@
+import { JwtService } from "@nestjs/jwt"
 import { UserDto } from "./../dto/userDto"
-import { User } from "../types/User"
-import { HttpException, HttpStatus, Inject, Injectable } from "@nestjs/common"
+import {
+	HttpException,
+	HttpStatus,
+	Inject,
+	Injectable,
+	Req,
+} from "@nestjs/common"
 import { Model } from "mongoose"
+import { User } from "src/entities/user.entity"
+import { InjectModel } from "@nestjs/mongoose"
+import { Note } from "src/entities/note.entity"
 
 @Injectable()
 export class UserService {
 	constructor(
-		@Inject("USER")
-		public userModel: Model<User>
+		@InjectModel("User") private userModel: Model<User>,
+		// @InjectModel("Note") private noteModel: Model<Note>,
+		private jwtService: JwtService
 	) {}
 
 	async registerUser(createUserDto: UserDto): Promise<User> {
@@ -20,6 +30,7 @@ export class UserService {
 			)
 		}
 		const createdUser = new this.userModel(createUserDto)
+
 		await createdUser.save()
 
 		return createdUser
@@ -34,46 +45,36 @@ export class UserService {
 	}
 
 	async findOne(email): Promise<User> {
-		return this.userModel.findOne(email)
+		return await this.userModel.findOne(email)
 	}
 
-	// async getUserNotes({
-	// 	noteId,
+	async getLoggedInUser(@Req() request): Promise<any> {
+		const cookie = request.cookies["jwt"]
+		let data
+		if (cookie !== undefined) {
+			data = await this.jwtService.verifyAsync(cookie)
+		}
+		if (!data) {
+			throw new HttpException("Unauthorised", HttpStatus.UNAUTHORIZED)
+		}
+
+		const user = await this.userModel.findOne({ email: data["email"] })
+
+		return {
+			email: user.email,
+		}
+	}
+
+	async addUserNote() {}
+
 	// 	userId,
+	// 	noteId,
 	// }: {
 	// 	userId: string
 	// 	noteId: string
 	// }): Promise<void> {
 	// 	let user
 	// 	if (noteId) user = await this.userModel.find({ email: userId }).exec()
-	// 	user.notes.filter((note) => (note === noteId ? note : null))
-	// }
-
-	// async addUserNote({
-	// 	userId,
-	// 	noteId,
-	// }: {
-	// 	userId: string
-	// 	noteId: string
-	// }): Promise<void> {
-	// 	let user
-	// 	if (noteId) user = await this.userModel.find({ email: userId }).exec()
-
 	// 	user[0].notes = [...user[0].notes, noteId]
-
 	// 	user[0].save()
-	// }
-
-	// async removeUserNote({
-	// 	userId,
-	// 	noteId,
-	// }: {
-	// 	userId: string
-	// 	noteId: string
-	// }): Promise<void> {
-	// 	let user
-	// 	if (noteId) user = await this.userModel.find({ _id: userId }).exec()
-	// 	user[0].notes.filter((note: string) => note !== noteId)
-	// 	user[0].save()
-	// }
 }

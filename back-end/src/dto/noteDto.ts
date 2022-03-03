@@ -1,7 +1,5 @@
-export interface Note {
+export interface NoteDto {
 	title: string
 	description: string
 	user: string
-	_id?: string
-	__v?: number
 }

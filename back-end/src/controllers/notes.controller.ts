@@ -1,5 +1,4 @@
 import { NoteService } from "../services/notes.service"
-import { UserService } from "src/services/user.service"
 import {
 	Controller,
 	Get,
