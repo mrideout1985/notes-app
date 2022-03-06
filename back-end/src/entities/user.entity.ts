@@ -1,8 +1,8 @@
-import mongoose from "mongoose"
+import * as mongoose from "mongoose"
 
 export class User {
-	id: string
+	_id: string
 	email: string
 	password: string
-	notes: any
+	notes: mongoose.Types.ObjectId[]
 }

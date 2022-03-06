@@ -1,27 +1,43 @@
-import { Inject, Injectable } from "@nestjs/common"
+import { Inject, Injectable, Req } from "@nestjs/common"
+import { InjectModel } from "@nestjs/mongoose"
 import { Model } from "mongoose"
-import { NoteDto } from "src/dto/userDto"
-import { User } from "src/schemas/user.schema"
-import { Note } from "../entities/note.entity"
+import { NoteDto } from "src/dto/noteDto"
+import { Note } from "src/entities/note.entity"
+import { User } from "src/entities/user.entity"
 
 @Injectable()
 export class NoteService {
 	constructor(
-		@Inject("NOTE")
-		private noteModel: Model<Note>
+		@InjectModel("Note")
+		private noteModel: Model<Note>,
+		@InjectModel("User")
+		private userModel: Model<User>
 	) {}
 
-	async create(createNoteDto: NoteDto): Promise<any> {
-		const createNote = new this.noteModel(createNoteDto)
-		createNote.save()
+	async create(createNoteDto: NoteDto): Promise<void> {
+		const note = new this.noteModel(createNoteDto)
+		const addNoteToUser = (result) => {
+			this.userModel
+				.findOne({ email: createNoteDto.email })
+				.then((user) => {
+					user.notes.push(result._id)
+					user.save()
+				})
+		}
+
+		note.save().then(addNoteToUser)
 	}
 
-	async findAll(): Promise<Note[]> {
-		return this.noteModel.find().exec()
+	async findAllLoggedInUserNotes(email): Promise<any> {
+		const user = this.userModel.findOne({ email: email })
+	}
+
+	async findAll(userId: string): Promise<Note[]> {
+		return this.noteModel.find({ userId: userId }).exec()
 	}
 
 	async findNote(id: string): Promise<Note[]> {
-		return this.noteModel.find({ _id: id }).exec()
+		return this.noteModel.find({ id: id }).exec()
 	}
 
 	async update(updated: Partial<Note>, id: string) {

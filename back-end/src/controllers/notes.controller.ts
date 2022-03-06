@@ -1,5 +1,5 @@
-import { NoteService } from "../services/notes.service"
 import { UserService } from "src/services/user.service"
+import { NoteService } from "../services/notes.service"
 import {
 	Controller,
 	Get,
@@ -8,22 +8,23 @@ import {
 	Body,
 	Patch,
 	Delete,
+	Req,
 } from "@nestjs/common"
+import { Request } from "express"
 @Controller("notes")
 export class NotesController {
-	constructor(private readonly noteService: NoteService) {}
+	constructor(
+		private readonly noteService: NoteService,
+		private readonly userService: UserService
+	) {}
 	@Get()
-	findAll() {
-		return this.noteService.findAll()
-	}
-
-	@Get(":id")
-	findOne(@Param("id") id: string) {
-		return this.noteService.findNote(id)
+	@Get("user")
+	findAllLoggedInUserNotes(@Req() user: Request) {
+		return this.userService.getLoggedInUser(user).then((res) => res.notes)
 	}
 
 	@Post()
-	create(@Body() body) {
+	create(@Body() body, email: string) {
 		return this.noteService.create(body)
 	}
 

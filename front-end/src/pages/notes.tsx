@@ -13,7 +13,11 @@ const Notes = () => {
 	})
 
 	useEffect(() => {
-		notesApi.getNotes(user).then(setNotes)
+		// notesApi.getNotes(user).then(setNotes)
+		notesApi.getAllUserNotes().then(res => {
+			return res
+		})
+		// userService.getLoggedInUser().then(res => console.log(res))
 	}, [user])
 
 	const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,16 +38,6 @@ const Notes = () => {
 				<input type='text' name='description' onChange={onChange} />
 				<input type='submit' name='add note' />
 			</form>
-			<ul>
-				{notes.map(note => (
-					<li key={note._id}>
-						{note.title}
-						<br />
-						{note.description}
-						<button>Remove</button>
-					</li>
-				))}
-			</ul>
 		</div>
 	)
 }

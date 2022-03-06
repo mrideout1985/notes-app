@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react"
+import React, { useMemo, useState } from "react"
 import { Routes, Route } from "react-router-dom"
 import { Layout } from "./components/layout/layout"
 import { Login } from "./pages/login"
@@ -9,15 +9,20 @@ import { Profile } from "./pages/profile"
 
 function App() {
 	const [user, setUser] = useState(null)
-	const value = useMemo(() => ({ user, setUser }), [user, setUser])
+	const value = useMemo(() => ({ user, setUser }), [user])
+
 	return (
 		<UserContext.Provider value={value}>
 			<Layout>
 				<Routes>
-					<Route path='/' element={<Profile />} />
-					<Route path='/notes' element={<Notes />} />
-					<Route path='/login' element={<Login />} />
-					<Route path='/register' element={<Register />} />
+					<>
+						<Route path='/' element={<Profile />} />
+						<Route path='/notes' element={<Notes />} />
+					</>
+					<>
+						<Route path='/login' element={<Login />} />
+						<Route path='/register' element={<Register />} />
+					</>
 				</Routes>
 			</Layout>
 		</UserContext.Provider>
