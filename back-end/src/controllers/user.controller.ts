@@ -6,9 +6,7 @@ import {
 	HttpStatus,
 	Post,
 	Req,
-	Put,
 	Res,
-	Delete,
 } from "@nestjs/common"
 import { UserService } from "src/services/user.service"
 import { Response, Request } from "express"

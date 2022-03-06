@@ -1,12 +1,6 @@
 import { JwtService } from "@nestjs/jwt"
 import { UserDto } from "./../dto/userDto"
-import {
-	HttpException,
-	HttpStatus,
-	Inject,
-	Injectable,
-	Req,
-} from "@nestjs/common"
+import { HttpException, HttpStatus, Injectable, Req } from "@nestjs/common"
 import { Model } from "mongoose"
 import { User } from "src/entities/user.entity"
 import { InjectModel } from "@nestjs/mongoose"
@@ -30,7 +24,6 @@ export class UserService {
 			)
 		}
 		const createdUser = new this.userModel(createUserDto)
-
 		await createdUser.save()
 
 		return createdUser
@@ -41,12 +34,12 @@ export class UserService {
 	}
 
 	async getAllUsers(): Promise<User[]> {
-		return this.userModel.find().exec()
+		return this.userModel.find().populate("notes").exec()
 	}
 
-	async findOne(email): Promise<User> {
-		return await this.userModel.findOne(email)
-	}
+	// async findOne(email): Promise<User> {
+	// 	return await this.userModel.findOne(email)
+	// }
 
 	async getLoggedInUser(@Req() request): Promise<any> {
 		const cookie = request.cookies["jwt"]
@@ -58,14 +51,13 @@ export class UserService {
 			throw new HttpException("Unauthorised", HttpStatus.UNAUTHORIZED)
 		}
 
-		const user = await this.userModel.findOne({ email: data["email"] })
+		const user = await this.userModel.findOne({ email: data.email })
 
 		return {
 			email: user.email,
+			notes: user.notes,
 		}
 	}
-
-	async addUserNote() {}
 
 	// 	userId,
 	// 	noteId,
