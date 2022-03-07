@@ -1,17 +1,20 @@
 /* eslint-disable no-restricted-globals */
+import { BrowserRouter } from "react-router-dom"
+import { AuthProvider } from "./stores/authProvider"
+import App from "./App"
+import reportWebVitals from "./reportWebVitals"
+import "open-props/style"
+import "open-props/normalize"
 import React from "react"
 import ReactDOM from "react-dom"
 import "./index.scss"
-import App from "./App"
-import reportWebVitals from "./reportWebVitals"
-import { BrowserRouter } from "react-router-dom"
-import "open-props/style"
-import "open-props/normalize"
 
 ReactDOM.render(
 	<React.StrictMode>
 		<BrowserRouter>
-			<App />
+			<AuthProvider>
+				<App />
+			</AuthProvider>
 		</BrowserRouter>
 	</React.StrictMode>,
 	document.getElementById("root")

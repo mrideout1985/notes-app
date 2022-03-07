@@ -1,4 +1,4 @@
-import { Inject, Injectable, Req } from "@nestjs/common"
+import { Inject, Injectable, Req, UnauthorizedException } from "@nestjs/common"
 import { InjectModel } from "@nestjs/mongoose"
 import { Model } from "mongoose"
 import { NoteDto } from "src/dto/noteDto"
@@ -20,20 +20,12 @@ export class NoteService {
 			this.userModel
 				.findOne({ email: createNoteDto.email })
 				.then((user) => {
-					user.notes.push(result._id)
+					user && user.notes.push(result._id)
 					user.save()
 				})
 		}
 
 		note.save().then(addNoteToUser)
-	}
-
-	async findAllLoggedInUserNotes(email): Promise<any> {
-		const user = this.userModel.findOne({ email: email })
-	}
-
-	async findAll(userId: string): Promise<Note[]> {
-		return this.noteModel.find({ userId: userId }).exec()
 	}
 
 	async findNote(id: string): Promise<Note[]> {

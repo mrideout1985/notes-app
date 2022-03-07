@@ -4,28 +4,27 @@ import { Layout } from "./components/layout/layout"
 import { Login } from "./pages/login"
 import { Notes } from "./pages/notes"
 import { Register } from "./pages/register"
-import { UserContext } from "./stores/userContext"
 import { Profile } from "./pages/profile"
+import { RequireAuth } from "./components/requireAuth/requireAuth"
+import { useAuth } from "./hooks/useAuth"
 
 function App() {
-	const [user, setUser] = useState(null)
-	const value = useMemo(() => ({ user, setUser }), [user])
+	const { user, setUser } = useAuth()
 
 	return (
-		<UserContext.Provider value={value}>
-			<Layout>
-				<Routes>
-					<>
-						<Route path='/' element={<Profile />} />
-						<Route path='/notes' element={<Notes />} />
-					</>
-					<>
-						<Route path='/login' element={<Login />} />
-						<Route path='/register' element={<Register />} />
-					</>
-				</Routes>
-			</Layout>
-		</UserContext.Provider>
+		<Layout>
+			<Routes>
+				{/* Public Routes */}
+				<Route path='/login' element={<Login />} />
+				<Route path='/register' element={<Register />} />
+				<Route path='/profile' element={<Profile />} />
+				<Route path='/notes' element={<Notes />} />
+				{/* Protected Routes */}
+				<Route element={<RequireAuth />}></Route>
+
+				{/* Catch All */}
+			</Routes>
+		</Layout>
 	)
 }
 

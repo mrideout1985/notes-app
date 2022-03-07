@@ -1,23 +1,19 @@
-import React, { SyntheticEvent, useContext, useState } from "react"
+import React, { SyntheticEvent, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { useAuth } from "../hooks/useAuth"
 import { userService } from "../services/userService"
-import { UserContext } from "../stores/userContext"
 
 const Login = () => {
 	const [email, setEmail] = useState("")
 	const [password, setPassword] = useState("")
-	const { setUser } = useContext(UserContext)
+	const { setUser } = useAuth()
 	const navigate = useNavigate()
-
 	const submit = async (e: SyntheticEvent) => {
 		e.preventDefault()
-		userService.login(email, password).then(res => {
-			if (res.status === 201) {
-				userService
-					.getLoggedInUser()
-					.then(res => setUser(() => setUser(res.email)))
-				navigate("/notes")
-			}
+		userService.login(email, password)
+		userService.getLoggedInUser().then(res => {
+			setUser(() => setUser(res.email))
+			navigate("/notes")
 		})
 	}
 
@@ -51,6 +47,9 @@ const Login = () => {
 					Sign in
 				</button>
 			</form>
+			<button onClick={(e: SyntheticEvent) => userService.logout()}>
+				Log Out
+			</button>
 		</>
 	)
 }
