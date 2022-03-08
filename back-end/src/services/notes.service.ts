@@ -21,11 +21,11 @@ export class NoteService {
 				.findOne({ email: createNoteDto.email })
 				.then((user) => {
 					user && user.notes.push(result._id)
-					user.save()
+					user && user.save()
 				})
 		}
 
-		note.save().then(addNoteToUser)
+		note && note.save().then(addNoteToUser)
 	}
 
 	async findNote(id: string): Promise<Note[]> {
