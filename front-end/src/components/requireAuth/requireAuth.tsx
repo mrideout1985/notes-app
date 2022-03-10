@@ -3,9 +3,8 @@ import { useAuth } from "../../hooks/useAuth"
 
 const RequireAuth = () => {
 	const { user } = useAuth()
-	const location = useLocation()
-
-	return user ? <Outlet /> : <Navigate to='/login' />
+	// const location = useLocation()
+	return user ? null : <Navigate to='/notes' />
 }
 
 export { RequireAuth }
