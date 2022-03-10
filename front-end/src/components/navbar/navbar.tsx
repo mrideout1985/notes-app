@@ -1,23 +1,16 @@
+import { useState } from "react"
 import Button from "react-bootstrap/esm/Button"
 import { useAuth } from "../../hooks/useAuth"
+import { LoginModal } from "../modal/loginModal"
+import styles from "./navbar.module.scss"
 
 const Navbar = () => {
-	const { user, userLogout } = useAuth()
-	console.log(user)
+	const { user } = useAuth()
 	return (
-		<nav
-			style={{
-				width: "100%",
-				height: "5rem",
-				background: "red",
-				color: "white",
-			}}
-		>
-			{user ? (
-				<Button onClick={() => userLogout()}>Logout</Button>
-			) : (
-				"login"
-			)}
+		<nav className={styles.navbar}>
+			<div className={styles.buttons}>
+				<LoginModal />
+			</div>
 		</nav>
 	)
 }
