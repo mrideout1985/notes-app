@@ -9,7 +9,7 @@ const Notes = () => {
 	const { user } = useAuth()
 	const [submitting, setSubmitting] = useState(false)
 	const [newNote, setNewNote] = useState<Note>({
-		email: user.email,
+		email: user,
 		title: "",
 		description: "",
 	})
@@ -50,13 +50,9 @@ const Notes = () => {
 						<input type='submit' name='add note' />
 					</form>
 					<div className={styles.notes}>
-						{user &&
-							user.notes?.map((note: any, i: string) => (
-								<div key={i}>
-									<h4>{note.title}</h4>
-									<p>{note.description}</p>
-								</div>
-							))}
+						TODO : CREATE A BACK END METHOD THAT GETS THE USER. TRY
+						AND FIX THE FUCKING STUPID PROTECED ROUTES (FRONT END)
+						NOTES.
 					</div>
 				</>
 			) : (
