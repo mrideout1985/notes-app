@@ -25,7 +25,15 @@ const Register = () => {
 	}
 
 	return (
-		<form onSubmit={submit}>
+		<form
+			style={{
+				display: "flex",
+				flexDirection: "column",
+				justifyContent: "center",
+				alignItems: "center",
+			}}
+			onSubmit={submit}
+		>
 			<h1 className='h3 mb-3 fw-normal'>Please register</h1>
 
 			<input

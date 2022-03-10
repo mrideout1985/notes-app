@@ -1,16 +1,21 @@
 import { JwtService } from "@nestjs/jwt"
 import { UserDto } from "./../dto/userDto"
-import { HttpException, HttpStatus, Injectable, Req } from "@nestjs/common"
+import {
+	BadRequestException,
+	HttpException,
+	HttpStatus,
+	Injectable,
+	Req,
+	UnauthorizedException,
+} from "@nestjs/common"
 import { Model } from "mongoose"
 import { User } from "src/entities/user.entity"
 import { InjectModel } from "@nestjs/mongoose"
-import { Note } from "src/entities/note.entity"
 
 @Injectable()
 export class UserService {
 	constructor(
 		@InjectModel("User") private userModel: Model<User>,
-		// @InjectModel("Note") private noteModel: Model<Note>,
 		private jwtService: JwtService
 	) {}
 
@@ -18,9 +23,8 @@ export class UserService {
 		const { email } = createUserDto
 		const user = await this.userModel.findOne({ email })
 		if (user) {
-			throw new HttpException(
-				"user already exists",
-				HttpStatus.BAD_REQUEST
+			throw new BadRequestException(
+				"Cannot create user. User already exists"
 			)
 		}
 		const createdUser = new this.userModel(createUserDto)
@@ -30,16 +34,15 @@ export class UserService {
 	}
 
 	async loginUser(userDto: Partial<User>): Promise<User> {
+		const { email } = userDto
+		const user = await this.userModel.findOne({ email })
+		if (!user) {
+			throw new UnauthorizedException(
+				"Unable to login. Please check spelling & try again"
+			)
+		}
 		return this.userModel.findOne(userDto)
 	}
-
-	async getAllUsers(): Promise<User[]> {
-		return this.userModel.find().populate("notes").exec()
-	}
-
-	// async findOne(email): Promise<User> {
-	// 	return await this.userModel.findOne(email)
-	// }
 
 	async getLoggedInUser(@Req() request): Promise<any> {
 		const cookie = request.cookies["jwt"]
@@ -48,25 +51,15 @@ export class UserService {
 			data = await this.jwtService.verifyAsync(cookie)
 		}
 		if (!data) {
-			throw new HttpException("Unauthorised", HttpStatus.UNAUTHORIZED)
+			throw new UnauthorizedException("Unauthorised, No logged in user")
 		}
-
-		const user = await this.userModel.findOne({ email: data.email })
+		const user = await this.userModel
+			.findOne({ email: data.email })
+			.populate("notes")
+			.exec()
 
 		return {
 			email: user.email,
-			notes: user.notes,
 		}
 	}
-
-	// 	userId,
-	// 	noteId,
-	// }: {
-	// 	userId: string
-	// 	noteId: string
-	// }): Promise<void> {
-	// 	let user
-	// 	if (noteId) user = await this.userModel.find({ email: userId }).exec()
-	// 	user[0].notes = [...user[0].notes, noteId]
-	// 	user[0].save()
 }

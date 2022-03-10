@@ -33,7 +33,6 @@ export class UserController {
 		})
 
 		delete user[password]
-
 		return user
 	}
 
@@ -81,10 +80,5 @@ export class UserController {
 		return {
 			message: "successfull log out",
 		}
-	}
-
-	@Get()
-	getAllUsers() {
-		return this.userService.getAllUsers()
 	}
 }

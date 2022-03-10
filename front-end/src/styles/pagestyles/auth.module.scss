@@ -1,0 +1,16 @@
+.container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	.modal {
+		background-color: green;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		.form {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+	}
+}

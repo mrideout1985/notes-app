@@ -10,14 +10,16 @@ class UserService {
 	}
 
 	public async login(email: string, password: string): Promise<any> {
-		const res = await axios.post(
-			`http://localhost:3000/users/login`,
-			{
-				email,
-				password,
-			},
-			{ withCredentials: true }
-		)
+		const res = await axios
+			.post(
+				`http://localhost:3000/users/login`,
+				{
+					email,
+					password,
+				},
+				{ withCredentials: true }
+			)
+			.then(response => response)
 		return res
 	}
 

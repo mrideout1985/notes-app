@@ -1,31 +1,24 @@
-import React, { useMemo, useState } from "react"
+import React from "react"
 import { Routes, Route } from "react-router-dom"
 import { Layout } from "./components/layout/layout"
-import { Login } from "./pages/login"
 import { Notes } from "./pages/notes"
-import { Register } from "./pages/register"
-import { UserContext } from "./stores/userContext"
 import { Profile } from "./pages/profile"
+import { RequireAuth } from "./components/requireAuth/requireAuth"
+import "bootstrap/dist/css/bootstrap.min.css"
 
 function App() {
-	const [user, setUser] = useState(null)
-	const value = useMemo(() => ({ user, setUser }), [user])
-
 	return (
-		<UserContext.Provider value={value}>
+		<>
 			<Layout>
 				<Routes>
-					<>
-						<Route path='/' element={<Profile />} />
-						<Route path='/notes' element={<Notes />} />
-					</>
-					<>
-						<Route path='/login' element={<Login />} />
-						<Route path='/register' element={<Register />} />
-					</>
+					{/* Protected Routes */}
+					<Route path='profile' element={<Profile />} />
+					<Route path='notes' element={<Notes />} />
+					<Route element={<RequireAuth />}></Route>
+					{/* Catch All */}
 				</Routes>
 			</Layout>
-		</UserContext.Provider>
+		</>
 	)
 }
 
