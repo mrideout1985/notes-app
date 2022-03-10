@@ -60,7 +60,6 @@ export class UserService {
 
 		return {
 			email: user.email,
-			notes: user.notes,
 		}
 	}
 }
