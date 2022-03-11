@@ -1,27 +1,34 @@
 import React, { useEffect, useState } from "react"
 import { useAuth } from "../hooks/useAuth"
-import { Note } from "../interfaces/notes"
+import { NewNote } from "../interfaces/notes"
 import { notesApi } from "../services/noteService"
 import Spinner from "react-bootstrap/Spinner"
 import styles from "../styles/pagestyles/notes.module.scss"
+import { userService } from "../services/userService"
+
+interface DisplayNotes {
+	title: string
+	description: string
+	_id?: string
+	__v?: number
+}
 
 const Notes = () => {
 	const { user } = useAuth()
 	const [submitting, setSubmitting] = useState(false)
-	const [newNote, setNewNote] = useState<Note>({
-		email: user,
+	const [displaySavedNotes, setDisplaySavedNotes] = useState<
+		DisplayNotes[] | null
+	>(null)
+	const [newNote, setNewNote] = useState<NewNote>({
+		email: user.email,
 		title: "",
 		description: "",
 	})
 
-	useEffect(() => {
-		if (submitting === true) {
-			notesApi.addNote(newNote)
-		}
-		setSubmitting(false)
-	}, [newNote, submitting, user])
+	useEffect(() => {}, [submitting, user])
 
 	const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		e.preventDefault()
 		setNewNote({
 			...newNote,
 			[e.target.name]: e.target.value,
@@ -49,11 +56,7 @@ const Notes = () => {
 						/>
 						<input type='submit' name='add note' />
 					</form>
-					<div className={styles.notes}>
-						TODO : CREATE A BACK END METHOD THAT GETS THE USER. TRY
-						AND FIX THE FUCKING STUPID PROTECED ROUTES (FRONT END)
-						NOTES.
-					</div>
+					<div className={styles.notes}></div>
 				</>
 			) : (
 				<Spinner animation='border' role='status' />

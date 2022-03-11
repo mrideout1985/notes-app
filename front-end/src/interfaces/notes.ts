@@ -1,7 +1,5 @@
-export interface Note {
+export interface NewNote {
+	email?: string
 	title: string
 	description: string
-	email: string
-	_id?: string
-	__v?: number
 }

@@ -11,21 +11,18 @@ import {
 	Req,
 } from "@nestjs/common"
 import { Request } from "express"
+import { get } from "http"
 @Controller("notes")
 export class NotesController {
-	constructor(
-		private readonly noteService: NoteService,
-		private readonly userService: UserService
-	) {}
-	@Get()
-	@Get("user")
-	findAllLoggedInUserNotes(@Req() user: Request) {
-		return this.userService.getLoggedInUser(user).then((res) => res.notes)
+	constructor(private readonly noteService: NoteService) {}
+	@Post()
+	create(@Body() body) {
+		return this.noteService.create(body)
 	}
 
-	@Post()
-	create(@Body() body, email: string) {
-		return this.noteService.create(body)
+	@Get(":id")
+	findOne(@Param("id") id: string) {
+		return this.noteService.findNote(id)
 	}
 
 	@Patch(":id")

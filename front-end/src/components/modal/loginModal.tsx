@@ -84,9 +84,7 @@ const LoginModal = () => {
 					<Button
 						variant='primary'
 						type='submit'
-						onClick={
-							displayLoginButton ? handleSignUp : handleLogin
-						}
+						onClick={handleLogin}
 					>
 						Submit
 					</Button>

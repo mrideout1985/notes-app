@@ -1,5 +1,4 @@
 import { createContext, useEffect, useMemo, useState } from "react"
-import { userService } from "../services/userService"
 
 const AuthContext = createContext<any>(null)
 
@@ -24,12 +23,9 @@ const getLocalStorage = (key: any, initialValue: any) => {
 
 export const AuthProvider = ({ children }: AuthProviderInterface) => {
 	const [user, setUser] = useState(() => getLocalStorage("user", null))
+	console.log(user)
 
 	useEffect(() => {
-		// userService.getLoggedInUser().then(res => {
-		// 	setUser(res.email)
-		// 	setLocalStorage("user", user)
-		// })
 		setLocalStorage("user", user)
 
 		const cleanup = () => {
