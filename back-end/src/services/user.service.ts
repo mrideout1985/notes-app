@@ -62,4 +62,23 @@ export class UserService {
 			email: user.email,
 		}
 	}
+
+	async getUserNotes(@Req() request): Promise<any> {
+		const cookie = request.cookies["jwt"]
+		let data
+		if (cookie !== undefined) {
+			data = await this.jwtService.verifyAsync(cookie)
+		}
+		if (!data) {
+			throw new UnauthorizedException("Unauthorised, No logged in user")
+		}
+		const user = await this.userModel
+			.findOne({ email: data.email })
+			.populate("notes")
+			.exec()
+
+		return {
+			notes: user.notes,
+		}
+	}
 }

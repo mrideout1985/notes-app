@@ -74,6 +74,11 @@ export class UserController {
 		return this.userService.getLoggedInUser(request)
 	}
 
+	@Get("notes")
+	async userNotes(@Req() request: Request) {
+		return this.userService.getUserNotes(request)
+	}
+
 	@Post("logout")
 	async logout(@Res({ passthrough: true }) response: Response) {
 		response.clearCookie("jwt")

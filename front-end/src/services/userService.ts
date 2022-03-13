@@ -1,4 +1,5 @@
 import axios from "axios"
+import { DisplayNotes } from "../pages/notes"
 
 class UserService {
 	public async signUp(email: string, password: string): Promise<any> {
@@ -33,6 +34,13 @@ class UserService {
 
 	public async getLoggedInUser(): Promise<any> {
 		const res = await axios.get(`http://localhost:3000/users/user`, {
+			withCredentials: true,
+		})
+		return res.data
+	}
+
+	public async getLoggedInUserNotes(): Promise<any> {
+		const res = await axios.get(`http://localhost:3000/users/notes`, {
 			withCredentials: true,
 		})
 		return res.data

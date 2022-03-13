@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import Form from "react-bootstrap/Form"
 import Modal from "react-bootstrap/Modal"
 import Button from "react-bootstrap/Button"
@@ -14,6 +14,7 @@ const LoginModal = () => {
 	const [displayLoginButton, setDisplayLoginButton] = useState(false)
 	const [password, setPassword] = useState("")
 	const [toggled, setToggled] = useState(false)
+	const [submitting, setSubmitting] = useState(false)
 	let navigate = useNavigate()
 
 	const handleLogin = async (e: React.SyntheticEvent) => {
@@ -22,6 +23,7 @@ const LoginModal = () => {
 			userService.getLoggedInUser().then(res => setUser(res))
 		})
 		setToggled(false)
+		setSubmitting(true)
 		navigate("/notes")
 	}
 
@@ -37,6 +39,16 @@ const LoginModal = () => {
 			setDisplayLoginButton(true)
 		})
 	}
+
+	useEffect(() => {
+		if (submitting) {
+			userService.getLoggedInUser().then(res => setUser(res))
+		}
+		return () => {
+			setSubmitting(false)
+		}
+	}, [setUser, submitting])
+
 	return (
 		<>
 			<ButtonGroup className={styles["btnGroup"]}>
@@ -84,9 +96,7 @@ const LoginModal = () => {
 					<Button
 						variant='primary'
 						type='submit'
-						onClick={
-							displayLoginButton ? handleSignUp : handleLogin
-						}
+						onClick={handleLogin}
 					>
 						Submit
 					</Button>
