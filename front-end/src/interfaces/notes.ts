@@ -1,5 +1,5 @@
 export interface NewNote {
-	email?: string
+	email?: string | null
 	title: string
 	description: string
 }

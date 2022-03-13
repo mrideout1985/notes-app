@@ -18,8 +18,12 @@ class NoteService {
 			.then(res => console.log(res.data))
 	}
 
-	public async addNote(note: NewNote): Promise<void> {
+	public async addNote(note: NewNote): Promise<any> {
 		await axios.post(`http://localhost:3000/notes`, note)
+	}
+
+	public async removeNote(id: string): Promise<any> {
+		await axios.delete(`http://localhost:3000/notes/${id}`)
 	}
 }
 

@@ -22,4 +22,20 @@
 			margin: 1rem;
 		}
 	}
+
+	.notes {
+		width: 100%;
+		background-color: var(--grape-2);
+		display: flex;
+		justify-content: center;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+		padding: 0.5rem 1rem;
+
+		.note {
+			height: 200px;
+			width: 200px;
+			background-color: var(--green-3);
+		}
+	}
 }

@@ -1,4 +1,5 @@
 import axios from "axios"
+import { DisplayNotes } from "../pages/notes"
 
 class UserService {
 	public async signUp(email: string, password: string): Promise<any> {

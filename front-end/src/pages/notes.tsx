@@ -6,39 +6,68 @@ import Spinner from "react-bootstrap/Spinner"
 import styles from "../styles/pagestyles/notes.module.scss"
 import { userService } from "../services/userService"
 
-interface DisplayNotes {
+export interface DisplayNotes {
 	title: string
 	description: string
 	_id?: string
 	__v?: number
 }
 
+interface NotesArray {
+	notes: DisplayNotes[]
+}
+
 const Notes = () => {
 	const { user } = useAuth()
 	const [submitting, setSubmitting] = useState(false)
-	const [displaySavedNotes, setDisplaySavedNotes] = useState<
-		DisplayNotes[] | null
-	>(null)
+	const [updatedNotes, setUpdatedNotes] = useState<NotesArray[] | null>(null)
+	const [input, setInput] = useState<NewNote>({
+		title: "",
+		description: "",
+	})
 	const [newNote, setNewNote] = useState<NewNote>({
-		email: user.email,
 		title: "",
 		description: "",
 	})
 
-	useEffect(() => {}, [submitting, user])
-
 	const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		e.preventDefault()
-		setNewNote({
-			...newNote,
+		setInput({
+			...input,
 			[e.target.name]: e.target.value,
 		})
 	}
 
 	const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
+		setNewNote({ ...input, email: user.email })
+		setInput({
+			title: "",
+			description: "",
+		})
 		setSubmitting(true)
 	}
+
+	const removeNote = (noteId: string) => {
+		notesApi.removeNote(noteId)
+		setSubmitting(true)
+	}
+
+	useEffect(() => {
+		const getNotes = () => {
+			userService
+				.getLoggedInUserNotes()
+				.then(res => setUpdatedNotes(res.notes))
+		}
+		getNotes()
+		if (submitting) {
+			notesApi.addNote(newNote)
+			getNotes()
+		}
+		setSubmitting(false)
+	}, [user, newNote, submitting])
+
+	console.log("newNote", newNote)
 
 	return (
 		<div className={styles.container}>
@@ -47,16 +76,34 @@ const Notes = () => {
 					<h1>Notes</h1>
 					<form onSubmit={onSubmit} className={styles.form}>
 						<label htmlFor='title'>Title</label>
-						<input type='text' name='title' onChange={onChange} />
+						<input
+							type='text'
+							name='title'
+							onChange={onChange}
+							value={input.title}
+						/>
 						<label htmlFor='title'>Description</label>
 						<input
 							type='text'
 							name='description'
 							onChange={onChange}
+							value={input.description}
 						/>
 						<input type='submit' name='add note' />
 					</form>
-					<div className={styles.notes}></div>
+					<div className={styles.notes}>
+						{updatedNotes &&
+							updatedNotes.map((el: any, i: number) => (
+								<div key={i} className={styles.note}>
+									<div>{el.title}</div>
+									<div>{el.description}</div>
+
+									<button onClick={() => removeNote(el._id)}>
+										Remove
+									</button>
+								</div>
+							))}
+					</div>
 				</>
 			) : (
 				<Spinner animation='border' role='status' />
