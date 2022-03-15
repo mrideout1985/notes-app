@@ -18,7 +18,7 @@ class NoteService {
 			.then(res => console.log(res.data))
 	}
 
-	public async addNote(note: NewNote): Promise<any> {
+	public async addNote(note: any): Promise<any> {
 		await axios.post(`http://localhost:3000/notes`, note)
 	}
 

@@ -25,13 +25,9 @@ export const AuthProvider = ({ children }: AuthProviderInterface) => {
 	const [user, setUser] = useState(() => getLocalStorage("user", null))
 	useEffect(() => {
 		setLocalStorage("user", user)
-
-		const cleanup = () => {
-			if (user === "") {
-				setUser(null)
-			}
+		if (user === "") {
+			setUser(null)
 		}
-		cleanup()
 	}, [user])
 
 	const providerValue = useMemo(() => ({ user, setUser }), [user])
