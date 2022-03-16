@@ -6,6 +6,7 @@ import Spinner from "react-bootstrap/Spinner"
 import styles from "../styles/pagestyles/notes.module.scss"
 import { useForm } from "react-hook-form"
 import { userService } from "../services/userService"
+import { noteformErrors } from "../utils/formErrors"
 
 export interface DisplayNotes {
 	title: string
@@ -35,23 +36,6 @@ const Notes = () => {
 	}
 	const handleError = (errors: any) => {}
 
-	const formErrors = {
-		title: {
-			required: "Title is required",
-			minLength: {
-				value: 5,
-				message: "Title must have at least 5 characters",
-			},
-		},
-		description: {
-			required: "Description is required",
-			minLength: {
-				value: 15,
-				message: "Description must have at least 25 characters",
-			},
-		},
-	}
-
 	const removeNote = (noteId: string) => {
 		notesApi.removeNote(noteId)
 		userService
@@ -60,6 +44,9 @@ const Notes = () => {
 	}
 
 	useEffect(() => {
+		userService
+			.getLoggedInUserNotes()
+			.then(res => setDisplayedNotes(res.notes))
 		if (submitting === true) {
 			notesApi.addNote(newNote)
 			setSubmitting(false)
@@ -82,14 +69,17 @@ const Notes = () => {
 						<input
 							type='text'
 							placeholder='title'
-							{...register("title", formErrors.title)}
+							{...register("title", noteformErrors.title)}
 						/>
 						{errors?.title && errors.title.message}
 
 						<input
 							type='text'
 							placeholder='description'
-							{...register("description", formErrors.description)}
+							{...register(
+								"description",
+								noteformErrors.description
+							)}
 						/>
 						{errors.description && errors.description.message}
 
