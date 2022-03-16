@@ -1,2 +1,2 @@
 # notes-app
-Full stack notes application using nestjs, auth0, typescript & React
+Full stack notes application using nestjs, typescript & React
