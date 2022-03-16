@@ -1,75 +1,45 @@
 import React, { useEffect, useState } from "react"
 import Modal from "react-bootstrap/Modal"
 import Button from "react-bootstrap/Button"
-import { useAuth } from "../../hooks/useAuth"
 import { userService } from "../../services/userService"
-import { useNavigate } from "react-router-dom"
 import { useForm } from "react-hook-form"
 import styles from "./loginModal.module.scss"
 import { authErrors } from "../../utils/formErrors"
 import { XCircle } from "../icons"
 
-interface LoginModalInterface {
+interface SignUpModalInterface {
 	toggleLogin: boolean
 	setToggleLogin: React.Dispatch<React.SetStateAction<boolean>>
 	toggleSignUp: boolean
 	setToggleSignUp: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const LoginModal = ({
+const SignUpModal = ({
 	toggleLogin,
 	setToggleLogin,
 	toggleSignUp,
 	setToggleSignUp,
-}: LoginModalInterface) => {
-	const { user, setUser } = useAuth()
+}: SignUpModalInterface) => {
 	const [submitting, setSubmitting] = useState(false)
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
 	} = useForm()
-	const navigate = useNavigate()
 	const onSubmit = async (data: any) => {
-		await userService.login(data.email, data.password).then(() => {
-			userService.getLoggedInUser().then(res => setUser(res))
+		await userService.signUp(data.email, data.password).then(res => {
+			if (res.status === 201) {
+				setToggleSignUp(false)
+				setToggleLogin(true)
+			}
 		})
-		setToggleLogin(false)
 		setSubmitting(true)
-		navigate("/notes")
 	}
-	const handleLogout = () => {
-		userService.logout()
-		setUser(null)
-		window.localStorage.clear()
-		navigate("/")
-	}
-
-	useEffect(() => {
-		if (submitting) {
-			userService.getLoggedInUser().then(res => setUser(res))
-		}
-		return () => {
-			setSubmitting(false)
-		}
-	}, [setUser, submitting])
 
 	return (
 		<>
-			{user ? (
-				<Button onClick={handleLogout}>Logout</Button>
-			) : (
-				<>
-					<Button onClick={() => setToggleLogin(true)}>
-						Sign In
-					</Button>
-					<Button onClick={() => setToggleSignUp(true)}>
-						Sign Up
-					</Button>
-				</>
-			)}
 			<Modal
-				show={toggleLogin}
+				show={toggleSignUp}
 				backdrop='static'
 				centered={true}
 				keyboard={false}
@@ -82,12 +52,9 @@ const LoginModal = ({
 					}
 					className={styles.closeIcon}
 				>
-					<XCircle
-						onClick={() => setToggleLogin(false)}
-						color={"lightblack"}
-					/>
+					<XCircle color={"lightblack"} />
 				</button>
-				<h4>Sign in to your account</h4>
+				<h4>Create an account</h4>
 				<form onSubmit={handleSubmit(onSubmit)}>
 					<div className={styles.input}>
 						<input
@@ -110,7 +77,7 @@ const LoginModal = ({
 						</div>
 					</div>
 					<div className={styles.buttons}>
-						<Button type='submit'>Sign in</Button>
+						<Button type='submit'>Create an account</Button>
 					</div>
 				</form>
 			</Modal>
@@ -118,4 +85,4 @@ const LoginModal = ({
 	)
 }
 
-export { LoginModal }
+export { SignUpModal }

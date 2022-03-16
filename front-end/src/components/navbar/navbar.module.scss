@@ -1,5 +1,17 @@
 .navbar {
 	display: flex;
+	background-color: var(--gray-9);
 	.buttons {
+		margin: 1rem;
+		display: flex;
+		gap: 1rem;
+
+		button {
+			background-color: var(--yellow-4);
+			color: black;
+			font-weight: 600;
+			outline: none;
+			border: none;
+		}
 	}
 }

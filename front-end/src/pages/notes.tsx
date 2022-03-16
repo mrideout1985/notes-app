@@ -4,7 +4,9 @@ import { NewNote } from "../interfaces/notes"
 import { notesApi } from "../services/noteService"
 import Spinner from "react-bootstrap/Spinner"
 import styles from "../styles/pagestyles/notes.module.scss"
+import { useForm } from "react-hook-form"
 import { userService } from "../services/userService"
+import { noteformErrors } from "../utils/formErrors"
 
 export interface DisplayNotes {
 	title: string
@@ -20,80 +22,72 @@ interface NotesArray {
 const Notes = () => {
 	const { user } = useAuth()
 	const [submitting, setSubmitting] = useState(false)
-	const [updatedNotes, setUpdatedNotes] = useState<NotesArray[] | null>(null)
-	const [input, setInput] = useState<NewNote>({
-		title: "",
-		description: "",
-	})
-	const [newNote, setNewNote] = useState<NewNote>({
-		title: "",
-		description: "",
-	})
-
-	const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		e.preventDefault()
-		setInput({
-			...input,
-			[e.target.name]: e.target.value,
-		})
-	}
-
-	const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault()
-		setNewNote({ ...input, email: user.email })
-		setInput({
-			title: "",
-			description: "",
-		})
+	const [newNote, setNewNote] = useState<NewNote>()
+	const [displayedNotes, setDisplayedNotes] = useState<NotesArray[]>()
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+		reset,
+	} = useForm()
+	const onSubmit = (data: any) => {
+		setNewNote({ ...data, email: user.email })
 		setSubmitting(true)
 	}
+	const handleError = (errors: any) => {}
 
 	const removeNote = (noteId: string) => {
 		notesApi.removeNote(noteId)
-		setSubmitting(true)
+		userService
+			.getLoggedInUserNotes()
+			.then(res => setDisplayedNotes(res.notes))
 	}
 
 	useEffect(() => {
-		const getNotes = () => {
-			userService
-				.getLoggedInUserNotes()
-				.then(res => setUpdatedNotes(res.notes))
-		}
-		getNotes()
-		if (submitting) {
+		userService
+			.getLoggedInUserNotes()
+			.then(res => setDisplayedNotes(res.notes))
+		if (submitting === true) {
 			notesApi.addNote(newNote)
-			getNotes()
+			setSubmitting(false)
 		}
-		setSubmitting(false)
-	}, [user, newNote, submitting])
-
-	console.log("newNote", newNote)
+		userService
+			.getLoggedInUserNotes()
+			.then(res => setDisplayedNotes(res.notes))
+		reset()
+	}, [newNote, reset, submitting])
 
 	return (
 		<div className={styles.container}>
 			{!submitting ? (
 				<>
 					<h1>Notes</h1>
-					<form onSubmit={onSubmit} className={styles.form}>
-						<label htmlFor='title'>Title</label>
+					<form
+						className={styles.form}
+						onSubmit={handleSubmit(onSubmit, handleError)}
+					>
 						<input
 							type='text'
-							name='title'
-							onChange={onChange}
-							value={input.title}
+							placeholder='title'
+							{...register("title", noteformErrors.title)}
 						/>
-						<label htmlFor='title'>Description</label>
+						{errors?.title && errors.title.message}
+
 						<input
 							type='text'
-							name='description'
-							onChange={onChange}
-							value={input.description}
+							placeholder='description'
+							{...register(
+								"description",
+								noteformErrors.description
+							)}
 						/>
-						<input type='submit' name='add note' />
+						{errors.description && errors.description.message}
+
+						<input type='submit' />
 					</form>
 					<div className={styles.notes}>
-						{updatedNotes &&
-							updatedNotes.map((el: any, i: number) => (
+						{displayedNotes &&
+							displayedNotes.map((el: any, i: number) => (
 								<div key={i} className={styles.note}>
 									<div>{el.title}</div>
 									<div>{el.description}</div>

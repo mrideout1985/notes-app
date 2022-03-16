@@ -37,6 +37,6 @@ export class NoteService {
 	}
 
 	async remove(id: string) {
-		return this.noteModel.remove({ _id: id }).exec()
+		return this.noteModel.deleteOne({ _id: id }).exec()
 	}
 }
