@@ -1,5 +1,6 @@
 import React from "react"
 import { Navbar } from "../navbar/navbar"
+import { SideNav } from "../sidenav/sidenav"
 import styles from "./layout.module.scss"
 
 interface LayoutProps {
@@ -13,6 +14,9 @@ const Layout = ({ children }: LayoutProps): JSX.Element => {
 				<Navbar />
 			</div>
 			<div className={styles.main}>
+				<div className={styles.sidebar}>
+					<SideNav links={["profile", "notes"]} />
+				</div>
 				<div className={styles["content"]}>{children}</div>
 			</div>
 		</div>

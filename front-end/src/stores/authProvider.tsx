@@ -23,6 +23,7 @@ const getLocalStorage = (key: any, initialValue: any) => {
 
 export const AuthProvider = ({ children }: AuthProviderInterface) => {
 	const [user, setUser] = useState(() => getLocalStorage("user", null))
+
 	useEffect(() => {
 		setLocalStorage("user", user)
 		if (user === "") {
