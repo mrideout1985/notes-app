@@ -37,7 +37,7 @@ const Notes = () => {
 		reset,
 	} = useForm()
 	const onSubmit = (data: any) => {
-		setNewNote({ ...data, email: user.email })
+		setNewNote({ ...data, completed: false, email: user.email })
 		setSubmitting(true)
 		setShow(false)
 	}
@@ -45,6 +45,13 @@ const Notes = () => {
 
 	const removeNote = (noteId: string) => {
 		notesApi.removeNote(noteId)
+		userService
+			.getLoggedInUserNotes()
+			.then(res => setDisplayedNotes(res.notes))
+	}
+
+	const handleCompleted = (noteId: string, completed: any) => {
+		notesApi.updateNote(noteId, completed)
 		userService
 			.getLoggedInUserNotes()
 			.then(res => setDisplayedNotes(res.notes))
@@ -131,6 +138,8 @@ const Notes = () => {
 									key={i}
 									id={note._id}
 									removeNote={removeNote}
+									complete={note.completed}
+									toggleComplete={handleCompleted}
 								/>
 							))}
 					</div>

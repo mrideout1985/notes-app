@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React from "react"
 import SvgCheckCircle from "../icons/CheckCircle"
 import SvgXCircle from "../icons/XCircle"
 import styles from "./notecard.module.scss"
@@ -8,10 +8,18 @@ interface NoteCardProps {
 	description: string
 	removeNote: any
 	id: string
+	complete: boolean
+	toggleComplete: any
 }
 
-const NoteCard = ({ title, description, removeNote, id }: NoteCardProps) => {
-	const [complete, setComplete] = useState(false)
+const NoteCard = ({
+	title,
+	description,
+	removeNote,
+	toggleComplete,
+	id,
+	complete,
+}: NoteCardProps) => {
 	return (
 		<div className={styles.container}>
 			<div
@@ -21,7 +29,7 @@ const NoteCard = ({ title, description, removeNote, id }: NoteCardProps) => {
 			<div className={styles.buttons}>
 				<button
 					className={styles.complete}
-					onClick={() => setComplete(!complete)}
+					onClick={() => toggleComplete(id, { completed: !complete })}
 				>
 					<SvgCheckCircle color={complete ? "red" : "green"} />
 				</button>
@@ -34,6 +42,7 @@ const NoteCard = ({ title, description, removeNote, id }: NoteCardProps) => {
 			</div>
 			<div className={styles.title}>{title}</div>
 			<div className={styles.description}>{description}</div>
+			<div>{JSON.stringify(complete)}</div>
 		</div>
 	)
 }
