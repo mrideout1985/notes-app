@@ -1,41 +1,131 @@
 .container {
 	width: 100%;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	width: 100%;
 
-	h1 {
-		text-align: center;
-		margin: 0;
-		width: 100%;
-	}
+	.addNoteButtonContainer {
+		margin: 2rem;
 
-	.form {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
+		.addNoteButton {
+			background: none;
+			transition: all 0.25s ease;
+			> svg {
+				color: var(--yellow-4);
+			}
 
-		input[type="submit"] {
-			margin: 1rem;
+			&:hover {
+				transform: scale(2);
+			}
 		}
 	}
 
-	.notes {
+	.notesContainer {
 		width: 100%;
-		background-color: var(--grape-3);
-		display: flex;
-		justify-content: center;
-		flex-wrap: wrap;
-		gap: 0.5rem;
-		padding: 0.5rem 1rem;
+		.notes {
+			display: flex;
+			gap: 1em;
+			margin: 1rem;
+			flex-wrap: wrap;
+		}
+		.spinnerContainer {
+			min-height: 100%;
+			width: 100%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			> div {
+				height: 10rem;
+				width: 10rem;
+			}
+		}
+	}
+}
 
-		.note {
-			height: 200px;
-			width: 200px;
-			background-color: var(--green-3);
+.modal {
+	.form {
+		display: flex;
+		justify-content: flex-start;
+		flex-direction: column;
+		height: 20rem;
+		padding: 1rem;
+		background-color: #eeeeee;
+		border-radius: 15px;
+
+		.buttons {
+			background-color: none;
+			display: flex;
+			justify-content: space-between;
+
+			button {
+				padding: 0;
+				margin: 0;
+				background-color: transparent;
+				svg {
+					color: green;
+					margin: 0.5rem;
+					border-radius: 50%;
+					transition: all 0.25s ease;
+					&:hover {
+						transform: scale(1.2);
+						box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
+					}
+				}
+
+				&:last-child {
+					svg {
+						color: red;
+						margin: 0.5rem;
+					}
+				}
+			}
+		}
+
+		.inputContainer {
+			color: black;
+			background-color: none;
+			margin-top: 1rem;
+			width: 100%;
+
+			input {
+				display: block;
+				height: 2rem;
+				width: 100%;
+				background-color: white;
+				border-radius: 8px;
+				color: black;
+				text-transform: capitalize;
+
+				&:focus {
+					outline: none;
+					box-shadow: 0px 0px 2px 5px var(--yellow-4);
+				}
+			}
+			textarea {
+				resize: none;
+				height: 5rem;
+				border-radius: 10px;
+				width: 100%;
+				background-color: white;
+				text-transform: capitalize;
+
+				&:focus {
+					outline: none;
+					box-shadow: 0px 0px 2px 5px var(--yellow-4);
+				}
+			}
+			.errors {
+				color: var(--red-9);
+				font-weight: 400;
+				font-size: 0.8rem;
+				height: 2rem;
+				margin-top: 0.25rem;
+			}
+		}
+
+		p {
+			margin: 0;
+		}
+
+		&:last-child {
+			flex: content;
 		}
 	}
 }

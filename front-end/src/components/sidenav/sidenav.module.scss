@@ -1,0 +1,14 @@
+.nav {
+	width: 250px;
+	background-color: var(--gray-8);
+	height: 100%;
+
+	ul {
+		list-style: none;
+		li {
+			a {
+				text-decoration: none;
+			}
+		}
+	}
+}
