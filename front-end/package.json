@@ -29,7 +29,7 @@
 		"build": "react-scripts build",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject",
-		"gen": "npx @svgr/cli -d src/components/icons src/assets/icons --ext=tsx"
+		"gen": "npx @svgr/cli -d src/components/icons --ignore-existing src/assets/icons --ext=tsx"
 	},
 	"eslintConfig": {
 		"extends": [

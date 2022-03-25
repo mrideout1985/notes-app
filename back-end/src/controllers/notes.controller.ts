@@ -10,8 +10,6 @@ import {
 	Delete,
 	Req,
 } from "@nestjs/common"
-import { Request } from "express"
-import { get } from "http"
 @Controller("notes")
 export class NotesController {
 	constructor(private readonly noteService: NoteService) {}

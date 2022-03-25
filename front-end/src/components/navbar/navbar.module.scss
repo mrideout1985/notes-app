@@ -1,6 +1,7 @@
 .navbar {
 	display: flex;
 	background-color: var(--gray-9);
+	flex-direction: row-reverse;
 	.buttons {
 		margin: 1rem;
 		display: flex;
