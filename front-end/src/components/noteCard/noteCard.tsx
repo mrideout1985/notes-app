@@ -25,22 +25,25 @@ const NoteCard = ({
 		if (description.length < 50) {
 			return styles["small"]
 		}
-		if (description.length > 50 && description.length < 100) {
+		if (description.length > 50 && description.length < 150) {
 			return styles["med"]
 		}
-		if (description.length > 100) {
+		if (description.length > 150) {
 			return styles["large"]
 		}
 	}
 
+	console.log(complete)
+
 	return (
 		<div
+			data-complete={complete}
 			className={[
 				[styles["container"]],
 				[handleContainerSize(description)],
 			].join(" ")}
 		>
-			<div className={styles["container__inner"]}>
+			<div className={styles["inner"]}>
 				<div className={styles["title"]}>{title}</div>
 				<div className={styles["description"]}>{description}</div>
 				<div className={styles.buttons}>
@@ -50,13 +53,13 @@ const NoteCard = ({
 							toggleComplete(id, { completed: !complete })
 						}
 					>
-						<SvgCheckCircle color={complete ? "red" : "green"} />
+						<SvgCheckCircle color={complete ? "green" : "red"} />
 					</button>
 					<button
 						className={styles.delete}
 						onClick={() => removeNote(id)}
 					>
-						<SvgXCircle />
+						<SvgXCircle color={"red"} />
 					</button>
 				</div>
 			</div>

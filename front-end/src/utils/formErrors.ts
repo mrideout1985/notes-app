@@ -1,6 +1,5 @@
 export const noteformErrors = {
 	title: {
-		required: "Title is required",
 		minLength: {
 			value: 5,
 			message: "Title must have at least 5 characters",
