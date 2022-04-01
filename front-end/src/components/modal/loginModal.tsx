@@ -7,7 +7,9 @@ import { useNavigate } from "react-router-dom"
 import { useForm } from "react-hook-form"
 import styles from "./loginModal.module.scss"
 import { authErrors } from "../../utils/formErrors"
-import { XCircle } from "../icons"
+import DropdownButton from "react-bootstrap/DropdownButton"
+import { FeedPerson, XCircle } from "../icons"
+import Dropdown from "react-bootstrap/esm/Dropdown"
 
 interface LoginModalInterface {
 	toggleLogin: boolean
@@ -57,7 +59,18 @@ const LoginModal = ({
 	return (
 		<>
 			{user ? (
-				<Button onClick={handleLogout}>Logout</Button>
+				<DropdownButton
+					className={styles.dropdown}
+					title={<FeedPerson size={35} />}
+					menuVariant='dark'
+					variant='none'
+				>
+					<Dropdown.Item href='/profile'>Profile</Dropdown.Item>
+					<Dropdown.Item href='#/action-2'>
+						Another action
+					</Dropdown.Item>
+					<Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
+				</DropdownButton>
 			) : (
 				<>
 					<Button onClick={() => setToggleLogin(true)}>
@@ -82,10 +95,7 @@ const LoginModal = ({
 					}
 					className={styles.closeIcon}
 				>
-					<XCircle
-						onClick={() => setToggleLogin(false)}
-						color={"lightblack"}
-					/>
+					<XCircle onClick={() => setToggleLogin(false)} />
 				</button>
 				<h4>Sign in to your account</h4>
 				<form onSubmit={handleSubmit(onSubmit)}>

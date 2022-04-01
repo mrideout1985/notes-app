@@ -1,7 +1,12 @@
 import * as React from "react"
 
 const SvgXCircle = (props: any) => (
-	<svg xmlns='http://www.w3.org/2000/svg' width={25} height={25} {...props}>
+	<svg
+		xmlns='http://www.w3.org/2000/svg'
+		width={props.size ?? 25}
+		height={props.size ?? 25}
+		{...props}
+	>
 		<path d='M9.036 7.976a.75.75 0 0 0-1.06 1.06L10.939 12l-2.963 2.963a.75.75 0 1 0 1.06 1.06L12 13.06l2.963 2.964a.75.75 0 0 0 1.061-1.06L13.061 12l2.963-2.964a.75.75 0 1 0-1.06-1.06L12 10.939 9.036 7.976z' />
 		<path
 			fillRule='evenodd'

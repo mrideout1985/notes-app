@@ -1,6 +1,6 @@
 import * as mongoose from "mongoose"
 
-export interface NoteDto {
+export class NoteDto {
 	title: string
 	description: string
 	completed: boolean

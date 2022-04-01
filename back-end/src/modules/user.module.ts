@@ -1,10 +1,11 @@
 import { UserSchema } from "./../schemas/user.schema"
 import { Module } from "@nestjs/common"
-import { UserController } from "src/controllers/user.controller"
-import { UserService } from "src/services/user.service"
+import { UserController } from "../controllers/user.controller"
+import { UserService } from "../services/user.service"
 import { JwtModule } from "@nestjs/jwt"
 import { MongooseModule } from "@nestjs/mongoose"
-import { NoteSchema } from "src/schemas/note.schema"
+import { NoteSchema } from "../schemas/note.schema"
+import { NoteService } from "../services/notes.service"
 
 @Module({
 	imports: [
@@ -21,6 +22,6 @@ import { NoteSchema } from "src/schemas/note.schema"
 		]),
 	],
 	controllers: [UserController],
-	providers: [UserService],
+	providers: [UserService, NoteService],
 })
 export class UserModule {}

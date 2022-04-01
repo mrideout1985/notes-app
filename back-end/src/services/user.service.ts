@@ -28,6 +28,7 @@ export class UserService {
 			)
 		}
 		const createdUser = new this.userModel(createUserDto)
+
 		await createdUser.save()
 
 		return createdUser

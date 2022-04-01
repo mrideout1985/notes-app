@@ -1,9 +1,9 @@
-import { Inject, Injectable, Req, UnauthorizedException } from "@nestjs/common"
+import { Injectable } from "@nestjs/common"
 import { InjectModel } from "@nestjs/mongoose"
 import { Model } from "mongoose"
-import { NoteDto } from "src/dto/noteDto"
-import { Note } from "src/entities/note.entity"
-import { User } from "src/entities/user.entity"
+import { NoteDto } from "../dto/noteDto"
+import { Note } from "../entities/note.entity"
+import { User } from "../entities/user.entity"
 
 @Injectable()
 export class NoteService {

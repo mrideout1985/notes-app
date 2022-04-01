@@ -1,15 +1,12 @@
 import * as React from "react"
 
-interface SvgNoteProps {
-	size?: number
-}
-
-const SvgNote = ({ size }: SvgNoteProps) => (
+const SvgNote = (props: any) => (
 	<svg
 		xmlns='http://www.w3.org/2000/svg'
 		viewBox='0 0 16 16'
-		width={50 || size}
-		height={50 || size}
+		width={props.size ?? 25}
+		height={props.size ?? 25}
+		{...props}
 	>
 		<path
 			fillRule='evenodd'
