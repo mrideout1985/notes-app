@@ -8,7 +8,7 @@ import {
 	Req,
 	Res,
 } from "@nestjs/common"
-import { UserService } from "src/services/user.service"
+import { UserService } from "../services/user.service"
 import { Response, Request } from "express"
 import { JwtService } from "@nestjs/jwt"
 import * as bcrypt from "bcrypt"

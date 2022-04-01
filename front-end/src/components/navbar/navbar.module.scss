@@ -1,18 +1,46 @@
 .navbar {
 	display: flex;
 	background-color: var(--gray-9);
-	flex-direction: row-reverse;
-	.buttons {
+	justify-content: space-between;
+	height: 5rem;
+
+	.links {
+		margin: 1rem;
+		display: flex;
+		align-items: center;
+		gap: 2rem;
+		a {
+			text-decoration: none;
+			font-weight: 700;
+			color: var(--gray-4);
+			font-size: 1rem;
+
+			> svg {
+				display: inline;
+				margin: 0 0.25rem 0 0;
+			}
+		}
+	}
+
+	.userButtons {
 		margin: 1rem;
 		display: flex;
 		gap: 1rem;
 
 		button {
-			background-color: var(--yellow-4);
-			color: black;
+			background-color: transparent;
+			color: #e0e0e0;
 			font-weight: 600;
 			outline: none;
 			border: none;
+			display: flex;
+			align-items: center;
+			gap: 1rem;
+
+			> svg {
+				display: inline;
+				color: white;
+			}
 		}
 	}
 }

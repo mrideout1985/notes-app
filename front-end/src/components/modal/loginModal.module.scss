@@ -7,6 +7,62 @@
 	}
 }
 
+.dropdown {
+	button {
+		background: transparent;
+		position: relative;
+		padding: 0.175rem;
+		z-index: 1;
+		&::before {
+			background: rgb(206, 106, 222);
+			background: linear-gradient(
+				90deg,
+				rgba(206, 106, 222, 1) 0%,
+				rgba(225, 119, 207, 1) 35%,
+				rgba(253, 165, 163, 1) 100%
+			);
+			content: "";
+			transition: all 0.25s ease;
+
+			position: absolute;
+			top: 0;
+			left: 0;
+			height: 100%;
+			width: 100%;
+			border-radius: 50%;
+			z-index: -1;
+		}
+		&:hover::before {
+			transform: rotate(360deg) scale(1.1);
+		}
+
+		&::after {
+			display: none;
+		}
+
+		svg {
+			transition: all 0.25s ease;
+		}
+
+		&:hover {
+			svg {
+				transform: scale(1.1);
+			}
+		}
+		&:focus {
+			border: none;
+			box-shadow: none;
+			svg {
+				transform: scale(1.1);
+			}
+
+			&::before {
+				transform: scale(1.1);
+			}
+		}
+	}
+}
+
 .modal {
 	position: relative;
 	> div > div {
@@ -17,10 +73,20 @@
 		position: absolute;
 		top: 0;
 		left: 0;
-		margin: 0.4rem 0 0 0;
 		outline: none;
-		background: none;
+		margin: 0.325rem;
 		transition: transform 0.25s ease-in-out;
+		background: #ce6ade;
+		background: linear-gradient(
+			90deg,
+			rgba(206, 106, 222, 1) 0%,
+			rgba(225, 119, 207, 1) 35%,
+			rgba(253, 165, 163, 1) 100%
+		);
+		color: white;
+		border-radius: 50%;
+		padding: 0.225rem;
+
 		&:hover {
 			transform: scale(1.1);
 		}
@@ -56,7 +122,7 @@
 
 				&:focus {
 					outline: none;
-					box-shadow: 0px 0px 2px 5px var(--yellow-4);
+					box-shadow: 0px 0px 2px 5px #ce6ade;
 				}
 			}
 			.errors {
@@ -76,8 +142,14 @@
 		gap: 1rem;
 
 		button {
-			background-color: var(--yellow-4);
-			color: black;
+			background: rgb(206, 106, 222);
+			background: linear-gradient(
+				90deg,
+				rgba(206, 106, 222, 1) 0%,
+				rgba(225, 119, 207, 1) 35%,
+				rgba(253, 165, 163, 1) 100%
+			);
+			color: #fff;
 			width: 100%;
 			margin: 2rem 0 0 0;
 			box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);

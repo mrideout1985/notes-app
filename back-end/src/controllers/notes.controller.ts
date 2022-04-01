@@ -1,4 +1,3 @@
-import { UserService } from "src/services/user.service"
 import { NoteService } from "../services/notes.service"
 import {
 	Controller,
@@ -8,7 +7,6 @@ import {
 	Body,
 	Patch,
 	Delete,
-	Req,
 } from "@nestjs/common"
 @Controller("notes")
 export class NotesController {

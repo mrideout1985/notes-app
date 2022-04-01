@@ -1,15 +1,13 @@
 import * as React from "react"
 
-interface SvgFeedPersonProps {
-	size?: number
-}
-
-const SvgFeedPerson = ({ size }: SvgFeedPersonProps) => (
+const SvgFeedPerson = (props: any) => (
 	<svg
 		xmlns='http://www.w3.org/2000/svg'
 		viewBox='0 0 16 16'
-		width={50 || size}
-		height={50 || size}
+		width={props.size ?? 50}
+		height={props.size ?? 50}
+		style={{ overflow: "visible" }}
+		{...props}
 	>
 		<path
 			fillRule='evenodd'

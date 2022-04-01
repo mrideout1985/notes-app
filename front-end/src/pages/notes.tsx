@@ -78,7 +78,7 @@ const Notes = () => {
 					className={styles.addNoteButton}
 					onClick={() => setShow(true)}
 				>
-					<SvgPlusCircle size={25} />
+					<SvgPlusCircle size={35} />
 				</button>
 			</div>
 			<Modal
@@ -127,32 +127,30 @@ const Notes = () => {
 				</form>
 			</Modal>
 
-			<div className={styles.notesContainer}>
-				{!submitting ? (
-					<div className={styles.notes}>
-						{displayedNotes &&
-							displayedNotes.map((note: any, i: number) => (
-								<NoteCard
-									title={note.title}
-									description={note.description}
-									key={i}
-									id={note._id}
-									removeNote={removeNote}
-									complete={note.completed}
-									toggleComplete={handleCompleted}
-								/>
-							))}
-					</div>
-				) : (
-					<div className={styles.spinnerContainer}>
-						<Spinner
-							animation='border'
-							role='status'
-							variant='warning'
-						/>
-					</div>
-				)}
-			</div>
+			{!submitting ? (
+				<div className={styles.notes}>
+					{displayedNotes &&
+						displayedNotes.map((note: any, i: number) => (
+							<NoteCard
+								title={note.title}
+								description={note.description}
+								key={i}
+								id={note._id}
+								removeNote={removeNote}
+								complete={note.completed}
+								toggleComplete={handleCompleted}
+							/>
+						))}
+				</div>
+			) : (
+				<div className={styles.spinnerContainer}>
+					<Spinner
+						animation='border'
+						role='status'
+						variant='warning'
+					/>
+				</div>
+			)}
 		</div>
 	)
 }
