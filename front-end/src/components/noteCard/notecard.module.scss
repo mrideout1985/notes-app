@@ -1,22 +1,43 @@
 .small {
-	background-color: red;
-	grid-row-end: span 26;
+	grid-row-end: span 16;
+	background-color: var(--grape-1);
 }
 
 .med {
-	background-color: green;
 	grid-row-end: span 33;
+	background-color: var(--grape-2);
 }
 
 .large {
-	background-color: blue;
 	grid-row-end: span 45;
+	background-color: var(--grape-3);
 }
 
 .container {
 	margin: 15px 10px;
 	padding: 0;
-	border-radius: 16px;
+	border-radius: 8px;
 	position: relative;
 	overflow: hidden;
+	color: black;
+	position: relative;
+	box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
+
+	&:hover {
+		.buttons {
+			opacity: 1;
+		}
+	}
+
+	.buttons {
+		position: absolute;
+		width: 100%;
+		opacity: 0;
+		bottom: 0;
+		display: flex;
+		justify-content: space-between;
+		> button {
+			background-color: transparent;
+		}
+	}
 }

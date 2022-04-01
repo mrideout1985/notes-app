@@ -10,7 +10,7 @@ export const noteformErrors = {
 		required: "Description is required",
 		minLength: {
 			value: 15,
-			message: "Description must have at least 25 characters",
+			message: "Description must have at least 15 characters",
 		},
 	},
 }
