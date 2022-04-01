@@ -1,5 +1,4 @@
 import axios from "axios"
-import { NewNote } from "../interfaces/notes"
 import { userService } from "./userService"
 
 class NoteService {

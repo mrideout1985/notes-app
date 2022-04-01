@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form"
 import styles from "./loginModal.module.scss"
 import { authErrors } from "../../utils/formErrors"
 import { XCircle } from "../icons"
+import Spinner from "react-bootstrap/esm/Spinner"
 
 interface SignUpModalInterface {
 	toggleLogin: boolean
@@ -38,49 +39,53 @@ const SignUpModal = ({
 
 	return (
 		<>
-			<Modal
-				show={toggleSignUp}
-				backdrop='static'
-				centered={true}
-				keyboard={false}
-				size='sm'
-				className={styles.modal}
-			>
-				<button
-					onClick={(e: React.SyntheticEvent) =>
-						setToggleSignUp(false)
-					}
-					className={styles.closeIcon}
+			{submitting ? (
+				<Spinner animation='border' />
+			) : (
+				<Modal
+					show={toggleSignUp}
+					backdrop='static'
+					centered={true}
+					keyboard={false}
+					size='sm'
+					className={styles.modal}
 				>
-					<XCircle color={"lightblack"} />
-				</button>
-				<h4>Create an account</h4>
-				<form onSubmit={handleSubmit(onSubmit)}>
-					<div className={styles.input}>
-						<input
-							type='text'
-							placeholder='Email'
-							{...register("email", authErrors.email)}
-						/>
-						<div className={styles.errors}>
-							{errors?.email && errors.email.message}
+					<button
+						onClick={(e: React.SyntheticEvent) =>
+							setToggleSignUp(false)
+						}
+						className={styles.closeIcon}
+					>
+						<XCircle color={"lightblack"} />
+					</button>
+					<h4>Create an account</h4>
+					<form onSubmit={handleSubmit(onSubmit)}>
+						<div className={styles.input}>
+							<input
+								type='text'
+								placeholder='Email'
+								{...register("email", authErrors.email)}
+							/>
+							<div className={styles.errors}>
+								{errors?.email && errors.email.message}
+							</div>
 						</div>
-					</div>
-					<div className={styles.input}>
-						<input
-							type='password'
-							placeholder='Password'
-							{...register("password", authErrors.password)}
-						/>
-						<div className={styles.errors}>
-							{errors?.password && errors?.password.message}
+						<div className={styles.input}>
+							<input
+								type='password'
+								placeholder='Password'
+								{...register("password", authErrors.password)}
+							/>
+							<div className={styles.errors}>
+								{errors?.password && errors?.password.message}
+							</div>
 						</div>
-					</div>
-					<div className={styles.buttons}>
-						<Button type='submit'>Create an account</Button>
-					</div>
-				</form>
-			</Modal>
+						<div className={styles.buttons}>
+							<Button type='submit'>Create an account</Button>
+						</div>
+					</form>
+				</Modal>
+			)}
 		</>
 	)
 }

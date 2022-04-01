@@ -1,27 +1,38 @@
 .small {
-	grid-row-end: span 16;
-	background-color: var(--grape-1);
+	grid-row-end: span 15;
+	 
+	background-color: #fff;
 }
 
 .med {
-	grid-row-end: span 33;
-	background-color: var(--grape-2);
+	grid-row-end: span 25; 
+	background-color: #fff;
 }
 
 .large {
-	grid-row-end: span 45;
-	background-color: var(--grape-3);
+	grid-row-end: span 45; 
+	background-color: #fff;
+
 }
 
 .container {
 	margin: 15px 10px;
-	padding: 0;
+	padding: 1rem;
 	border-radius: 8px;
 	position: relative;
 	overflow: hidden;
 	color: black;
 	position: relative;
-	box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
+	box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);word-break: break-all;
+
+	&[data-complete="true"] {
+	box-shadow: 0px 0px 2px 5px #ce6ade;
+	}	
+
+	.title {
+		font-weight: 900;
+	}
+	
 
 	&:hover {
 		.buttons {
@@ -33,7 +44,8 @@
 		position: absolute;
 		width: 100%;
 		opacity: 0;
-		bottom: 0;
+		bottom: 0.2rem;
+		left: 0rem;
 		display: flex;
 		justify-content: space-between;
 		> button {
