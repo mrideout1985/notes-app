@@ -1,3 +1,5 @@
+export type NoteForms = "title" | "description"
+
 export const noteformErrors = {
 	title: {
 		minLength: {
@@ -13,6 +15,8 @@ export const noteformErrors = {
 		},
 	},
 }
+
+export type AuthForms = "email" | "password"
 
 export const authErrors = {
 	email: {

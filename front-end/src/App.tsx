@@ -6,24 +6,29 @@ import { Profile } from "./pages/profile"
 import { RequireAuth } from "./components/requireAuth/requireAuth"
 import "bootstrap/dist/css/bootstrap.min.css"
 import { useAuth } from "./hooks/useAuth"
+import { FormProvider, useForm } from "react-hook-form"
 // import { Unauthorized } from "./pages/unauthorized"
 
 function App() {
 	const { user } = useAuth()
+	const methods = useForm()
+
 	return (
 		<>
-			<Layout>
-				<Routes>
-					{/* <Route path='unauthorized' element={<Unauthorized />} /> */}
+			<FormProvider {...methods}>
+				<Layout>
+					<Routes>
+						{/* <Route path='unauthorized' element={<Unauthorized />} /> */}
 
-					{/* Protected Routes */}
-					<Route path='profile' element={<Profile />} />
-					<Route path='notes' element={<Notes />} />
-					<Route element={<RequireAuth />}></Route>
-					<Route path='/dicks' />
-					{/* Catch All */}
-				</Routes>
-			</Layout>
+						{/* Protected Routes */}
+						<Route path='profile' element={<Profile />} />
+						<Route path='notes' element={<Notes />} />
+						<Route element={<RequireAuth />}></Route>
+						<Route path='/dicks' />
+						{/* Catch All */}
+					</Routes>
+				</Layout>
+			</FormProvider>
 		</>
 	)
 }

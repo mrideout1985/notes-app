@@ -1,6 +1,5 @@
 .small {
-	grid-row-end: span 15;
-	 
+	grid-row-end: span 15;	 
 	background-color: #fff;
 }
 
@@ -23,7 +22,8 @@
 	overflow: hidden;
 	color: black;
 	position: relative;
-	box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);word-break: break-all;
+	box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
+	word-break: break-word;
 
 	&[data-complete="true"] {
 	box-shadow: 0px 0px 2px 5px #ce6ade;
@@ -32,7 +32,6 @@
 	.title {
 		font-weight: 900;
 	}
-	
 
 	&:hover {
 		.buttons {
@@ -44,12 +43,40 @@
 		position: absolute;
 		width: 100%;
 		opacity: 0;
-		bottom: 0.2rem;
+		transition: all .25S ease-in;
+		bottom: 0.25rem;
 		left: 0rem;
 		display: flex;
 		justify-content: space-between;
 		> button {
 			background-color: transparent;
+		}
+
+		.complete {
+			
+		
+			&:hover {
+				svg {
+					color: green;
+				}
+			}
+
+			&[data-complete="true"] {
+				svg {
+					color: green;
+				}
+			}
+		}
+
+		.delete {
+			svg {
+				color: black;
+			}
+			&:hover {
+				svg {
+					color: red;
+				}
+			}
 		}
 	}
 }

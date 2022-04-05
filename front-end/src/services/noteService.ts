@@ -1,14 +1,6 @@
 import axios from "axios"
-import { userService } from "./userService"
 
 class NoteService {
-	public async getAllUserNotes(): Promise<any> {
-		let user = await userService.getLoggedInUser()
-		axios
-			.get(`http://localhost:3000/notes/`, user.email)
-			.then(res => console.log(res.data))
-	}
-
 	public async addNote(note: any): Promise<any> {
 		await axios.post(`http://localhost:3000/notes`, note)
 	}

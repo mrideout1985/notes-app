@@ -1,6 +1,6 @@
 import React, { useState } from "react"
-import { NavLink } from "react-router-dom"
 import SvgCheckCircle from "../icons/CheckCircle"
+import SvgPencil from "../icons/Pencil"
 import SvgXCircle from "../icons/XCircle"
 import { NoteCardModal } from "../noteCardModal/noteCardModal"
 import styles from "./notecard.module.scss"
@@ -43,7 +43,6 @@ const NoteCard = ({
 					[styles["container"]],
 					[handleContainerSize(description)],
 				].join(" ")}
-				onClick={() => setToggleModal(true)}
 			>
 				<div className={styles["inner"]}>
 					<div className={styles["title"]}>{title}</div>
@@ -56,14 +55,17 @@ const NoteCard = ({
 							}
 						>
 							<SvgCheckCircle
-								color={complete ? "green" : "red"}
+								color={complete ? "green" : "black"}
 							/>
+						</button>
+						<button onClick={() => setToggleModal(true)}>
+							<SvgPencil size={24} />
 						</button>
 						<button
 							className={styles.delete}
 							onClick={() => removeNote(id)}
 						>
-							<SvgXCircle color={"red"} />
+							<SvgXCircle />
 						</button>
 					</div>
 				</div>
