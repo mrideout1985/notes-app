@@ -1,24 +1,30 @@
-import React from "react"
+import styles from "../../styles/pagestyles/notes.module.scss"
+import { useFormContext } from "react-hook-form"
+import { noteformErrors, NoteForms } from "../../utils/formErrors"
 
 type TextAreaProps = {
-    text: string;
-    type: "textarea";
-    fieldName: 
-
+	fieldName: NoteForms
 }
 
-const TextArea = ({}: TextAreaProps) => {
+const TextArea = ({ fieldName }: TextAreaProps) => {
+	const methods = useFormContext()
+
+	const { errors } = methods.formState
+
 	return (
-        <div className={styles.inputContainer}>
-					<textarea
-						placeholder='description'
-						{...register("description", noteformErrors.description)}
-					/>
-					<div className={styles.errors}>
-						{errors?.description && errors.description.message}
-					</div>
-				</div>
-    )
+		<div className={styles.inputContainer}>
+			<textarea
+				placeholder='description'
+				{...methods.register(
+					"description",
+					noteformErrors?.[fieldName]
+				)}
+			/>
+			<div className={styles.errors}>
+				{errors?.description && errors.description.message}
+			</div>
+		</div>
+	)
 }
 
 export { TextArea }

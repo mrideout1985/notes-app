@@ -7,9 +7,10 @@ type FormProps = {
 	type: "text" | "number" | "email" | "password"
 	placeHolder: string
 	fieldName: NoteForms
+	value?: string
 }
 
-const Input = ({ type, placeHolder, fieldName }: FormProps) => {
+const Input = ({ type, placeHolder, fieldName, value }: FormProps) => {
 	const methods = useFormContext()
 
 	const { errors } = methods.formState
@@ -19,6 +20,7 @@ const Input = ({ type, placeHolder, fieldName }: FormProps) => {
 			<input
 				type={type}
 				placeholder={placeHolder}
+				value={value}
 				// {...methods.register(fieldName, config)}
 				{...methods.register(fieldName, noteformErrors?.[fieldName])}
 			/>

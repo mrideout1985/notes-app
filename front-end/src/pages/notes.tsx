@@ -30,7 +30,7 @@ const Notes = () => {
 
 	useEffect(() => {
 		fetchNotes()
-	}, [])
+	}, [submitting])
 
 	const removeNote = (noteId: string) => {
 		notesApi.removeNote(noteId)
@@ -77,6 +77,8 @@ const Notes = () => {
 							removeNote={removeNote}
 							complete={note.completed}
 							toggleComplete={handleCompleted}
+							setSubmitting={setSubmitting}
+							submitting={submitting}
 						/>
 					))}
 				</div>

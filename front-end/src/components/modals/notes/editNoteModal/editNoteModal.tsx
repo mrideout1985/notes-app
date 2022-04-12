@@ -1,50 +1,52 @@
 import React from "react"
 import Modal from "react-bootstrap/Modal"
-import SvgXCircle from "../../../components/icons/XCircle"
-import SvgCheckCircle from "../../../components/icons/CheckCircle"
-import styles from "../../../styles/pagestyles/notes.module.scss"
+import SvgXCircle from "../../../../components/icons/XCircle"
+import SvgCheckCircle from "../../../../components/icons/CheckCircle"
+import styles from "../../../../styles/pagestyles/notes.module.scss"
 import { useFormContext } from "react-hook-form"
-import { notesApi } from "../../../services/noteService"
-import { useAuth } from "../../../hooks/useAuth"
-import { Form } from "../../form/form"
-import { Input } from "../../form/input"
-import { TextArea } from "../../form/textarea"
+import { notesApi } from "../../../../services/noteService"
+import { useAuth } from "../../../../hooks/useAuth"
+import { Form } from "../../../form/form"
+import { Input } from "../../../form/input"
+import { TextArea } from "../../../form/textarea"
 
-type AddNoteModalProps = {
+type EditNoteModalProps = {
 	show: boolean
-	fetchNotes: () => void
+	fetchNotes?: () => void
 	setSubmitting: React.Dispatch<React.SetStateAction<boolean>>
 	setShow: React.Dispatch<React.SetStateAction<boolean>>
+	id: string
+	description: string
 }
 
-const AddNoteModal = ({
+const EditNoteModal = ({
 	fetchNotes,
 	setSubmitting,
 	show,
 	setShow,
-}: AddNoteModalProps) => {
+	id,
+	description,
+}: EditNoteModalProps) => {
 	const {
 		register,
 		handleSubmit,
+		setValue,
 		formState: { errors },
 		resetField,
 	} = useFormContext()
-	const { user } = useAuth()
+
+	const editNotes = () => {}
 
 	const onSubmit = async (data: any) => {
 		setSubmitting(true)
 
 		try {
-			await notesApi.addNote({
-				...data,
-				completed: false,
-				email: user.email,
-			})
+			await notesApi.updateNote(id, data)
 		} finally {
 			setShow(false)
 		}
 
-		fetchNotes()
+		editNotes()
 		setSubmitting(false)
 		resetField("title")
 		resetField("description")
@@ -80,4 +82,4 @@ const AddNoteModal = ({
 	)
 }
 
-export { AddNoteModal }
+export { EditNoteModal }
