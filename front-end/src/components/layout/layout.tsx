@@ -1,4 +1,5 @@
 import React from "react"
+import { FormProvider } from "react-hook-form"
 import { Navbar } from "../navbar/navbar"
 import { SideNav } from "../sidenav/sidenav"
 import styles from "./layout.module.scss"

@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react"
 import Modal from "react-bootstrap/Modal"
 import Button from "react-bootstrap/Button"
-import { useAuth } from "../../hooks/useAuth"
-import { userService } from "../../services/userService"
+import { useAuth } from "../../../hooks/useAuth"
+import { userService } from "../../../services/userService"
 import { useNavigate } from "react-router-dom"
 import { useForm } from "react-hook-form"
 import styles from "./loginModal.module.scss"
-import { authErrors } from "../../utils/formErrors"
+import { authErrors } from "../../../utils/formErrors"
 import DropdownButton from "react-bootstrap/DropdownButton"
-import { FeedPerson, XCircle } from "../icons"
+import { FeedPerson, XCircle } from "../../icons"
 import Dropdown from "react-bootstrap/esm/Dropdown"
 
 interface LoginModalInterface {

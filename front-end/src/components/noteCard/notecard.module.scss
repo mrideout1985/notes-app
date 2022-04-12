@@ -1,55 +1,114 @@
 .small {
-	grid-row-end: span 15;
-	 
+	grid-row-end: span 15;	 
 	background-color: #fff;
+
+	>div {
+	
+		.content {
+			overflow: hidden;
+			height: 88px;
+	
+			.title {
+				font-weight: 800;
+			}
+		}
+	}
+
 }
 
 .med {
 	grid-row-end: span 25; 
 	background-color: #fff;
+	>div {
+	
+		.content {
+			overflow: hidden;
+			height: 188px;
+	
+			.title {
+				font-weight: 800;
+			}
+		}
+	}
 }
 
 .large {
 	grid-row-end: span 45; 
 	background-color: #fff;
-
+	
+	
+	> div {
+		height: 420px;
+		.content {
+			overflow: hidden;
+			height: 388px;
+			.title {
+				font-weight: 800;
+			}
+		}
+	}
+	
+	
 }
 
 .container {
-	margin: 15px 10px;
-	padding: 1rem;
+	margin: 1rem;
 	border-radius: 8px;
 	position: relative;
-	overflow: hidden;
-	color: black;
-	position: relative;
-	box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);word-break: break-all;
+	box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
+	padding: 1rem;
 
 	&[data-complete="true"] {
 	box-shadow: 0px 0px 2px 5px #ce6ade;
 	}	
 
-	.title {
-		font-weight: 900;
-	}
-	
 
-	&:hover {
+	.card {
+		word-break: break-word;
+		color: black;		
+		&:hover {
+			.buttons {
+				opacity: 1;
+			}
+		}
 		.buttons {
-			opacity: 1;
+			position: absolute;
+			width: 100%;
+			opacity: 0;
+			transition: all .25S ease-in;
+			bottom: 0.25rem;
+			left: 0rem;
+			display: flex;
+			justify-content: space-between;
+			> button {
+				background-color: transparent;
+			}	
+			.complete {
+				
+			
+				&:hover {
+					svg {
+						color: green;
+					}
+				}
+	
+				&[data-complete="true"] {
+					svg {
+						color: green;
+					}
+				}
+			}	
+			.delete {
+				svg {
+					color: black;
+				}
+				&:hover {
+					svg {
+						color: red;
+					}
+				}
+			}
 		}
 	}
 
-	.buttons {
-		position: absolute;
-		width: 100%;
-		opacity: 0;
-		bottom: 0.2rem;
-		left: 0rem;
-		display: flex;
-		justify-content: space-between;
-		> button {
-			background-color: transparent;
-		}
-	}
 }

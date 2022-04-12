@@ -2,8 +2,8 @@ import { useState } from "react"
 import { NavLink } from "react-router-dom"
 import { GridOutline } from "../icons"
 import SvgNote from "../icons/Note"
-import { LoginModal } from "../modal/loginModal"
-import { SignUpModal } from "../modal/signUpModal"
+import { LoginModal } from "../modals/auth/loginModal"
+import { SignUpModal } from "../modals/auth/signUpModal"
 import styles from "./navbar.module.scss"
 
 const Navbar = () => {

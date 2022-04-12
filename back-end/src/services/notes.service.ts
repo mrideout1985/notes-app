@@ -16,16 +16,16 @@ export class NoteService {
 
 	async create(createNoteDto: NoteDto): Promise<void> {
 		const note = new this.noteModel(createNoteDto)
-		const addNoteToUser = (result) => {
-			this.userModel
+		const addNoteToUser = async (result) => {
+			await this.userModel
 				.findOne({ email: createNoteDto.email })
 				.then((user) => {
 					user && user.notes.push(result._id)
 					user && user.save()
 				})
 		}
-
-		note && note.save().then(addNoteToUser)
+		note && (await note.save().then(addNoteToUser))
+		return
 	}
 
 	async findNote(id: string): Promise<Note[]> {

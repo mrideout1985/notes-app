@@ -1,8 +1,8 @@
 import React, { useState } from "react"
-import { NavLink } from "react-router-dom"
 import SvgCheckCircle from "../icons/CheckCircle"
+import SvgPencil from "../icons/Pencil"
 import SvgXCircle from "../icons/XCircle"
-import { NoteCardModal } from "../noteCardModal/noteCardModal"
+import { EditNoteModal } from "../modals/notes/editNoteModal/editNoteModal"
 import styles from "./notecard.module.scss"
 
 interface NoteCardProps {
@@ -12,6 +12,8 @@ interface NoteCardProps {
 	id: string
 	complete: boolean
 	toggleComplete: any
+	setSubmitting: React.Dispatch<React.SetStateAction<boolean>>
+	submitting: boolean
 }
 
 const NoteCard = ({
@@ -21,16 +23,18 @@ const NoteCard = ({
 	toggleComplete,
 	id,
 	complete,
+	setSubmitting,
 }: NoteCardProps) => {
 	const [toggleModal, setToggleModal] = useState(false)
+
 	const handleContainerSize = (description: string) => {
-		if (description.length < 50) {
+		if (description.length < 150) {
 			return styles["small"]
 		}
-		if (description.length > 50 && description.length < 150) {
+		if (description.length > 150 && description.length < 250) {
 			return styles["med"]
 		}
-		if (description.length > 150) {
+		if (description.length > 250) {
 			return styles["large"]
 		}
 	}
@@ -43,37 +47,43 @@ const NoteCard = ({
 					[styles["container"]],
 					[handleContainerSize(description)],
 				].join(" ")}
-				onClick={() => setToggleModal(true)}
 			>
-				<div className={styles["inner"]}>
-					<div className={styles["title"]}>{title}</div>
-					<div className={styles["description"]}>{description}</div>
-					<div className={styles.buttons}>
+				<div className={styles["card"]}>
+					<div className={styles["content"]}>
+						<div className={styles["title"]}>{title}</div>
+						<div className={styles["description"]}>
+							{description}
+						</div>
+					</div>
+					<div className={styles["buttons"]}>
 						<button
-							className={styles.complete}
+							className={styles["complete"]}
 							onClick={() =>
 								toggleComplete(id, { completed: !complete })
 							}
 						>
 							<SvgCheckCircle
-								color={complete ? "green" : "red"}
+								color={complete ? "green" : "black"}
 							/>
 						</button>
+						<button onClick={() => setToggleModal(true)}>
+							<SvgPencil size={24} />
+						</button>
 						<button
-							className={styles.delete}
+							className={styles["delete"]}
 							onClick={() => removeNote(id)}
 						>
-							<SvgXCircle color={"red"} />
+							<SvgXCircle />
 						</button>
 					</div>
 				</div>
 			</div>
-			<NoteCardModal
-				title={title}
-				description={description}
-				toggleModal={toggleModal}
-				setToggleModal={setToggleModal}
+			<EditNoteModal
+				show={toggleModal}
+				setSubmitting={setSubmitting}
+				setShow={setToggleModal}
 				id={id}
+				description={description}
 			/>
 		</>
 	)
