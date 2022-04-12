@@ -83,6 +83,7 @@ const NoteCard = ({
 				setSubmitting={setSubmitting}
 				setShow={setToggleModal}
 				id={id}
+				title={title}
 				description={description}
 			/>
 		</>

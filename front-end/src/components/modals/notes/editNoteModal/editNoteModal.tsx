@@ -2,13 +2,13 @@ import React from "react"
 import Modal from "react-bootstrap/Modal"
 import SvgXCircle from "../../../../components/icons/XCircle"
 import SvgCheckCircle from "../../../../components/icons/CheckCircle"
-import styles from "../../../../styles/pagestyles/notes.module.scss"
 import { useFormContext } from "react-hook-form"
 import { notesApi } from "../../../../services/noteService"
 import { useAuth } from "../../../../hooks/useAuth"
 import { Form } from "../../../form/form"
 import { Input } from "../../../form/input"
 import { TextArea } from "../../../form/textarea"
+import styles from "./editNoteModal.module.scss"
 
 type EditNoteModalProps = {
 	show: boolean
@@ -17,6 +17,7 @@ type EditNoteModalProps = {
 	setShow: React.Dispatch<React.SetStateAction<boolean>>
 	id: string
 	description: string
+	title: string
 }
 
 const EditNoteModal = ({
@@ -26,6 +27,7 @@ const EditNoteModal = ({
 	setShow,
 	id,
 	description,
+	title
 }: EditNoteModalProps) => {
 	const {
 		register,
@@ -52,23 +54,31 @@ const EditNoteModal = ({
 		resetField("description")
 	}
 
+	const defaultValues = {
+		title: title,
+		description: description,
+	}
+
 	const handleError = (errors: any) => {}
+	
 
 	return (
 		<Modal
 			show={show}
 			backdrop='static'
 			keyboard={false}
+			size='lg'
 			className={styles.modal}
+			dialogClassName={styles.dialog}
 			centered
 		>
+			<Input fieldName="title" type="text" defaultValue={defaultValues}   />
+			<TextArea fieldName="description" defaultValue={defaultValues} />
 			<Form
 				onSubmit={handleSubmit(onSubmit, handleError)}
 				handleError={handleError}
 			>
-				<Input fieldName='title' placeHolder='title' type='text' />
-
-				<TextArea fieldName='description' />
+				
 				<div className={styles.buttons}>
 					<button type='submit'>
 						<SvgCheckCircle />

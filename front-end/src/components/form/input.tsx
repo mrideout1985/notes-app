@@ -5,12 +5,12 @@ import { noteformErrors, NoteForms } from "../../utils/formErrors"
 
 type FormProps = {
 	type: "text" | "number" | "email" | "password"
-	placeHolder: string
+	placeHolder?: string
 	fieldName: NoteForms
-	value?: string
+	defaultValue?: { title: string; description: string }
 }
 
-const Input = ({ type, placeHolder, fieldName, value }: FormProps) => {
+const Input = ({ type, placeHolder, fieldName, defaultValue}: FormProps) => {
 	const methods = useFormContext()
 
 	const { errors } = methods.formState
@@ -19,9 +19,8 @@ const Input = ({ type, placeHolder, fieldName, value }: FormProps) => {
 		<div className={styles.inputContainer}>
 			<input
 				type={type}
+				defaultValue={defaultValue?.title}
 				placeholder={placeHolder}
-				value={value}
-				// {...methods.register(fieldName, config)}
 				{...methods.register(fieldName, noteformErrors?.[fieldName])}
 			/>
 			<div className={styles.errors}>

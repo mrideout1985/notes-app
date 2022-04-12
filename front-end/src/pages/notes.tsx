@@ -5,7 +5,7 @@ import styles from "../styles/pagestyles/notes.module.scss"
 import { userService } from "../services/userService"
 import SvgPlusCircle from "../components/icons/PlusCircle"
 import { NoteCard } from "../components/noteCard/noteCard"
-import { AddNoteModal } from "../components/modals/notes/addNoteModal"
+import { AddNoteModal } from "../components/modals/notes/addNoteModal/addNoteModal"
 
 export interface DisplayNotes {
 	title: string

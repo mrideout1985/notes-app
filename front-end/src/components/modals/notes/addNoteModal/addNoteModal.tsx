@@ -1,14 +1,14 @@
 import React from "react"
 import Modal from "react-bootstrap/Modal"
-import SvgXCircle from "../../../components/icons/XCircle"
-import SvgCheckCircle from "../../../components/icons/CheckCircle"
-import styles from "../../../styles/pagestyles/notes.module.scss"
+import SvgXCircle from "../../../icons/XCircle"
+import SvgCheckCircle from "../../../icons/CheckCircle"
+import styles from "../../../../styles/pagestyles/notes.module.scss"
 import { useFormContext } from "react-hook-form"
-import { notesApi } from "../../../services/noteService"
-import { useAuth } from "../../../hooks/useAuth"
-import { Form } from "../../form/form"
-import { Input } from "../../form/input"
-import { TextArea } from "../../form/textarea"
+import { notesApi } from "../../../../services/noteService"
+import { useAuth } from "../../../../hooks/useAuth"
+import { Form } from "../../../form/form"
+import { Input } from "../../../form/input"
+import { TextArea } from "../../../form/textarea"
 
 type AddNoteModalProps = {
 	show: boolean
