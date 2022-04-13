@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react"
 import { useForm } from "react-hook-form"
-import styles from "../../styles/pagestyles/notes.module.scss"
+import styles from "./form.module.scss"
 
 type Props = {
 	children: ReactNode
@@ -9,7 +9,7 @@ type Props = {
 }
 
 const Form = ({ children, onSubmit, handleError }: Props) => {
-	const { handleSubmit, register } = useForm()
+	const { handleSubmit } = useForm()
 
 	return (
 		<form
