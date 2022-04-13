@@ -72,12 +72,12 @@ const EditNoteModal = ({
 			dialogClassName={styles.dialog}
 			centered
 		>
-			<Input fieldName="title" type="text" defaultValue={defaultValues}   />
-			<TextArea fieldName="description" defaultValue={defaultValues} />
 			<Form
 				onSubmit={handleSubmit(onSubmit, handleError)}
 				handleError={handleError}
 			>
+			<Input fieldName="title" type="text" defaultValue={defaultValues} placeHolder="Title"   />
+			<TextArea fieldName="description" defaultValue={defaultValues} placeholder="Description"/>
 				
 				<div className={styles.buttons}>
 					<button type='submit'>

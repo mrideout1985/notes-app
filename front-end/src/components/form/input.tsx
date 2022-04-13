@@ -16,8 +16,9 @@ const Input = ({ type, placeHolder, fieldName, defaultValue}: FormProps) => {
 	const { errors } = methods.formState
 
 	return (
-		<div className={styles.inputContainer}>
-			<input
+
+		<>
+		<input
 				type={type}
 				defaultValue={defaultValue?.title}
 				placeholder={placeHolder}
@@ -26,7 +27,7 @@ const Input = ({ type, placeHolder, fieldName, defaultValue}: FormProps) => {
 			<div className={styles.errors}>
 				{errors?.[fieldName] && errors?.[fieldName].message}
 			</div>
-		</div>
+		</>
 	)
 }
 

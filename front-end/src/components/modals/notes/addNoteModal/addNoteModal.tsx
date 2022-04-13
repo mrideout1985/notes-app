@@ -2,13 +2,13 @@ import React from "react"
 import Modal from "react-bootstrap/Modal"
 import SvgXCircle from "../../../icons/XCircle"
 import SvgCheckCircle from "../../../icons/CheckCircle"
-import styles from "../../../../styles/pagestyles/notes.module.scss"
 import { useFormContext } from "react-hook-form"
 import { notesApi } from "../../../../services/noteService"
 import { useAuth } from "../../../../hooks/useAuth"
 import { Form } from "../../../form/form"
 import { Input } from "../../../form/input"
 import { TextArea } from "../../../form/textarea"
+import styles from "./addNoteModal.module.scss"
 
 type AddNoteModalProps = {
 	show: boolean
@@ -57,6 +57,7 @@ const AddNoteModal = ({
 			show={show}
 			backdrop='static'
 			keyboard={false}
+			dialogClassName={styles.dialog}
 			className={styles.modal}
 			centered
 		>
@@ -64,9 +65,9 @@ const AddNoteModal = ({
 				onSubmit={handleSubmit(onSubmit, handleError)}
 				handleError={handleError}
 			>
-				<Input fieldName='title' placeHolder='title' type='text' />
+				<Input fieldName='title' placeHolder='Title' type='text' />
 
-				<TextArea fieldName='description' />
+				<TextArea fieldName='description' placeholder="Description" />
 				<div className={styles.buttons}>
 					<button type='submit'>
 						<SvgCheckCircle />

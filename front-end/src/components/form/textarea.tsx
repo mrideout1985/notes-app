@@ -5,18 +5,19 @@ import { noteformErrors, NoteForms } from "../../utils/formErrors"
 type TextAreaProps = {
 	fieldName: NoteForms
 	defaultValue?: { title: string; description: string }
+	placeholder?: string
 }
 
-const TextArea = ({ fieldName, defaultValue }: TextAreaProps) => {
+const TextArea = ({ fieldName, defaultValue, placeholder }: TextAreaProps) => {
 	const methods = useFormContext()
 
 	const { errors } = methods.formState
 
 	return (
-		<div className={styles.inputContainer}>
+		<>
 			<textarea
 				defaultValue={defaultValue?.description}
-				placeholder='description'
+				placeholder={placeholder}
 				{...methods.register(
 					"description",
 					noteformErrors?.[fieldName]
@@ -25,7 +26,8 @@ const TextArea = ({ fieldName, defaultValue }: TextAreaProps) => {
 			<div className={styles.errors}>
 				{errors?.description && errors.description.message}
 			</div>
-		</div>
+		</>
+	
 	)
 }
 
