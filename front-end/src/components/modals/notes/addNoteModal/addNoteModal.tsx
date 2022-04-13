@@ -57,6 +57,7 @@ const AddNoteModal = ({
 			show={show}
 			backdrop='static'
 			keyboard={false}
+			size='lg'
 			dialogClassName={styles.dialog}
 			className={styles.modal}
 			centered
@@ -65,9 +66,8 @@ const AddNoteModal = ({
 				onSubmit={handleSubmit(onSubmit, handleError)}
 				handleError={handleError}
 			>
-				<Input fieldName='title' placeHolder='Title' type='text' />
-
-				<TextArea fieldName='description' placeholder="Description" />
+				<Input fieldName='title' type='text' label='Title' />
+				<TextArea fieldName='description' label='description' />
 				<div className={styles.buttons}>
 					<button type='submit'>
 						<SvgCheckCircle />

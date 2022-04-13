@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react"
 import { notesApi } from "../services/noteService"
-import Spinner from "react-bootstrap/Spinner"
-import styles from "../styles/pagestyles/notes.module.scss"
 import { userService } from "../services/userService"
-import SvgPlusCircle from "../components/icons/PlusCircle"
 import { NoteCard } from "../components/noteCard/noteCard"
 import { AddNoteModal } from "../components/modals/notes/addNoteModal/addNoteModal"
+import SvgPlusCircle from "../components/icons/PlusCircle"
+import Spinner from "react-bootstrap/Spinner"
+import styles from "../styles/pagestyles/notes.module.scss"
 
 export interface DisplayNotes {
 	title: string

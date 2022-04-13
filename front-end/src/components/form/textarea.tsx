@@ -1,21 +1,32 @@
-import styles from "../../styles/pagestyles/notes.module.scss"
 import { useFormContext } from "react-hook-form"
 import { noteformErrors, NoteForms } from "../../utils/formErrors"
+import styles from "./textarea.module.scss"
 
 type TextAreaProps = {
 	fieldName: NoteForms
 	defaultValue?: { title: string; description: string }
 	placeholder?: string
+	label: string
 }
 
-const TextArea = ({ fieldName, defaultValue, placeholder }: TextAreaProps) => {
+const TextArea = ({
+	fieldName,
+	defaultValue,
+	placeholder,
+	label,
+}: TextAreaProps) => {
 	const methods = useFormContext()
 
 	const { errors } = methods.formState
 
 	return (
 		<>
+			<label className={styles["label"]} htmlFor='textarea'>
+				{label}
+			</label>
 			<textarea
+				className={styles["textarea"]}
+				id='textarea'
 				defaultValue={defaultValue?.description}
 				placeholder={placeholder}
 				{...methods.register(
@@ -27,7 +38,6 @@ const TextArea = ({ fieldName, defaultValue, placeholder }: TextAreaProps) => {
 				{errors?.description && errors.description.message}
 			</div>
 		</>
-	
 	)
 }
 

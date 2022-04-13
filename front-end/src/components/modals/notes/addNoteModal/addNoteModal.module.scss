@@ -1,99 +1,47 @@
 .modal {
+	> div {
+		form {
+			height: 100%;
+			display: flex;
+			flex-direction: column;
+			.buttons {
+				background-color: white;
+				display: flex;
+				justify-content: space-between;
 
-    > div {
-         width: 100%;
-         height: 100%;
-         form {
-             height: 100%;
-             display: flex;
-             flex-direction: column;
-             .buttons {
-                 background-color: none;
-                 display: flex;
-                 justify-content: space-between;
-     
-                 button {
-                     padding: 0;
-                     margin: 0;
-                     background-color: transparent;
-                     svg {
-                         color: green;
-                         margin: 0.5rem;
-                         border-radius: 50%;
-                         transition: all 0.25s ease;
-                         &:hover {
-                             transform: scale(1.2);
-                             box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
-                         }
-                     }
+				button {
+					padding: 0;
+					margin: 0;
+					background-color: transparent;
+					svg {
+						color: green;
+						margin: 0.5rem;
+						border-radius: 50%;
+						transition: all 0.25s ease;
+						&:hover {
+							transform: scale(1.2);
+							box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
+						}
+					}
 
-                     &:focus {
-                            outline: none;
-                     }
-     
-                     &:last-child {
-                         svg {
-                             color: red;
-                             margin: 0.5rem;
-                         }
-                     }
-                 }
-             }
-         }    
- 
-         >div {
-             height: 100%;
- 
-             .errors {
-                 color: red;
-             }
- 
-             input {
-                 width: 100%;
-                 height: 3rem;
-                 border: none;
-                 background-color: white;
-                 padding: 0.5rem;
-                 margin-top: 0.5rem;
-                 font-size: 1.5rem;
-                 outline: none;
-                 transition: all 0.25s ease;
-                 &:focus {
-                 }
-             }
- 
-             textarea {
-              width: 100%;
-              height: 100%;
-              resize: none;
-              overflow: hidden;
-              border-radius: 5px;
-              border: none;
-              padding: 0.5rem;
-              margin-top: 1rem;
-              font-size: 1.5rem;
-              font-family: 'Roboto', sans-serif;
-              outline: none;
-              background-color: white;
-              color: black;
-              transition: all 0.25s ease;
-              &:focus {
-              }
-     
-              &:focus {
-                  outline: none;
-              }
-             textarea::-webkit-scrollbar {
-              display: none;
-            }
-         }
-         
-    }
- }
- 
- .dialog {
-     > div {
-         height: 600px;
-     }
- }
- }
+					&:last-child {
+						svg {
+							color: red;
+							margin: 0.5rem;
+						}
+					}
+				}
+			}
+		}
+
+		> div {
+			height: 100%;
+		}
+	}
+
+	.dialog {
+		> div {
+			height: 800px;
+		}
+	}
+}

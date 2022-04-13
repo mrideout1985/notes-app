@@ -66,7 +66,10 @@ const NoteCard = ({
 								color={complete ? "green" : "black"}
 							/>
 						</button>
-						<button onClick={() => setToggleModal(true)}>
+						<button
+							className={styles["edit"]}
+							onClick={() => setToggleModal(true)}
+						>
 							<SvgPencil size={24} />
 						</button>
 						<button
