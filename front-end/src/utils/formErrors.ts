@@ -3,15 +3,19 @@ export type NoteForms = "title" | "description"
 export const noteformErrors = {
 	title: {
 		minLength: {
-			value: 5,
-			message: "Title must have at least 5 characters",
+			value: 3,
+			message: "Title must have at least 3 characters",
+		},
+		maxLength: {
+			value: 40,
+			message: "Title must have less than 40 characters",
 		},
 	},
 	description: {
 		required: "Description is required",
 		minLength: {
-			value: 15,
-			message: "Description must have at least 15 characters",
+			value: 10,
+			message: "Description must have at least 10 characters",
 		},
 	},
 }
