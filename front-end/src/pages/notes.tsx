@@ -32,8 +32,8 @@ const Notes = () => {
 		fetchNotes()
 	}, [submitting])
 
-	const removeNote = (noteId: string) => {
-		notesApi.removeNote(noteId)
+	const removeNote = (noteId: string, email: string) => {
+		notesApi.removeNote(noteId, email)
 		fetchNotes()
 	}
 

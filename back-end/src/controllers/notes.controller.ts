@@ -27,7 +27,7 @@ export class NotesController {
 	}
 
 	@Delete(":id")
-	remove(@Param("id") id: string) {
-		return this.noteService.remove(id)
+	remove(@Param("id") id: string, @Body() body) {
+		return this.noteService.remove(id, body)
 	}
 }

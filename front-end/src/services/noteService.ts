@@ -9,8 +9,8 @@ class NoteService {
 		await axios.patch(`http://localhost:3000/notes/${id}`, update)
 	}
 
-	public async removeNote(id: string): Promise<any> {
-		await axios.delete(`http://localhost:3000/notes/${id}`)
+	public async removeNote(id: string, email: any): Promise<any> {
+		await axios.delete(`http://localhost:3000/notes/${id}`, email)
 	}
 }
 

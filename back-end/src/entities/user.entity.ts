@@ -4,5 +4,5 @@ export class User {
 	_id: string
 	email: string
 	password: string
-	notes: mongoose.Types.ObjectId[]
+	notes: mongoose.Types.ObjectId[] | any
 }

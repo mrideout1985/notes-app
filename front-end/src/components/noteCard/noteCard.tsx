@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { useAuth } from "../../hooks/useAuth"
 import SvgCheckCircle from "../icons/CheckCircle"
 import SvgPencil from "../icons/Pencil"
 import SvgXCircle from "../icons/XCircle"
@@ -39,6 +40,8 @@ const NoteCard = ({
 		}
 	}
 
+	const { user } = useAuth()
+
 	return (
 		<>
 			<div
@@ -74,7 +77,7 @@ const NoteCard = ({
 						</button>
 						<button
 							className={styles["delete"]}
-							onClick={() => removeNote(id)}
+							onClick={() => removeNote(id, user.email)}
 						>
 							<SvgXCircle />
 						</button>

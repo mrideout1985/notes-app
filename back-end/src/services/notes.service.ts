@@ -4,6 +4,7 @@ import { Model } from "mongoose"
 import { NoteDto } from "../dto/noteDto"
 import { Note } from "../entities/note.entity"
 import { User } from "../entities/user.entity"
+import * as mongoose from "mongoose"
 
 @Injectable()
 export class NoteService {
@@ -36,7 +37,14 @@ export class NoteService {
 		return this.noteModel.updateOne({ _id: id }, updated).exec()
 	}
 
-	async remove(id: string) {
-		return this.noteModel.deleteOne({ _id: id }).exec()
+	async remove(id: string, email: any): Promise<any> {
+		// deletes note from the notes collection.
+		await this.noteModel.deleteOne({ _id: id }).exec()
+		// deletes note from the user's notes array.
+		await this.userModel.findOne(email).then((user) => {
+			user && user.notes.pull(id)
+			user && user.save()
+		})
+		return
 	}
 }
