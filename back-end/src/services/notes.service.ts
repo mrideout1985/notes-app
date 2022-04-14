@@ -21,8 +21,10 @@ export class NoteService {
 			await this.userModel
 				.findOne({ email: createNoteDto.email })
 				.then((user) => {
-					user && user.notes.push(result._id)
-					user && user.save()
+					if (user) {
+						user.notes.push(result._id)
+						user.save()
+					}
 				})
 		}
 		note && (await note.save().then(addNoteToUser))
@@ -42,9 +44,10 @@ export class NoteService {
 		await this.noteModel.deleteOne({ _id: id }).exec()
 		// deletes note from the user's notes array.
 		await this.userModel.findOne(email).then((user) => {
-			user && user.notes.pull(id)
-			user && user.save()
+			if (user) {
+				user.notes.pull(id)
+				user.save()
+			}
 		})
-		return
 	}
 }
