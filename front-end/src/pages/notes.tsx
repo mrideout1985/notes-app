@@ -10,6 +10,7 @@ import styles from "../styles/pagestyles/notes.module.scss"
 export interface DisplayNotes {
 	title: string
 	description: string
+	completed: boolean
 	_id?: string
 	__v?: number
 }
