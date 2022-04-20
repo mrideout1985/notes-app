@@ -1,13 +1,15 @@
+/* eslint-disable jsx-a11y/no-redundant-roles */
 import React from "react"
 import { useFormContext } from "react-hook-form"
 import { noteformErrors, NoteForms } from "../../utils/formErrors"
 import styles from "./input.module.scss"
 
-type FormProps = {
+export type FormProps = {
 	type: "text" | "number" | "email" | "password"
 	label: string
-	placeHolder?: string
 	fieldName: NoteForms
+	id?: string
+	placeHolder?: string
 	defaultValue?: { title: string; description: string }
 }
 
@@ -17,26 +19,27 @@ const Input = ({
 	fieldName,
 	defaultValue,
 	label,
+	id = "input",
 }: FormProps) => {
 	const methods = useFormContext()
-
 	const { errors } = methods.formState
 
 	return (
 		<>
-			<label className={styles["label"]} htmlFor='input'>
+			<label className={styles["label"]} htmlFor={id}>
 				{label}
 			</label>
 			<input
 				type={type}
 				defaultValue={defaultValue?.title}
-				id='input'
+				id={id}
 				placeholder={placeHolder}
 				className={styles["input"]}
+				role='textbox'
 				{...methods.register(fieldName, noteformErrors?.[fieldName])}
 			/>
 			<div className={styles.errors}>
-				{errors?.[fieldName] && errors?.[fieldName].message}
+				{errors && errors?.[fieldName] && errors?.[fieldName].message}
 			</div>
 		</>
 	)
