@@ -21,7 +21,6 @@ interface LoginModalInterface {
 const LoginModal = ({
 	toggleLogin,
 	setToggleLogin,
-	toggleSignUp,
 	setToggleSignUp,
 }: LoginModalInterface) => {
 	const { user, setUser } = useAuth()
