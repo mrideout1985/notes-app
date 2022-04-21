@@ -122,6 +122,30 @@ describe("<Input />", () => {
 	})
 
 	it("should show errors", () => {
-		// check error text and classes
+		const TestInput = () => {
+			const methods = useForm()
+
+			return (
+				<FormProvider {...methods}>
+					<Input
+						id='title'
+						label='MyInput'
+						type='text'
+						fieldName='title'
+						defaultValue={defaultValue}
+						placeHolder='title'
+					/>
+				</FormProvider>
+			)
+		}
+
+		render(<TestInput />)
+
+		const inputElement = screen.getByRole("textbox", { name: "MyInput" })
+		const errorElement = screen.getByTestId("errors-container-element")
+		fireEvent.change(inputElement, {
+			target: { value: "1" },
+		})
+		expect(errorElement).toBeInTheDocument()
 	})
 })

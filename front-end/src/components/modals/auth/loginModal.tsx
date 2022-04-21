@@ -9,7 +9,7 @@ import styles from "./loginModal.module.scss"
 import { authErrors } from "../../../utils/formErrors"
 import DropdownButton from "react-bootstrap/DropdownButton"
 import { FeedPerson, XCircle } from "../../icons"
-import Dropdown from "react-bootstrap/esm/Dropdown"
+import Dropdown from "react-bootstrap/Dropdown"
 
 interface LoginModalInterface {
 	toggleLogin: boolean

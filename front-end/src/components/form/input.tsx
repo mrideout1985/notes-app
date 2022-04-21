@@ -1,5 +1,4 @@
 /* eslint-disable jsx-a11y/no-redundant-roles */
-import React from "react"
 import { useFormContext } from "react-hook-form"
 import { noteformErrors, NoteForms } from "../../utils/formErrors"
 import styles from "./input.module.scss"
@@ -38,7 +37,10 @@ const Input = ({
 				role='textbox'
 				{...methods.register(fieldName, noteformErrors?.[fieldName])}
 			/>
-			<div className={styles.errors}>
+			<div
+				className={styles.errors}
+				data-testid='errors-container-element'
+			>
 				{errors && errors?.[fieldName] && errors?.[fieldName].message}
 			</div>
 		</>
