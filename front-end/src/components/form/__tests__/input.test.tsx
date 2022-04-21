@@ -4,7 +4,7 @@ import { fireEvent, render, screen } from "@testing-library/react"
 import { FormProvider, useForm } from "react-hook-form"
 import { Input } from "../input"
 
-const defaultValue = { title: "cockring", description: "cockring" }
+const defaultValue = { title: "bangle", description: "bangle" }
 
 describe("<Input />", () => {
 	it("Input should render", () => {
@@ -118,7 +118,7 @@ describe("<Input />", () => {
 
 		render(<TestInput />)
 
-		expect(screen.getByLabelText("MyInput")).toHaveValue("cockring")
+		expect(screen.getByLabelText("MyInput")).toHaveValue("bangle")
 	})
 
 	it("should show errors", () => {
