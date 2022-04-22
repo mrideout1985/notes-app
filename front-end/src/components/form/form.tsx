@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-redundant-roles */
 import React, { ReactNode } from "react"
 import { useForm } from "react-hook-form"
 import styles from "./form.module.scss"
@@ -13,6 +14,7 @@ const Form = ({ children, onSubmit, handleError }: Props) => {
 
 	return (
 		<form
+			role={`form`}
 			className={styles.form}
 			onSubmit={handleSubmit(onSubmit, handleError)}
 		>

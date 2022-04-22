@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-redundant-roles */
 import { useFormContext } from "react-hook-form"
 import { noteformErrors, NoteForms } from "../../utils/formErrors"
 import styles from "./textarea.module.scss"
@@ -27,6 +28,7 @@ const TextArea = ({
 			<textarea
 				className={styles["textarea"]}
 				id='textarea'
+				role='textbox'
 				defaultValue={defaultValue?.description}
 				placeholder={placeholder}
 				{...methods.register(
@@ -34,7 +36,10 @@ const TextArea = ({
 					noteformErrors?.[fieldName]
 				)}
 			/>
-			<div className={styles.errors}>
+			<div
+				className={styles.errors}
+				data-testid='errors-container-element'
+			>
 				{errors?.description && errors.description.message}
 			</div>
 		</>

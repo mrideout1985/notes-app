@@ -1,16 +1,13 @@
-import React from "react"
 import { Routes, Route } from "react-router-dom"
 import { Layout } from "./components/layout/layout"
 import { Notes } from "./pages/notes"
 import { Profile } from "./pages/profile"
 import { RequireAuth } from "./components/requireAuth/requireAuth"
 import "bootstrap/dist/css/bootstrap.min.css"
-import { useAuth } from "./hooks/useAuth"
 import { FormProvider, useForm } from "react-hook-form"
 // import { Unauthorized } from "./pages/unauthorized"
 
 function App() {
-	const { user } = useAuth()
 	const methods = useForm()
 
 	return (
