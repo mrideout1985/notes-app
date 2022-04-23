@@ -69,7 +69,7 @@ const Notes = () => {
 					/>
 				</div>
 			) : (
-				<div className={styles.notes}>
+				<div className={styles.notes} style={{ height: "100%" }}>
 					{displayedNotes?.map((note: any, index: number) => (
 						<NoteCard
 							title={note.title}

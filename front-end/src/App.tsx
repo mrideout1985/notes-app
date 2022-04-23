@@ -3,8 +3,8 @@ import { Layout } from "./components/layout/layout"
 import { Notes } from "./pages/notes"
 import { Profile } from "./pages/profile"
 import { RequireAuth } from "./components/requireAuth/requireAuth"
-import "bootstrap/dist/css/bootstrap.min.css"
 import { FormProvider, useForm } from "react-hook-form"
+import "bootstrap/dist/css/bootstrap.min.css"
 // import { Unauthorized } from "./pages/unauthorized"
 
 function App() {
@@ -21,7 +21,6 @@ function App() {
 						<Route path='profile' element={<Profile />} />
 						<Route path='notes' element={<Notes />} />
 						<Route element={<RequireAuth />}></Route>
-						<Route path='/dicks' />
 						{/* Catch All */}
 					</Routes>
 				</Layout>

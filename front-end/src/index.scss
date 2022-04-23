@@ -1,2 +1,10 @@
 @import "open-props/style";
 @import "open-props/normalize";
+
+html,
+body {
+	height: 100%;
+	#root {
+		height: 100%;
+	}
+}
