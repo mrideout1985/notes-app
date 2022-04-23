@@ -62,14 +62,16 @@ const Notes = () => {
 			/>
 			{submitting ? (
 				<div className={styles.spinnerContainer}>
-					<Spinner
-						animation='border'
-						role='status'
-						variant='warning'
-					/>
+					<div>
+						<Spinner
+							animation='border'
+							role='status'
+							variant='warning'
+						/>
+					</div>
 				</div>
 			) : (
-				<div className={styles.notes} style={{ height: "100%" }}>
+				<div className={styles.notes}>
 					{displayedNotes?.map((note: any, index: number) => (
 						<NoteCard
 							title={note.title}

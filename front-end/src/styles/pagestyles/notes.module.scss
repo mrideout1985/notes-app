@@ -1,6 +1,5 @@
 .container {
 	width: 100%;
-
 	.addNoteButtonContainer {
 		margin: 2rem;
 
@@ -56,14 +55,18 @@
 		justify-content: center;
 	}
 	.spinnerContainer {
-		min-height: 100%;
 		width: 100%;
+		border: 1px solid red;
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		height: 100vh;
 		> div {
-			height: 10rem;
-			width: 10rem;
+			height: 100%;
+			> div {
+				height: 10rem;
+				width: 10rem;
+			}
 		}
 	}
 }
