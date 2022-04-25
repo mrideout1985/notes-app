@@ -65,9 +65,6 @@ const LoginModal = ({
 					variant='none'
 				>
 					<Dropdown.Item href='/profile'>Profile</Dropdown.Item>
-					<Dropdown.Item href='#/action-2'>
-						Another action
-					</Dropdown.Item>
 					<Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
 				</DropdownButton>
 			) : (

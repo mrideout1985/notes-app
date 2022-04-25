@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import Modal from "react-bootstrap/Modal"
 import Button from "react-bootstrap/Button"
 import { userService } from "../../../services/userService"
@@ -6,7 +6,6 @@ import { useForm } from "react-hook-form"
 import styles from "./loginModal.module.scss"
 import { authErrors } from "../../../utils/formErrors"
 import { XCircle } from "../../icons"
-import Spinner from "react-bootstrap/esm/Spinner"
 
 interface SignUpModalInterface {
 	toggleLogin: boolean
@@ -16,12 +15,10 @@ interface SignUpModalInterface {
 }
 
 const SignUpModal = ({
-	toggleLogin,
 	setToggleLogin,
 	toggleSignUp,
 	setToggleSignUp,
 }: SignUpModalInterface) => {
-	const [submitting, setSubmitting] = useState(false)
 	const {
 		register,
 		handleSubmit,
@@ -34,7 +31,6 @@ const SignUpModal = ({
 				setToggleLogin(true)
 			}
 		})
-		setSubmitting(true)
 	}
 
 	return (
@@ -48,9 +44,7 @@ const SignUpModal = ({
 				className={styles.modal}
 			>
 				<button
-					onClick={(e: React.SyntheticEvent) =>
-						setToggleSignUp(false)
-					}
+					onClick={() => setToggleSignUp(false)}
 					className={styles.closeIcon}
 				>
 					<XCircle color={"lightblack"} />
