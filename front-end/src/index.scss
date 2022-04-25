@@ -2,10 +2,9 @@
 @import "open-props/normalize";
 
 html,
-body {
+body,
+#root,
+.App {
 	height: 100%;
-
-	#root {
-		height: 100vh;
-	}
+	background-color: #17181f;
 }
