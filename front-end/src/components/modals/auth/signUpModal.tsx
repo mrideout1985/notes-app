@@ -6,31 +6,43 @@ import { useForm } from "react-hook-form"
 import styles from "./loginModal.module.scss"
 import { authErrors } from "../../../utils/formErrors"
 import { XCircle } from "../../icons"
+import Alert from "react-bootstrap/Alert"
 
 interface SignUpModalInterface {
 	toggleLogin: boolean
 	setToggleLogin: React.Dispatch<React.SetStateAction<boolean>>
 	toggleSignUp: boolean
 	setToggleSignUp: React.Dispatch<React.SetStateAction<boolean>>
+	setShowError: React.Dispatch<React.SetStateAction<boolean>>
+	showError: boolean
 }
 
 const SignUpModal = ({
 	setToggleLogin,
 	toggleSignUp,
 	setToggleSignUp,
+	setShowError,
+	showError,
 }: SignUpModalInterface) => {
+	const [displayError, setDisplayError] = useState<string>()
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
 	} = useForm()
+
 	const onSubmit = async (data: any) => {
-		await userService.signUp(data.email, data.password).then(res => {
-			if (res.status === 201) {
-				setToggleSignUp(false)
-				setToggleLogin(true)
-			}
-		})
+		try {
+			await userService.signUp(data.email, data.password).then(res => {
+				if (res.status === 201) {
+					setToggleSignUp(false)
+					setToggleLogin(true)
+				}
+			})
+		} catch (error: any) {
+			setShowError(true)
+			setDisplayError("User Already Exists")
+		}
 	}
 
 	return (
@@ -69,6 +81,14 @@ const SignUpModal = ({
 						/>
 						<div className={styles.errors}>
 							{errors?.password && errors?.password.message}
+							{showError ? (
+								<Alert
+									className={styles.alert}
+									show={showError}
+								>
+									{displayError}
+								</Alert>
+							) : null}
 						</div>
 					</div>
 					<div className={styles.buttons}>

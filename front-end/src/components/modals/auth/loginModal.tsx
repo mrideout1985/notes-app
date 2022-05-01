@@ -10,34 +10,52 @@ import { authErrors } from "../../../utils/formErrors"
 import DropdownButton from "react-bootstrap/DropdownButton"
 import { FeedPerson, XCircle } from "../../icons"
 import Dropdown from "react-bootstrap/Dropdown"
+import Alert from "react-bootstrap/Alert"
 
 interface LoginModalInterface {
 	toggleLogin: boolean
 	setToggleLogin: React.Dispatch<React.SetStateAction<boolean>>
 	toggleSignUp: boolean
 	setToggleSignUp: React.Dispatch<React.SetStateAction<boolean>>
+	setShowError: React.Dispatch<React.SetStateAction<boolean>>
+	showError: boolean
 }
 
 const LoginModal = ({
 	toggleLogin,
 	setToggleLogin,
 	setToggleSignUp,
+	setShowError,
+	showError,
 }: LoginModalInterface) => {
 	const { user, setUser } = useAuth()
+
 	const [submitting, setSubmitting] = useState(false)
+
+	const [displayError, setDisplayError] = useState<string>()
+
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
 	} = useForm()
+
 	const navigate = useNavigate()
+
 	const onSubmit = async (data: any) => {
-		await userService.login(data.email, data.password).then(() => {
-			userService.getLoggedInUser().then(res => setUser(res))
-		})
-		setToggleLogin(false)
-		setSubmitting(true)
-		navigate("/notes")
+		try {
+			await userService.login(data.email, data.password).then(() => {
+				userService.getLoggedInUser().then(res => {
+					setUser(res)
+					setToggleLogin(false)
+					setSubmitting(true)
+					navigate("/notes")
+				})
+			})
+		} catch (error: any) {
+			setShowError(true)
+			setDisplayError("Incorrect Email or Password")
+		}
 	}
 	const handleLogout = () => {
 		userService.logout()
@@ -113,6 +131,14 @@ const LoginModal = ({
 						/>
 						<div className={styles.errors}>
 							{errors?.password && errors?.password.message}
+							{showError ? (
+								<Alert
+									className={styles.alert}
+									show={showError}
+								>
+									{displayError}
+								</Alert>
+							) : null}
 						</div>
 					</div>
 					<div className={styles.buttons}>

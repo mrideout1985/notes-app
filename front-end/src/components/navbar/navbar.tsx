@@ -9,6 +9,10 @@ import styles from "./navbar.module.scss"
 const Navbar = () => {
 	const [toggleLogin, setToggleLogin] = useState<boolean>(false)
 	const [toggleSignUp, setToggleSignUp] = useState<boolean>(false)
+	const [showError, setShowError] = useState<boolean>(false)
+	const [showSignUpError, setShowSignUpError] = useState<boolean>(false)
+
+	console.log(showError)
 
 	return (
 		<nav className={styles.navbar}>
@@ -26,12 +30,16 @@ const Navbar = () => {
 					toggleLogin={toggleLogin}
 					toggleSignUp={toggleSignUp}
 					setToggleSignUp={setToggleSignUp}
+					setShowError={setShowError}
+					showError={showError}
 				/>
 				<SignUpModal
 					setToggleLogin={setToggleLogin}
 					toggleLogin={toggleLogin}
 					toggleSignUp={toggleSignUp}
 					setToggleSignUp={setToggleSignUp}
+					setShowError={setShowSignUpError}
+					showError={showSignUpError}
 				/>
 			</div>
 		</nav>
