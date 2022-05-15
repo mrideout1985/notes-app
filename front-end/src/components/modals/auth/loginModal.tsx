@@ -18,11 +18,7 @@ interface LoginModalInterface {
 	setToggleSignUp: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const LoginModal = ({
-	toggleLogin,
-	setToggleLogin,
-	setToggleSignUp,
-}: LoginModalInterface) => {
+const LoginModal = ({ toggleLogin, setToggleLogin }: LoginModalInterface) => {
 	const { user, setUser } = useAuth()
 	const [submitting, setSubmitting] = useState(false)
 	const navigate = useNavigate()

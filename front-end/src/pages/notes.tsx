@@ -49,6 +49,7 @@ const Notes = () => {
 				<button
 					className={styles.addNoteButton}
 					onClick={() => setShowModal(true)}
+					aria-label='Add Note'
 				>
 					<SvgPlusCircle size={35} />
 				</button>
