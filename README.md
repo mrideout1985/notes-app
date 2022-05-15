@@ -1,7 +1,5 @@
 # Full-stack Notes App
 
----
-
 ## Running the app
 
 From the root directory:
