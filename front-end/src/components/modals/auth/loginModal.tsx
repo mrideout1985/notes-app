@@ -18,7 +18,11 @@ interface LoginModalInterface {
 	setToggleSignUp: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const LoginModal = ({ toggleLogin, setToggleLogin }: LoginModalInterface) => {
+const LoginModal = ({
+	toggleLogin,
+	setToggleLogin,
+	setToggleSignUp,
+}: LoginModalInterface) => {
 	const { user, setUser } = useAuth()
 	const [submitting, setSubmitting] = useState(false)
 	const navigate = useNavigate()
@@ -73,12 +77,13 @@ const LoginModal = ({ toggleLogin, setToggleLogin }: LoginModalInterface) => {
 	}
 
 	const LoginSignUp = () => {
-		const onClick = () => setToggleLogin(true)
+		const login = () => setToggleLogin(true)
+		const signup = () => setToggleSignUp(true)
 
 		return (
 			<>
-				<Button onClick={onClick}>Sign In</Button>
-				<Button onClick={onClick}>Sign Up</Button>
+				<Button onClick={login}>Sign In</Button>
+				<Button onClick={signup}>Sign Up</Button>
 			</>
 		)
 	}

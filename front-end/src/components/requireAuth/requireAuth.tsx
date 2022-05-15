@@ -6,7 +6,7 @@ interface Auth {
 }
 
 const RequireAuth = ({ user, children }: Auth) => {
-	if (user === null) {
+	if (user.user === null) {
 		return <Navigate to='/unauthorized' />
 	}
 	return children
