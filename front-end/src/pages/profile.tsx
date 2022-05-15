@@ -31,7 +31,7 @@ const Profile = (props: Props) => {
 			<div className={styles["profile"]}>
 				<div className={styles["user"]}>
 					<SvgFeedPerson color={"white"} size={150} />
-					<h1>{user.email}</h1>
+					<h1>{user?.email}</h1>
 					<div className={styles["data"]}>
 						<p>You have {displayedNotes?.length} notes</p>
 						<p>

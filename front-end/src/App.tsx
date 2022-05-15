@@ -1,31 +1,43 @@
-import React from "react"
 import { Routes, Route } from "react-router-dom"
 import { Layout } from "./components/layout/layout"
 import { Notes } from "./pages/notes"
 import { Profile } from "./pages/profile"
 import { RequireAuth } from "./components/requireAuth/requireAuth"
-import "bootstrap/dist/css/bootstrap.min.css"
-import { useAuth } from "./hooks/useAuth"
 import { FormProvider, useForm } from "react-hook-form"
-// import { Unauthorized } from "./pages/unauthorized"
+import { useAuth } from "./hooks/useAuth"
+import { Unauthorized } from "./pages/unauthorized"
 
 function App() {
-	const { user } = useAuth()
 	const methods = useForm()
+	const user = useAuth()
+
+	console.log()
 
 	return (
 		<>
 			<FormProvider {...methods}>
 				<Layout>
 					<Routes>
-						{/* <Route path='unauthorized' element={<Unauthorized />} /> */}
-
-						{/* Protected Routes */}
-						<Route path='profile' element={<Profile />} />
-						<Route path='notes' element={<Notes />} />
-						<Route element={<RequireAuth />}></Route>
-						<Route path='/dicks' />
-						{/* Catch All */}
+						<Route
+							path='/notes'
+							element={
+								<RequireAuth user={user}>
+									<Notes />
+								</RequireAuth>
+							}
+						/>
+						<Route
+							path='/profile'
+							element={
+								<RequireAuth user={user}>
+									<Profile />
+								</RequireAuth>
+							}
+						/>
+						<Route
+							path='/unauthorized'
+							element={<Unauthorized />}
+						/>
 					</Routes>
 				</Layout>
 			</FormProvider>

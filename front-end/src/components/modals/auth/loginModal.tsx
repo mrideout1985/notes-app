@@ -8,8 +8,8 @@ import { useForm } from "react-hook-form"
 import styles from "./loginModal.module.scss"
 import { authErrors } from "../../../utils/formErrors"
 import DropdownButton from "react-bootstrap/DropdownButton"
+import Dropdown from "react-bootstrap/Dropdown"
 import { FeedPerson, XCircle } from "../../icons"
-import Dropdown from "react-bootstrap/esm/Dropdown"
 
 interface LoginModalInterface {
 	toggleLogin: boolean
@@ -21,31 +21,16 @@ interface LoginModalInterface {
 const LoginModal = ({
 	toggleLogin,
 	setToggleLogin,
-	toggleSignUp,
 	setToggleSignUp,
 }: LoginModalInterface) => {
 	const { user, setUser } = useAuth()
 	const [submitting, setSubmitting] = useState(false)
+	const navigate = useNavigate()
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
 	} = useForm()
-	const navigate = useNavigate()
-	const onSubmit = async (data: any) => {
-		await userService.login(data.email, data.password).then(() => {
-			userService.getLoggedInUser().then(res => setUser(res))
-		})
-		setToggleLogin(false)
-		setSubmitting(true)
-		navigate("/notes")
-	}
-	const handleLogout = () => {
-		userService.logout()
-		setUser(null)
-		window.localStorage.clear()
-		navigate("/")
-	}
 
 	useEffect(() => {
 		if (submitting) {
@@ -56,31 +41,55 @@ const LoginModal = ({
 		}
 	}, [setUser, submitting])
 
+	const onSubmit = async (data: any) => {
+		await userService.login(data.email, data.password).then(() => {
+			userService
+				.getLoggedInUser()
+				.then(res => setUser(res))
+				.then(() => {
+					setToggleLogin(false)
+					setSubmitting(true)
+				})
+				.finally(() => navigate("/notes"))
+		})
+	}
+
+	const handleLogout = () => {
+		userService.logout()
+		setUser(null)
+		window.localStorage.clear()
+		navigate("/")
+	}
+
+	const DropDown = (): JSX.Element => {
+		return (
+			<DropdownButton
+				className={styles.dropdown}
+				title={<FeedPerson size={35} />}
+				menuVariant='dark'
+				variant='none'
+			>
+				<Dropdown.Item href='/profile'>Profile</Dropdown.Item>
+				<Dropdown.Item href='#/action-2'>Another action</Dropdown.Item>
+				<Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
+			</DropdownButton>
+		)
+	}
+
+	const LoginSignUp = () => {
+		const onClick = () => setToggleLogin(true)
+
+		return (
+			<>
+				<Button onClick={onClick}>Sign In</Button>
+				<Button onClick={onClick}>Sign Up</Button>
+			</>
+		)
+	}
+
 	return (
 		<>
-			{user ? (
-				<DropdownButton
-					className={styles.dropdown}
-					title={<FeedPerson size={35} />}
-					menuVariant='dark'
-					variant='none'
-				>
-					<Dropdown.Item href='/profile'>Profile</Dropdown.Item>
-					<Dropdown.Item href='#/action-2'>
-						Another action
-					</Dropdown.Item>
-					<Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
-				</DropdownButton>
-			) : (
-				<>
-					<Button onClick={() => setToggleLogin(true)}>
-						Sign In
-					</Button>
-					<Button onClick={() => setToggleSignUp(true)}>
-						Sign Up
-					</Button>
-				</>
-			)}
+			{user ? <DropDown /> : <LoginSignUp />}
 			<Modal
 				show={toggleLogin}
 				backdrop='static'
@@ -90,12 +99,10 @@ const LoginModal = ({
 				className={styles.modal}
 			>
 				<button
-					onClick={(e: React.SyntheticEvent) =>
-						setToggleSignUp(false)
-					}
+					onClick={() => setToggleLogin(false)}
 					className={styles.closeIcon}
 				>
-					<XCircle onClick={() => setToggleLogin(false)} />
+					<XCircle />
 				</button>
 				<h4>Sign in to your account</h4>
 				<form onSubmit={handleSubmit(onSubmit)}>

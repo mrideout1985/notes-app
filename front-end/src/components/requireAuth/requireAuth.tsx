@@ -1,10 +1,15 @@
-import { useLocation, Navigate, Outlet } from "react-router-dom"
-import { useAuth } from "../../hooks/useAuth"
+import { Navigate } from "react-router-dom"
 
-const RequireAuth = () => {
-	const { user } = useAuth()
-	// const location = useLocation()
-	return user ? null : <Navigate to='/notes' />
+interface Auth {
+	children: any
+	user: { user: string }
+}
+
+const RequireAuth = ({ user, children }: Auth) => {
+	if (user === null) {
+		return <Navigate to='/unauthorized' />
+	}
+	return children
 }
 
 export { RequireAuth }

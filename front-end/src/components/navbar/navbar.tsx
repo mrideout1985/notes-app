@@ -1,6 +1,5 @@
 import { useState } from "react"
 import { NavLink } from "react-router-dom"
-import { GridOutline } from "../icons"
 import SvgNote from "../icons/Note"
 import { LoginModal } from "../modals/auth/loginModal"
 import { SignUpModal } from "../modals/auth/signUpModal"
@@ -13,9 +12,10 @@ const Navbar = () => {
 	return (
 		<nav className={styles.navbar}>
 			<div className={styles.links}>
-				<NavLink to='dashboard'>
+				{/*Commented out dashboard for now until I learn d3 :-C*/}
+				{/* <NavLink to='dashboard'>
 					<GridOutline size={30} /> Dashboard
-				</NavLink>
+				</NavLink> */}
 				<NavLink to='notes'>
 					<SvgNote size={30} /> Notes
 				</NavLink>

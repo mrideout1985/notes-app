@@ -1,0 +1,5 @@
+{
+    "scripts": {
+        "start": "cd back-end & start npm start && cd ../front-end & start npm start"
+    }
+}

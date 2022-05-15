@@ -2,8 +2,6 @@ import { JwtService } from "@nestjs/jwt"
 import { UserDto } from "./../dto/userDto"
 import {
 	BadRequestException,
-	HttpException,
-	HttpStatus,
 	Injectable,
 	Req,
 	UnauthorizedException,
