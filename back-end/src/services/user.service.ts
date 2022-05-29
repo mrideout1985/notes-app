@@ -2,6 +2,8 @@ import { JwtService } from "@nestjs/jwt"
 import { UserDto } from "./../dto/userDto"
 import {
 	BadRequestException,
+	HttpException,
+	HttpStatus,
 	Injectable,
 	Req,
 	UnauthorizedException,
@@ -21,8 +23,12 @@ export class UserService {
 		const { email } = createUserDto
 		const user = await this.userModel.findOne({ email })
 		if (user) {
-			throw new BadRequestException(
-				"Cannot create user. User already exists"
+			throw new HttpException(
+				{
+					status: HttpStatus.INTERNAL_SERVER_ERROR,
+					error: "User already exists",
+				},
+				HttpStatus.INTERNAL_SERVER_ERROR
 			)
 		}
 		const createdUser = new this.userModel(createUserDto)
@@ -36,8 +42,12 @@ export class UserService {
 		const { email } = userDto
 		const user = await this.userModel.findOne({ email })
 		if (!user) {
-			throw new UnauthorizedException(
-				"Unable to login. Please check spelling & try again"
+			throw new HttpException(
+				{
+					status: HttpStatus.NOT_FOUND,
+					error: "No user found, check your credentials",
+				},
+				HttpStatus.NOT_FOUND
 			)
 		}
 		return this.userModel.findOne(userDto)
@@ -50,7 +60,13 @@ export class UserService {
 			data = await this.jwtService.verifyAsync(cookie)
 		}
 		if (!data) {
-			throw new UnauthorizedException("Unauthorised, No logged in user")
+			throw new HttpException(
+				{
+					status: HttpStatus.NOT_FOUND,
+					error: "No user found, check your credentials",
+				},
+				HttpStatus.NOT_FOUND
+			)
 		}
 		const user = await this.userModel
 			.findOne({ email: data.email })
@@ -69,7 +85,13 @@ export class UserService {
 			data = await this.jwtService.verifyAsync(cookie)
 		}
 		if (!data) {
-			throw new UnauthorizedException("Unauthorised, No logged in user")
+			throw new HttpException(
+				{
+					status: HttpStatus.NOT_FOUND,
+					error: "No user found, check your credentials",
+				},
+				HttpStatus.NOT_FOUND
+			)
 		}
 		const user = await this.userModel
 			.findOne({ email: data.email })

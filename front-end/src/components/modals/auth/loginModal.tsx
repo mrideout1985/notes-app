@@ -5,7 +5,7 @@ import { useAuth } from "../../../hooks/useAuth"
 import { userService } from "../../../services/userService"
 import { useNavigate } from "react-router-dom"
 import { useForm } from "react-hook-form"
-import styles from "./loginModal.module.scss"
+import styles from "./authModals.module.scss"
 import { authErrors } from "../../../utils/formErrors"
 import DropdownButton from "react-bootstrap/DropdownButton"
 import Dropdown from "react-bootstrap/Dropdown"
@@ -25,6 +25,8 @@ const LoginModal = ({
 }: LoginModalInterface) => {
 	const { user, setUser } = useAuth()
 	const [submitting, setSubmitting] = useState(false)
+	const [errorStatus, setErrorStatus] = useState<string | undefined>()
+
 	const navigate = useNavigate()
 	const {
 		register,
@@ -42,16 +44,24 @@ const LoginModal = ({
 	}, [setUser, submitting])
 
 	const onSubmit = async (data: any) => {
-		await userService.login(data.email, data.password).then(() => {
-			userService
-				.getLoggedInUser()
-				.then(res => setUser(res))
-				.then(() => {
-					setToggleLogin(false)
-					setSubmitting(true)
-				})
-				.finally(() => navigate("/notes"))
-		})
+		await userService
+			.login(data.email, data.password)
+			.then(() => {
+				userService
+					.getLoggedInUser()
+					.then(res => setUser(res))
+					.then(() => {
+						setToggleLogin(false)
+						setSubmitting(true)
+					})
+
+					.finally(() => navigate("/notes"))
+			})
+			.catch(error => {
+				if (error.response.status === 404) {
+					setErrorStatus("User not found. Check credentials")
+				}
+			})
 	}
 
 	const handleLogout = () => {
@@ -125,6 +135,7 @@ const LoginModal = ({
 						/>
 						<div className={styles.errors}>
 							{errors?.password && errors?.password.message}
+							{errorStatus && errorStatus}
 						</div>
 					</div>
 					<div className={styles.buttons}>
