@@ -6,7 +6,7 @@ import SvgXCircle from "../icons/XCircle"
 import { EditNoteModal } from "../modals/notes/editNoteModal/editNoteModal"
 import styles from "./notecard.module.scss"
 
-interface NoteCardProps {
+export interface NoteCardProps {
 	title: string
 	description: string
 	removeNote: any

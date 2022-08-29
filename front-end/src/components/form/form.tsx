@@ -1,15 +1,15 @@
 /* eslint-disable jsx-a11y/no-redundant-roles */
-import React, { ReactNode } from "react"
+import { ReactNode } from "react"
 import { useForm } from "react-hook-form"
 import styles from "./form.module.scss"
 
-type Props = {
+type FormProps = {
 	children: ReactNode
 	onSubmit: any
 	handleError: (errors: any) => void
 }
 
-const Form = ({ children, onSubmit, handleError }: Props) => {
+const Form = ({ children, onSubmit, handleError }: FormProps) => {
 	const { handleSubmit } = useForm()
 
 	return (

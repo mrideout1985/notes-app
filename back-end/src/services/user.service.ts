@@ -1,12 +1,10 @@
 import { JwtService } from "@nestjs/jwt"
 import { UserDto } from "./../dto/userDto"
 import {
-	BadRequestException,
 	HttpException,
 	HttpStatus,
 	Injectable,
 	Req,
-	UnauthorizedException,
 } from "@nestjs/common"
 import { Model } from "mongoose"
 import { User } from "src/entities/user.entity"
@@ -17,7 +15,7 @@ export class UserService {
 	constructor(
 		@InjectModel("User") private userModel: Model<User>,
 		private jwtService: JwtService
-	) {}
+	) { }
 
 	async registerUser(createUserDto: UserDto): Promise<User> {
 		const { email } = createUserDto

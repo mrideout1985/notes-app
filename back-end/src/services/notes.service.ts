@@ -13,7 +13,7 @@ export class NoteService {
 		private noteModel: Model<Note>,
 		@InjectModel("User")
 		private userModel: Model<User>
-	) {}
+	) { }
 
 	async create(createNoteDto: NoteDto): Promise<void> {
 		const note = new this.noteModel(createNoteDto)

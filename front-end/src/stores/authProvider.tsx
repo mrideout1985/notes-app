@@ -5,7 +5,7 @@ const AuthContext = createContext<any>(null)
 interface AuthProviderInterface {
 	children: React.ReactNode
 }
-const setLocalStorage = (key: any, value: any) => {
+const setLocalStorage = (key: string, value: string) => {
 	try {
 		window.localStorage.setItem(key, JSON.stringify(value))
 	} catch (e) {

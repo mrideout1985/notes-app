@@ -20,11 +20,13 @@ const SignUpModal = ({
 	setToggleSignUp,
 }: SignUpModalInterface) => {
 	const [errorStatus, setErrorStatus] = useState<string | undefined>()
+
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
 	} = useForm()
+
 	const onSubmit = async (data: any) => {
 		await userService
 			.signUp(data.email, data.password)

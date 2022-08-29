@@ -7,7 +7,7 @@ export interface LayoutProps {
 	children: React.ReactNode
 }
 
-const Layout = ({ children }: LayoutProps): JSX.Element => {
+const Layout = ({ children }: LayoutProps) => {
 	return (
 		<div className={styles["layout"]}>
 			<div className={styles["top-nav"]}>
