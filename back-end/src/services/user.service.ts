@@ -71,9 +71,7 @@ export class UserService {
 			.populate("notes")
 			.exec()
 
-		return {
-			email: user.email,
-		}
+		return user.email
 	}
 
 	async getUserNotes(@Req() request): Promise<any> {

@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { useAuth } from "../../hooks/useAuth"
+import useUserStore from "../../stores/store"
 import SvgCheckCircle from "../icons/CheckCircle"
 import SvgPencil from "../icons/Pencil"
 import SvgXCircle from "../icons/XCircle"
@@ -27,6 +27,7 @@ const NoteCard = ({
 	setSubmitting,
 }: NoteCardProps) => {
 	const [toggleModal, setToggleModal] = useState(false)
+	const currentUser = useUserStore()
 
 	const handleContainerSize = (description: string) => {
 		if (description.length < 150) {
@@ -39,8 +40,6 @@ const NoteCard = ({
 			return styles["large"]
 		}
 	}
-
-	const { user } = useAuth()
 
 	return (
 		<>
@@ -77,7 +76,7 @@ const NoteCard = ({
 						</button>
 						<button
 							className={styles["delete"]}
-							onClick={() => removeNote(id, user.email)}
+							onClick={() => removeNote(id, currentUser)}
 						>
 							<SvgXCircle />
 						</button>

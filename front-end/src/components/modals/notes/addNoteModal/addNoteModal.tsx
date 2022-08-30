@@ -4,11 +4,11 @@ import SvgXCircle from "../../../icons/XCircle"
 import SvgCheckCircle from "../../../icons/CheckCircle"
 import { useFormContext } from "react-hook-form"
 import { notesApi } from "../../../../services/noteService"
-import { useAuth } from "../../../../hooks/useAuth"
 import { Form } from "../../../form/form"
 import { Input } from "../../../form/input"
 import { TextArea } from "../../../form/textarea"
 import styles from "./addNoteModal.module.scss"
+import useUserStore from "../../../../stores/store"
 
 type AddNoteModalProps = {
 	show: boolean
@@ -23,27 +23,19 @@ const AddNoteModal = ({
 	show,
 	setShow,
 }: AddNoteModalProps) => {
-	const {
-		register,
-		handleSubmit,
-		formState: { errors },
-		resetField,
-	} = useFormContext()
-	const { user } = useAuth()
-
+	const { handleSubmit, resetField } = useFormContext()
+	const { currentUser } = useUserStore()
 	const onSubmit = async (data: any) => {
 		setSubmitting(true)
-
 		try {
 			await notesApi.addNote({
 				...data,
 				completed: false,
-				email: user.email,
+				email: currentUser.email,
 			})
 		} finally {
 			setShow(false)
 		}
-
 		fetchNotes()
 		setSubmitting(false)
 		resetField("title")

@@ -20,7 +20,6 @@ const SignUpModal = ({
 	setToggleSignUp,
 }: SignUpModalInterface) => {
 	const [errorStatus, setErrorStatus] = useState<string | undefined>()
-
 	const {
 		register,
 		handleSubmit,

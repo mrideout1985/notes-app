@@ -2,11 +2,11 @@ import { Navigate } from "react-router-dom"
 
 interface Auth {
 	children: any
-	user: { user: string }
+	user: string | null
 }
 
 const RequireAuth = ({ user, children }: Auth) => {
-	if (user.user === null) {
+	if (user === null) {
 		return <Navigate to='/unauthorized' />
 	}
 	return children

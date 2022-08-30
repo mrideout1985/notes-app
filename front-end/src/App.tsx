@@ -5,12 +5,12 @@ import { Profile } from "./pages/profile"
 import { RequireAuth } from "./components/requireAuth/requireAuth"
 import "bootstrap/dist/css/bootstrap.min.css"
 import { FormProvider, useForm } from "react-hook-form"
-import { useAuth } from "./hooks/useAuth"
 import { Unauthorized } from "./pages/unauthorized"
+import useUserStore from "./stores/store"
 
 function App() {
 	const methods = useForm()
-	const user = useAuth()
+	const { currentUser } = useUserStore(store => store)
 
 	return (
 		<>
@@ -20,7 +20,7 @@ function App() {
 						<Route
 							path='/notes'
 							element={
-								<RequireAuth user={user}>
+								<RequireAuth user={currentUser}>
 									<Notes />
 								</RequireAuth>
 							}
@@ -28,7 +28,7 @@ function App() {
 						<Route
 							path='/profile'
 							element={
-								<RequireAuth user={user}>
+								<RequireAuth user={currentUser}>
 									<Profile />
 								</RequireAuth>
 							}

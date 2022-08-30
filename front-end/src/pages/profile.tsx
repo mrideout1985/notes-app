@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
 import SvgFeedPerson from "../components/icons/FeedPerson"
-import { useAuth } from "../hooks/useAuth"
 import { userService } from "../services/userService"
 import styles from "../styles/pagestyles/profile.module.scss"
 import { DisplayNotes } from "./notes"
@@ -14,8 +13,6 @@ interface NotesArray {
 
 const Profile = (props: Props) => {
 	const [displayedNotes, setDisplayedNotes] = useState<NotesArray[]>()
-
-	const { user } = useAuth()
 
 	const fetchNotes = () =>
 		userService
@@ -31,7 +28,6 @@ const Profile = (props: Props) => {
 			<div className={styles["profile"]}>
 				<div className={styles["user"]}>
 					<SvgFeedPerson color={"white"} size={150} />
-					<h1>{user?.email}</h1>
 					<div className={styles["data"]}>
 						<p>You have {displayedNotes?.length} notes</p>
 						<p>

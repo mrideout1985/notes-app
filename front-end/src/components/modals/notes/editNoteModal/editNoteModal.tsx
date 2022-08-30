@@ -28,13 +28,7 @@ const EditNoteModal = ({
 	description,
 	title,
 }: EditNoteModalProps) => {
-	const {
-		register,
-		handleSubmit,
-		setValue,
-		formState: { errors },
-		resetField,
-	} = useFormContext()
+	const { handleSubmit, resetField } = useFormContext()
 
 	const editNotes = () => {}
 
@@ -46,7 +40,6 @@ const EditNoteModal = ({
 		} finally {
 			setShow(false)
 		}
-
 		editNotes()
 		setSubmitting(false)
 		resetField("title")
@@ -70,10 +63,7 @@ const EditNoteModal = ({
 			className={styles.modal}
 			centered
 		>
-			<Form
-				onSubmit={handleSubmit(onSubmit, handleError)}
-				handleError={handleError}
-			>
+			<Form onSubmit={handleSubmit(onSubmit)}>
 				<Input
 					fieldName='title'
 					type='text'
