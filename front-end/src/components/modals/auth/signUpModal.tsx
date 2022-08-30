@@ -25,6 +25,7 @@ const SignUpModal = ({
 		handleSubmit,
 		formState: { errors },
 	} = useForm()
+
 	const onSubmit = async (data: any) => {
 		await userService
 			.signUp(data.email, data.password)

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { notesApi } from "../services/noteService"
 import { userService } from "../services/userService"
-import { NoteCard } from "../components/noteCard/noteCard"
+import { NoteCard, NoteCardProps } from "../components/noteCard/noteCard"
 import { AddNoteModal } from "../components/modals/notes/addNoteModal/addNoteModal"
 import SvgPlusCircle from "../components/icons/PlusCircle"
 import Spinner from "react-bootstrap/Spinner"
@@ -38,7 +38,7 @@ const Notes = () => {
 		fetchNotes()
 	}
 
-	const handleCompleted = (noteId: string, completed: any) => {
+	const handleCompleted = (noteId: string, completed: string) => {
 		notesApi.updateNote(noteId, completed)
 		fetchNotes()
 	}
@@ -70,11 +70,11 @@ const Notes = () => {
 				</div>
 			) : (
 				<div className={styles.notes}>
-					{displayedNotes?.map((note: any, index: number) => (
+					{displayedNotes?.map((note: any) => (
 						<NoteCard
 							title={note.title}
 							description={note.description}
-							key={index}
+							key={note._id}
 							id={note._id}
 							removeNote={removeNote}
 							complete={note.completed}

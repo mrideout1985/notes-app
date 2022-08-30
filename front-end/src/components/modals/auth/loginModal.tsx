@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react"
 import Modal from "react-bootstrap/Modal"
 import Button from "react-bootstrap/Button"
-import { useAuth } from "../../../hooks/useAuth"
 import { userService } from "../../../services/userService"
 import { useNavigate } from "react-router-dom"
 import { useForm } from "react-hook-form"
@@ -10,6 +9,7 @@ import { authErrors } from "../../../utils/formErrors"
 import DropdownButton from "react-bootstrap/DropdownButton"
 import Dropdown from "react-bootstrap/Dropdown"
 import { FeedPerson, XCircle } from "../../icons"
+import useUserStore from "../../../stores/store"
 
 interface LoginModalInterface {
 	toggleLogin: boolean
@@ -23,10 +23,9 @@ const LoginModal = ({
 	setToggleLogin,
 	setToggleSignUp,
 }: LoginModalInterface) => {
-	const { user, setUser } = useAuth()
+	const { currentUser, logOut, setCurrentUser } = useUserStore(store => store)
 	const [submitting, setSubmitting] = useState(false)
 	const [errorStatus, setErrorStatus] = useState<string | undefined>()
-
 	const navigate = useNavigate()
 	const {
 		register,
@@ -34,27 +33,17 @@ const LoginModal = ({
 		formState: { errors },
 	} = useForm()
 
-	useEffect(() => {
-		if (submitting) {
-			userService.getLoggedInUser().then(res => setUser(res))
-		}
-		return () => {
-			setSubmitting(false)
-		}
-	}, [setUser, submitting])
-
 	const onSubmit = async (data: any) => {
 		await userService
 			.login(data.email, data.password)
 			.then(() => {
 				userService
 					.getLoggedInUser()
-					.then(res => setUser(res))
+					.then(res => setCurrentUser(res))
 					.then(() => {
 						setToggleLogin(false)
 						setSubmitting(true)
 					})
-
 					.finally(() => navigate("/notes"))
 			})
 			.catch(error => {
@@ -64,10 +53,19 @@ const LoginModal = ({
 			})
 	}
 
+	useEffect(() => {
+		if (submitting) {
+			userService.getLoggedInUser().then(res => setCurrentUser(res))
+		}
+		return () => {
+			setSubmitting(false)
+		}
+	}, [logOut, setCurrentUser, submitting])
+
 	const handleLogout = () => {
 		userService.logout()
-		setUser(null)
-		window.localStorage.clear()
+		logOut()
+		useUserStore.persist.clearStorage()
 		navigate("/")
 	}
 
@@ -100,7 +98,7 @@ const LoginModal = ({
 
 	return (
 		<>
-			{user ? <DropDown /> : <LoginSignUp />}
+			{currentUser ? <DropDown /> : <LoginSignUp />}
 			<Modal
 				show={toggleLogin}
 				backdrop='static'

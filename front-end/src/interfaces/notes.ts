@@ -3,3 +3,7 @@ export interface NewNote {
 	title: string
 	description: string
 }
+
+export type UserNotes = {
+	notes: []
+}

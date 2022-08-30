@@ -1,22 +1,22 @@
 /* eslint-disable jsx-a11y/no-redundant-roles */
-import React, { ReactNode } from "react"
-import { useForm } from "react-hook-form"
+import { ReactNode } from "react"
+import { useFormContext } from "react-hook-form"
 import styles from "./form.module.scss"
 
-type Props = {
+type FormProps = {
 	children: ReactNode
 	onSubmit: any
-	handleError: (errors: any) => void
+	handleError?: (errors: any) => void
 }
 
-const Form = ({ children, onSubmit, handleError }: Props) => {
-	const { handleSubmit } = useForm()
+const Form = ({ children, onSubmit, handleError }: FormProps) => {
+	const methods = useFormContext()
 
 	return (
 		<form
 			role={`form`}
 			className={styles.form}
-			onSubmit={handleSubmit(onSubmit, handleError)}
+			onSubmit={methods.handleSubmit(onSubmit, handleError)}
 		>
 			{children}
 		</form>

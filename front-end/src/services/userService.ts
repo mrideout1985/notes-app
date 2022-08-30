@@ -1,7 +1,8 @@
-import axios from "axios"
+import axios, { AxiosResponse } from "axios"
+import { UserNotes } from "../interfaces/notes"
 
 class UserService {
-	public async signUp(email: string, password: string): Promise<any> {
+	public async signUp(email: string, password: string): Promise<AxiosResponse> {
 		const res = await axios.post(`http://localhost:3000/users/register`, {
 			email,
 			password,
@@ -9,7 +10,7 @@ class UserService {
 		return res
 	}
 
-	public async login(email: string, password: string): Promise<any> {
+	public async login(email: string, password: string): Promise<AxiosResponse> {
 		const res = await axios
 			.post(
 				`http://localhost:3000/users/login`,
@@ -31,14 +32,14 @@ class UserService {
 		})
 	}
 
-	public async getLoggedInUser(): Promise<any> {
+	public async getLoggedInUser(): Promise<AxiosResponse> {
 		const res = await axios.get(`http://localhost:3000/users/user`, {
 			withCredentials: true,
 		})
 		return res.data
 	}
 
-	public async getLoggedInUserNotes(): Promise<any> {
+	public async getLoggedInUserNotes(): Promise<UserNotes> {
 		const res = await axios.get(`http://localhost:3000/users/notes`, {
 			withCredentials: true,
 		})

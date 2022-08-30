@@ -17,7 +17,6 @@ const TextArea = ({
 	label,
 }: TextAreaProps) => {
 	const methods = useFormContext()
-
 	const { errors } = methods.formState
 
 	return (
