@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from "axios"
+import { UserNotes } from "../interfaces/notes"
 
 class UserService {
 	public async signUp(email: string, password: string): Promise<AxiosResponse> {
@@ -38,7 +39,7 @@ class UserService {
 		return res.data
 	}
 
-	public async getLoggedInUserNotes(): Promise<any> {
+	public async getLoggedInUserNotes(): Promise<UserNotes> {
 		const res = await axios.get(`http://localhost:3000/users/notes`, {
 			withCredentials: true,
 		})

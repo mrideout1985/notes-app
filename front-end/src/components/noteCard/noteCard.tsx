@@ -12,9 +12,9 @@ export interface NoteCardProps {
 	removeNote: any
 	id: string
 	complete: boolean
-	toggleComplete: any
+	toggleComplete?: any
 	setSubmitting: React.Dispatch<React.SetStateAction<boolean>>
-	submitting: boolean
+	submitting?: boolean
 }
 
 const NoteCard = ({

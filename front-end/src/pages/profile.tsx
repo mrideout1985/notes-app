@@ -4,14 +4,12 @@ import { userService } from "../services/userService"
 import styles from "../styles/pagestyles/profile.module.scss"
 import { DisplayNotes } from "./notes"
 
-type Props = {}
-
 interface NotesArray {
 	notes: DisplayNotes[]
 	completed: boolean
 }
 
-const Profile = (props: Props) => {
+const Profile = () => {
 	const [displayedNotes, setDisplayedNotes] = useState<NotesArray[]>()
 
 	const fetchNotes = () =>
@@ -36,11 +34,11 @@ const Profile = (props: Props) => {
 								displayedNotes?.filter(
 									el => el.completed === true
 								).length
-							}{" "}
+							}
 							completed notes.
 						</p>
 						<p>
-							You have{" "}
+							You have
 							{
 								displayedNotes?.filter(
 									el => el.completed === false
