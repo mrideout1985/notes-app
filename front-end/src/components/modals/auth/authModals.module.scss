@@ -1,55 +1,5 @@
-.btnGroup {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	button {
-		margin: 1rem;
-	}
-}
-
-.dropdown {
-	button {
-		&::before {
-			content: "";
-			transition: all 0.25s ease;
-			position: absolute;
-			top: 0;
-			left: 0;
-			height: 100%;
-			width: 100%;
-			border-radius: 50%;
-			z-index: -1;
-		}
-		&:hover::before {
-		}
-
-		&::after {
-			display: none;
-		}
-
-		svg {
-			transition: all 0.25s ease;
-		}
-
-		&:hover {
-			svg {
-				transform: scale(1.1);
-			}
-		}
-		&:focus {
-			border: none;
-			box-shadow: none;
-			svg {
-			}
-
-			&::before {
-			}
-		}
-	}
-}
-
 .overlay {
-	background-color: #ededed;
+	background-color: red;
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -58,58 +8,57 @@
 	display: grid;
 	place-items: center;
 	overflow-y: auto;
+	height: 100%;
 
 	.content {
-		background: #442a9d;
-		min-width: 370px;
-		min-height: 370px;
-		padding: 20px;
-		border-radius: 5px;
-		display: flex;
-		flex-direction: column;
-		position: relative;
-		align-items: center;
-		justify-content: center;
-		font-family: Montserrat;
-
-		h4 {
-			color: #ededed;
-			font-weight: 800;
-		}
+		height: 500px;
+		width: 350px;
+		background-color: white;
+		padding: 1rem;
+		border-radius: 8px;
+		font-family: montserrat;
 
 		form {
-			height: 100%;
 			display: flex;
-			justify-content: center;
-			align-items: left;
+			height: 100%;
 			flex-direction: column;
-			.input {
-				margin: 1rem 0;
-				color: #ebebeb;
+			box-sizing: border-box;
+			justify-content: space-between;
+
+			.textfields {
+				display: flex;
+				flex-direction: column;
+				box-sizing: border-box;
 
 				label {
-					margin: 0.2rem 0;
-					font-weight: 600;
-				}
-
-				input {
 					display: block;
-					background: #322e49;
 				}
-			}
+				.input {
+					margin: 1rem 0;
 
-			.errors {
+					label {
+						font-weight: 600;
+					}
+					input {
+						border-radius: 8px;
+						background-color: #cfcfcf;
+						padding: 0.5rem;
+						margin: 0.5rem 0;
+					}
+				}
+				.errors {
+					p {
+						word-wrap: break-word;
+					}
+				}
 			}
 
 			.buttons {
+				width: 100%;
 				display: flex;
 				justify-content: space-between;
-				height: 100%;
-				align-items: center;
-
 				button {
-					background-color: #ededed;
-					color: #07031a;
+					border: none;
 				}
 			}
 		}
