@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react"
-import Modal from "react-bootstrap/Modal"
 import Button from "react-bootstrap/Button"
 import { userService } from "../../../services/userService"
 import { useNavigate } from "react-router-dom"
@@ -8,7 +7,8 @@ import styles from "./authModals.module.scss"
 import { authErrors } from "../../../utils/formErrors"
 import DropdownButton from "react-bootstrap/DropdownButton"
 import Dropdown from "react-bootstrap/Dropdown"
-import { FeedPerson, XCircle } from "../../icons"
+import { FeedPerson } from "../../icons"
+import * as Dialog from "@radix-ui/react-dialog"
 import useUserStore from "../../../stores/store"
 
 interface LoginModalInterface {
@@ -99,48 +99,60 @@ const LoginModal = ({
 	return (
 		<>
 			{currentUser ? <DropDown /> : <LoginSignUp />}
-			<Modal
-				show={toggleLogin}
-				backdrop='static'
-				centered={true}
-				keyboard={false}
-				size='sm'
-				className={styles.modal}
-			>
-				<button
-					onClick={() => setToggleLogin(false)}
-					className={styles.closeIcon}
-				>
-					<XCircle />
-				</button>
-				<h4>Sign in to your account</h4>
-				<form onSubmit={handleSubmit(onSubmit)}>
-					<div className={styles.input}>
-						<input
-							type='text'
-							placeholder='Email'
-							{...register("email", authErrors.email)}
-						/>
-						<div className={styles.errors}>
-							{errors?.email && errors.email.message}
-						</div>
-					</div>
-					<div className={styles.input}>
-						<input
-							type='password'
-							placeholder='Password'
-							{...register("password", authErrors.password)}
-						/>
-						<div className={styles.errors}>
-							{errors?.password && errors?.password.message}
-							{errorStatus && errorStatus}
-						</div>
-					</div>
-					<div className={styles.buttons}>
-						<Button type='submit'>Sign in</Button>
-					</div>
-				</form>
-			</Modal>
+			<Dialog.Root open={toggleLogin}>
+				<Dialog.Trigger />
+				<Dialog.Portal>
+					<Dialog.Overlay className={styles.overlay}>
+						<Dialog.Content className={styles.content}>
+							<form onSubmit={handleSubmit(onSubmit)}>
+								<div className={styles.textfields}>
+									<div className={styles.input}>
+										<label htmlFor='email'>Email</label>
+										<input
+											id='email'
+											type='text'
+											{...register(
+												"email",
+												authErrors.email
+											)}
+										/>
+										<div className={styles.errors}>
+											{errors?.email &&
+												errors.email.message}
+										</div>
+									</div>
+									<div className={styles.input}>
+										<label htmlFor='password'>
+											Password
+										</label>
+										<input
+											id='password'
+											type='password'
+											{...register(
+												"password",
+												authErrors.password
+											)}
+										/>
+										<div className={styles.errors}>
+											{errors?.password &&
+												errors?.password.message}
+											{errorStatus && errorStatus}
+										</div>
+									</div>
+								</div>
+								<div className={styles.buttons}>
+									<button type='submit'>Sign in</button>
+									<button
+										onClick={() => setToggleLogin(false)}
+									>
+										Cancel
+									</button>
+								</div>
+							</form>
+						</Dialog.Content>
+					</Dialog.Overlay>
+				</Dialog.Portal>
+			</Dialog.Root>
 		</>
 	)
 }
