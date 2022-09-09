@@ -15,16 +15,7 @@ const Navbar = () => {
 				</NavLink>
 			</div>
 			<div className={styles.userButtons}>
-				<button
-					onClick={() =>
-						userActions.logIn(
-							"mrideout1985@gmail.com",
-							"dr4g0ner123"
-						)
-					}
-				>
-					Login
-				</button>
+				<button onClick={() => userActions.logIn("", "")}>Login</button>
 				<button onClick={() => userActions.logOut()}>Logout</button>
 			</div>
 		</nav>
