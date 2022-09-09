@@ -18,7 +18,7 @@ export class UserController {
 	constructor(
 		private userService: UserService,
 		private jwtService: JwtService
-	) {}
+	) { }
 
 	@Post("register")
 	async register(
@@ -65,7 +65,8 @@ export class UserController {
 		})
 
 		return {
-			message: "success",
+			message: "Successfully Logged In",
+			user
 		}
 	}
 

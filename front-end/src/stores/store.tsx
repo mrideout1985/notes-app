@@ -1,12 +1,13 @@
 import create from "zustand"
 import { persist } from "zustand/middleware"
+import { userService } from "../services/userService"
 
 type State = {
 	currentUser: any
 }
 
 type Actions = {
-	setCurrentUser: any
+	logIn: any
 	logOut: any
 }
 
@@ -14,10 +15,31 @@ const useUserStore = create<State & Actions>()(
 	persist(
 		(set, get) => ({
 			currentUser: null,
-			setCurrentUser: (currentUser: string) => {
-				set({ currentUser })
+			logIn: async (email: string, password: string) => {
+				await fetch("http://localhost:3000/users/login", {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					credentials: "include",
+					body: JSON.stringify({ email, password }),
+				})
+					.then(response => {
+						if (response.status === 201) {
+							return response.json()
+						}
+						set({
+							currentUser: null,
+						})
+					})
+					.then(data => {
+						set({ currentUser: data.user.email })
+					})
 			},
-			logOut: () => {
+			logOut: async () => {
+				await fetch("http://localhost:3000/users/logout", {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					credentials: "include",
+				})
 				set({
 					currentUser: null,
 				})
