@@ -1,70 +1,65 @@
-import * as Dialog from "@radix-ui/react-dialog"
-import { Button } from "@radix-ui/react-toolbar"
 import { useState } from "react"
-import { useFormContext } from "react-hook-form"
+import { Button, Modal } from "react-bootstrap"
+import { useForm, useFormContext } from "react-hook-form"
 import { authErrors } from "../../../../utils/formErrors"
 import { Form } from "../../../form/form"
 import styles from "./authModal.module.scss"
 interface AuthModalProps {
 	onSubmit: () => void
+	open: boolean
 }
 
 const AuthModal = ({ onSubmit }: AuthModalProps) => {
-	const [errorStatus, setErrorStatus] = useState<string | undefined>()
-	const methods = useFormContext()
-
+	const [errorsStatus, setErrorStatus] = useState<string | undefined>()
+	const { register, handleSubmit } = useForm()
 	return (
-		<Dialog.Root>
-			<Dialog.Trigger />
-			<Dialog.Portal>
-				<Dialog.Overlay />
-				<Dialog.Content>
-					<Dialog.Title />
-					<Dialog.Description />
-					<Dialog.Close />
-					<Form onSubmit={methods.handleSubmit(onSubmit)}>
-						<div className={styles.textfields}>
-							<div className={styles.input}>
-								<label htmlFor='email'>Email</label>
-								<input
-									id='email'
-									type='text'
-									{...methods.register(
-										"email",
-										authErrors.email
-									)}
-								/>
-								<div className={styles.errors}>
-									{methods.formState.errors?.email &&
-										methods.formState.errors.email.message}
-								</div>
-							</div>
-							<div className={styles.input}>
-								<label htmlFor='password'>Password</label>
-								<input
-									id='password'
-									type='password'
-									{...methods.register(
-										"password",
-										authErrors.password
-									)}
-								/>
-								<div className={styles.errors}>
-									{methods.formState.errors?.password &&
-										methods.formState.errors?.password
-											.message}
-									{errorStatus && errorStatus}
-								</div>
+		<Modal
+			size='lg'
+			aria-labelledby='contained-modal-title-vcenter'
+			centered
+		>
+			<Modal.Header closeButton>
+				<Modal.Title id='contained-modal-title-vcenter'>
+					Modal heading
+				</Modal.Title>
+			</Modal.Header>
+			<Modal.Body>
+				<Form onSubmit={handleSubmit(onSubmit)}>
+					<div className={styles.textfields}>
+						<div className={styles.input}>
+							<label htmlFor='email'>Email</label>
+							<input
+								id='email'
+								type='text'
+								{...register("email", authErrors.email)}
+							/>
+							<div className={styles.errors}>
+								{/* {errors?.email && errors.email.message} */}
 							</div>
 						</div>
-						<div className={styles.buttons}>
-							<Button type='submit'>Sign in</Button>
-							<Button className={styles.closeIcon}>Cancel</Button>
+						<div className={styles.input}>
+							<label htmlFor='password'>Password</label>
+							<input
+								id='password'
+								type='password'
+								{...register("password", authErrors.password)}
+							/>
+							<div className={styles.errors}>
+								{/* {errors?.password && errors?.password.message} */}
+								{errorsStatus && errorsStatus}
+							</div>
 						</div>
-					</Form>
-				</Dialog.Content>
-			</Dialog.Portal>
-		</Dialog.Root>
+					</div>
+					<div className={styles.buttons}>
+						<Button type='submit'>Sign in</Button>
+						<Button className={styles.closeIcon}>Cancel</Button>
+					</div>
+				</Form>
+			</Modal.Body>
+			<Modal.Footer>
+				<Button>Close</Button>
+			</Modal.Footer>
+		</Modal>
 	)
 }
 

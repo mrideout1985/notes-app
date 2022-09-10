@@ -1,10 +1,9 @@
 {
-    "scripts": {
-        "start": "cd back-end & start npm run start:dev && cd ../front-end & start npm start",
-        "build": "cd back-end & npm run build && cd ../front-end & npm run build"
-    },
-    "dependencies": {
-        "@radix-ui/react-dialog": "^1.0.0",
-        "@radix-ui/react-toolbar": "^1.0.0"
-    }
+  "scripts": {
+    "start": "cd back-end & start npm run start && cd ../front-end & start npm start",
+    "build": "cd back-end & npm run build && cd ../front-end & npm run build"
+  },
+  "dependencies": {
+    "react-bootstrap": "^2.5.0"
+  }
 }

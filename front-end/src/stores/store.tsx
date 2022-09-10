@@ -44,6 +44,13 @@ const useUserStore = create<State & Actions>()(
 					currentUser: null,
 				})
 			},
+			signUp: async (email: string, password: string) => {
+				await fetch("http://localhost:3000/users/register", {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({ email, password }),
+				})
+			},
 		}),
 		{ name: "storage" }
 	)

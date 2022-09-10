@@ -1,5 +1,4 @@
 import React from "react"
-import Modal from "react-bootstrap/Modal"
 import SvgXCircle from "../../../icons/XCircle"
 import SvgCheckCircle from "../../../icons/CheckCircle"
 import { useFormContext } from "react-hook-form"
@@ -9,6 +8,7 @@ import { Input } from "../../../form/input"
 import { TextArea } from "../../../form/textarea"
 import styles from "./addNoteModal.module.scss"
 import useUserStore from "../../../../stores/store"
+import Modal from "react-bootstrap/Modal"
 
 type AddNoteModalProps = {
 	show: boolean

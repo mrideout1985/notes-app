@@ -1,3 +1,4 @@
+import { useState } from "react"
 import { NavLink } from "react-router-dom"
 import useUserStore from "../../stores/store"
 import SvgNote from "../icons/Note"
@@ -6,6 +7,7 @@ import styles from "./navbar.module.scss"
 
 const Navbar = () => {
 	const userActions = useUserStore()
+	const [authModalOpen, setAuthModalOpen] = useState(false)
 
 	return (
 		<>
@@ -16,11 +18,19 @@ const Navbar = () => {
 					</NavLink>
 				</div>
 				<div className={styles.userButtons}>
-					<button>Login</button>
 					<button onClick={() => userActions.logOut()}>Logout</button>
+					<button onClick={() => setAuthModalOpen(true)}>
+						LogIn
+					</button>
+					<button onClick={() => setAuthModalOpen(true)}>
+						Sign Up
+					</button>
 				</div>
 			</nav>
-			<AuthModal onSubmit={() => console.log("onsubmit")}></AuthModal>
+			<AuthModal
+				onSubmit={() => console.log("onsubmit")}
+				open={authModalOpen}
+			/>
 		</>
 	)
 }
