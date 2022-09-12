@@ -31,7 +31,7 @@ const AddNoteModal = ({
 			await notesApi.addNote({
 				...data,
 				completed: false,
-				email: currentUser.email,
+				email: currentUser,
 			})
 		} finally {
 			setShow(false)
