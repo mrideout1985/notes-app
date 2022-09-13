@@ -29,7 +29,7 @@ class UserService {
 				{ withCredentials: true }
 			).then(res => {
 				if (res.status === 201) {
-					return res.data
+					return res
 				}
 				if (res.status === 400) {
 					return "error message 123"

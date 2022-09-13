@@ -1,8 +1,7 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react"
+import { Dispatch, SetStateAction, useState } from "react"
 import { Button, Form, Modal } from "react-bootstrap"
 import { useForm } from "react-hook-form"
 import { userService } from "../../../../services/userService"
-import useUserStore from "../../../../stores/store"
 import { authErrors } from "../../../../utils/formErrors"
 import styles from "./authModal.module.scss"
 

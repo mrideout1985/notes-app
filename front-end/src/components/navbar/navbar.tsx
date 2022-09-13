@@ -16,7 +16,6 @@ const Navbar = () => {
 
 	const handleLogout = () => {
 		userService.logout().then(() => setUser(null))
-		setAuthModalOpen({ login: false, signIn: false })
 	}
 
 	const handleAuthButtons = (currentUser: string | null) => {

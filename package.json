@@ -2,8 +2,5 @@
   "scripts": {
     "start": "cd back-end & start npm run start && cd ../front-end & start npm start",
     "build": "cd back-end & npm run build && cd ../front-end & npm run build"
-  },
-  "dependencies": {
-    "react-bootstrap": "^2.5.0"
   }
 }

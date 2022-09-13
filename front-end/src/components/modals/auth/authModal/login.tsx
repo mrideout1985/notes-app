@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useEffect, useState } from "react"
 import { Button, Form, Modal } from "react-bootstrap"
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form"
+import { useForm } from "react-hook-form"
 import { userService } from "../../../../services/userService"
 import useUserStore from "../../../../stores/store"
 import { authErrors } from "../../../../utils/formErrors"
@@ -14,14 +14,14 @@ interface LoginProps {
 const Login = ({ open, setAuthOpen }: LoginProps) => {
 	const [errorsStatus, setErrorStatus] = useState<string | undefined>()
 	const loginAuth = userService
-	const { setUser } = useUserStore()
+	const { setUser, currentUser } = useUserStore()
 	const { register, handleSubmit, formState, reset, clearErrors, watch } =
 		useForm()
 
 	const handleLogin = (data: any) => {
 		loginAuth.login(data.email, data.password).then(res => {
 			if (res.status === 201) {
-				setUser(res.data.user.email)
+				setUser(data.email)
 				setAuthOpen({ login: false, signIn: false })
 			}
 			setErrorStatus("Invalid Credentials - Please try again")
@@ -91,7 +91,7 @@ const Login = ({ open, setAuthOpen }: LoginProps) => {
 									{formState.errors?.password &&
 										formState.errors.password.message}
 								</li>
-								<li>{handleError}</li>
+								<li>{handleError()}</li>
 							</ul>
 						</Form.Text>
 					</Form.Group>
