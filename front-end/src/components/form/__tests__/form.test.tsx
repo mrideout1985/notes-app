@@ -8,7 +8,7 @@ describe("form component", () => {
 	const formComponent = () =>
 		render(
 			<Form
-				onSubmit={onSubmit(() => console.log("onSubmit"), handleError)}
+				onSubmit={() => {}}
 				handleError={handleError}
 				children='Children'
 			/>

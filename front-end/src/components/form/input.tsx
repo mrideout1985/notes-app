@@ -41,7 +41,7 @@ const Input = ({
 				className={styles.errors}
 				data-testid='errors-container-element'
 			>
-				{errors && errors?.[fieldName] && errors?.[fieldName].message}
+				{errors && errors?.[fieldName] && errors?.[fieldName]?.message}
 			</div>
 		</>
 	)

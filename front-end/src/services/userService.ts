@@ -3,15 +3,23 @@ import { UserNotes } from "../interfaces/notes"
 
 class UserService {
 	public async signUp(email: string, password: string): Promise<AxiosResponse> {
-		const res = await axios.post(`http://localhost:3000/users/register`, {
+		return await axios.post(`http://localhost:3000/users/register`, {
 			email,
 			password,
-		})
-		return res
+
+		}, { withCredentials: true }
+		).then(res => {
+			if (res.status === 201) {
+				return res
+			}
+			if (res.status === 500) {
+				return new Error("Error Message")
+			}
+		}).catch(err => err)
 	}
 
 	public async login(email: string, password: string): Promise<AxiosResponse> {
-		const res = await axios
+		return await axios
 			.post(
 				`http://localhost:3000/users/login`,
 				{
@@ -19,17 +27,19 @@ class UserService {
 					password,
 				},
 				{ withCredentials: true }
-			)
-			.then(response => response)
-		return res
+			).then(res => {
+				if (res.status === 201) {
+					return res
+				}
+				if (res.status === 400) {
+					return "error message 123"
+				}
+			}).catch(err => err)
+
 	}
 
 	public async logout(): Promise<void> {
-		await fetch("http://localhost:3000/users/logout", {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			credentials: "include",
-		})
+		await axios.post("http://localhost:3000/users/logout", {}, { withCredentials: true })
 	}
 
 	public async getLoggedInUser(): Promise<AxiosResponse> {
