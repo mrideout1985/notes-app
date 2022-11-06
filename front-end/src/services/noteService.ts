@@ -5,7 +5,7 @@ class NoteService {
 		await axios.post(`http://localhost:3000/notes`, note)
 	}
 
-	public async updateNote(id: string, update: string): Promise<void> {
+	public async updateNote(id: string, update: boolean): Promise<void> {
 		await axios.patch(`http://localhost:3000/notes/${id}`, update)
 	}
 

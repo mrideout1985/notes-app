@@ -12,7 +12,6 @@ import styles from "./editNoteModal.module.scss"
 type EditNoteModalProps = {
 	show: boolean
 	fetchNotes?: () => void
-	setSubmitting: React.Dispatch<React.SetStateAction<boolean>>
 	setShow: React.Dispatch<React.SetStateAction<boolean>>
 	id: string
 	description: string
@@ -21,7 +20,6 @@ type EditNoteModalProps = {
 
 const EditNoteModal = ({
 	fetchNotes,
-	setSubmitting,
 	show,
 	setShow,
 	id,
@@ -33,15 +31,12 @@ const EditNoteModal = ({
 	const editNotes = () => {}
 
 	const onSubmit = async (data: any) => {
-		setSubmitting(true)
-
 		try {
 			await notesApi.updateNote(id, data)
 		} finally {
 			setShow(false)
 		}
 		editNotes()
-		setSubmitting(false)
 		resetField("title")
 		resetField("description")
 	}

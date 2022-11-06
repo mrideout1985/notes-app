@@ -13,7 +13,7 @@ import Modal from "react-bootstrap/Modal"
 type AddNoteModalProps = {
 	show: boolean
 	fetchNotes: () => void
-	setSubmitting: React.Dispatch<React.SetStateAction<boolean>>
+	setSubmitting: boolean
 	setShow: React.Dispatch<React.SetStateAction<boolean>>
 }
 
@@ -26,7 +26,6 @@ const AddNoteModal = ({
 	const { handleSubmit, resetField } = useFormContext()
 	const { currentUser } = useUserStore()
 	const onSubmit = async (data: any) => {
-		setSubmitting(true)
 		try {
 			await notesApi.addNote({
 				...data,
@@ -37,7 +36,6 @@ const AddNoteModal = ({
 			setShow(false)
 		}
 		fetchNotes()
-		setSubmitting(false)
 		resetField("title")
 		resetField("description")
 	}

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { notesApi } from "../services/noteService"
 import { userService } from "../services/userService"
 import { NoteCard, NoteCardProps } from "../components/noteCard/noteCard"
@@ -6,6 +6,9 @@ import { AddNoteModal } from "../components/modals/notes/addNoteModal/addNoteMod
 import SvgPlusCircle from "../components/icons/PlusCircle"
 import Spinner from "react-bootstrap/Spinner"
 import styles from "../styles/pagestyles/notes.module.scss"
+import useGetUserNotes from "../api/hooks/getUserNotes"
+import { UserNotes } from "../interfaces/notes"
+import { Note } from "../components/icons"
 
 export interface DisplayNotes {
 	title: string
@@ -15,32 +18,41 @@ export interface DisplayNotes {
 	__v?: number
 }
 
-interface NotesArray {
+interface Notes {
 	notes: DisplayNotes[]
 }
 
 const Notes = () => {
-	const [submitting, setSubmitting] = useState(false)
-	const [displayedNotes, setDisplayedNotes] = useState<NotesArray[]>()
 	const [showModal, setShowModal] = useState(false)
+	const { data, done } = useGetUserNotes<Notes>(
+		"http://localhost:3000/users/notes"
+	)
 
-	const fetchNotes = () =>
-		userService
-			.getLoggedInUserNotes()
-			.then(res => setDisplayedNotes(res.notes))
-
-	useEffect(() => {
-		fetchNotes()
-	}, [submitting])
+	const handleNotes = () => {
+		if (done) {
+			return data?.notes.map((note: DisplayNotes) => (
+				<NoteCard
+					complete={note.completed}
+					description={note.description}
+					id=''
+					key={note._id}
+					submitting={done}
+					toggleComplete={handleCompleted}
+					title={note.title}
+					removeNote={removeNote}
+				/>
+			))
+		} else {
+			return <div style={{ background: "red" }}>Loading...</div>
+		}
+	}
 
 	const removeNote = (noteId: string, email: string) => {
 		notesApi.removeNote(noteId, email)
-		fetchNotes()
 	}
 
-	const handleCompleted = (noteId: string, completed: string) => {
+	const handleCompleted = (noteId: string, completed: boolean) => {
 		notesApi.updateNote(noteId, completed)
-		fetchNotes()
 	}
 
 	return (
@@ -54,37 +66,7 @@ const Notes = () => {
 					<SvgPlusCircle size={35} />
 				</button>
 			</div>
-			<AddNoteModal
-				fetchNotes={fetchNotes}
-				show={showModal}
-				setSubmitting={setSubmitting}
-				setShow={setShowModal}
-			/>
-			{submitting ? (
-				<div className={styles.spinnerContainer}>
-					<Spinner
-						animation='border'
-						role='status'
-						variant='warning'
-					/>
-				</div>
-			) : (
-				<div className={styles.notes}>
-					{displayedNotes?.map((note: any) => (
-						<NoteCard
-							title={note.title}
-							description={note.description}
-							key={note._id}
-							id={note._id}
-							removeNote={removeNote}
-							complete={note.completed}
-							toggleComplete={handleCompleted}
-							setSubmitting={setSubmitting}
-							submitting={submitting}
-						/>
-					))}
-				</div>
-			)}
+			<div>{handleNotes()}</div>
 		</div>
 	)
 }

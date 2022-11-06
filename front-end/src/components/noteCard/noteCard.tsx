@@ -12,8 +12,7 @@ export interface NoteCardProps {
 	removeNote: any
 	id: string
 	complete: boolean
-	toggleComplete?: any
-	setSubmitting: React.Dispatch<React.SetStateAction<boolean>>
+	toggleComplete: (noteId: string, completed: boolean) => void
 	submitting?: boolean
 }
 
@@ -24,7 +23,6 @@ const NoteCard = ({
 	toggleComplete,
 	id,
 	complete,
-	setSubmitting,
 }: NoteCardProps) => {
 	const [toggleModal, setToggleModal] = useState(false)
 	const currentUser = useUserStore()
@@ -60,9 +58,7 @@ const NoteCard = ({
 					<div className={styles["buttons"]}>
 						<button
 							className={styles["complete"]}
-							onClick={() =>
-								toggleComplete(id, { completed: !complete })
-							}
+							onClick={() => toggleComplete(id, !complete)}
 						>
 							<SvgCheckCircle
 								color={complete ? "green" : "black"}
@@ -85,7 +81,6 @@ const NoteCard = ({
 			</div>
 			<EditNoteModal
 				show={toggleModal}
-				setSubmitting={setSubmitting}
 				setShow={setToggleModal}
 				id={id}
 				title={title}

@@ -14,7 +14,6 @@ describe("hello", () => {
 				title={"Test"}
 				id={"1"}
 				removeNote={() => mockRemove}
-				setSubmitting={mockSubmitting}
 				submitting={false}
 				toggleComplete={false}
 			/>
