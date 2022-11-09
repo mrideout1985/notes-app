@@ -1,21 +1,16 @@
+import { HttpException, HttpStatus, Injectable, Req } from "@nestjs/common"
 import { JwtService } from "@nestjs/jwt"
-import { UserDto } from "./../dto/userDto"
-import {
-	HttpException,
-	HttpStatus,
-	Injectable,
-	Req,
-} from "@nestjs/common"
+import { InjectModel } from "@nestjs/mongoose"
 import { Model } from "mongoose"
 import { User } from "src/entities/user.entity"
-import { InjectModel } from "@nestjs/mongoose"
+import { UserDto } from "./../dto/userDto"
 
 @Injectable()
 export class UserService {
 	constructor(
 		@InjectModel("User") private userModel: Model<User>,
 		private jwtService: JwtService
-	) { }
+	) {}
 
 	async registerUser(createUserDto: UserDto): Promise<User> {
 		const { email } = createUserDto
@@ -76,7 +71,8 @@ export class UserService {
 
 	async getUserNotes(@Req() request): Promise<any> {
 		const cookie = request.cookies["jwt"]
-		let data
+		let data: User
+
 		if (cookie !== undefined) {
 			data = await this.jwtService.verifyAsync(cookie)
 		}
