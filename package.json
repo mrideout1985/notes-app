@@ -2,5 +2,8 @@
   "scripts": {
     "start": "cd back-end & start npm run start && cd ../front-end & start npm start",
     "build": "cd back-end & npm run build && cd ../front-end & npm run build"
+  },
+  "dependencies": {
+    "axios": "^1.1.3"
   }
 }
