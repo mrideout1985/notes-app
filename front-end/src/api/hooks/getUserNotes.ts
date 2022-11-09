@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 function useGetUserNotes<Payload>(url: string): {
 	data: Payload | undefined
@@ -6,6 +6,8 @@ function useGetUserNotes<Payload>(url: string): {
 } {
 	const [data, setData] = useState<Payload>()
 	const [done, setDone] = useState(false)
+
+	useEffect(() => {})
 
 	return {
 		data,
