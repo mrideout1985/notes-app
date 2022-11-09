@@ -1,6 +1,6 @@
-import { NoteDto } from "./../dto/noteDto"
 import { Test, TestingModule } from "@nestjs/testing"
 import { NoteService } from "../services/notes.service"
+import { NoteDto } from "./../dto/noteDto"
 import { NotesController } from "./notes.controller"
 
 // const moduleMocker = new ModuleMocker(global)
@@ -54,7 +54,7 @@ describe("NotesController", () => {
 
 	it("calls the remove method", () => {
 		let id = "123058124FAD9"
-		controller.remove(id)
+		controller.remove(id, 2)
 		expect(spyService.remove).toHaveBeenCalled()
 	})
 })

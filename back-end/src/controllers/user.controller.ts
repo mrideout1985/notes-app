@@ -8,25 +8,24 @@ import {
 	Req,
 	Res,
 } from "@nestjs/common"
-import { UserService } from "../services/user.service"
-import { Response, Request } from "express"
 import { JwtService } from "@nestjs/jwt"
 import * as bcrypt from "bcrypt"
+import { Request, Response } from "express"
+import { UserService } from "../services/user.service"
 
 @Controller("users")
 export class UserController {
 	constructor(
 		private userService: UserService,
 		private jwtService: JwtService
-	) { }
+	) {}
 
-	@Post("register")
+	@Post("auth/register")
 	async register(
 		@Body("email") email: string,
 		@Body("password") password: string
 	) {
 		const hashedPassword = await bcrypt.hash(password, 12)
-
 		const user = await this.userService.registerUser({
 			email,
 			password: hashedPassword,
@@ -36,37 +35,29 @@ export class UserController {
 		return user
 	}
 
-	@Post("login")
+	@Post("auth/login")
 	async login(
 		@Body("email") email: string,
 		@Body("password") password: string,
 		@Res({ passthrough: true }) response: Response
 	) {
 		const user = await this.userService.loginUser({ email })
-
-		if (!user) {
-			throw new HttpException(
-				"invalid credentials",
-				HttpStatus.BAD_REQUEST
-			)
-		}
-
-		if (!(await bcrypt.compare(password, user.password))) {
-			throw new HttpException(
-				"invalid credentials",
-				HttpStatus.BAD_REQUEST
-			)
-		}
-
 		const jwt = await this.jwtService.signAsync({ email: email })
 
 		response.cookie("jwt", jwt, {
 			httpOnly: true,
 		})
 
+		if (!user || !(await bcrypt.compare(password, user.password))) {
+			throw new HttpException(
+				"invalid credentials",
+				HttpStatus.BAD_REQUEST
+			)
+		}
+
 		return {
 			message: "Successfully Logged In",
-			user
+			user,
 		}
 	}
 
