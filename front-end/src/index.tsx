@@ -1,12 +1,11 @@
 /* eslint-disable no-restricted-globals */
-import { BrowserRouter, Routes, Route } from "react-router-dom"
-import App from "./App"
+import "open-props/normalize"
+import "open-props/style"
 import React from "react"
 import ReactDOM from "react-dom"
-import "open-props/style"
-import "open-props/normalize"
+import { BrowserRouter, Route, Routes } from "react-router-dom"
+import App from "./App"
 import "./index.scss"
-import "bootstrap/dist/css/bootstrap.min.css"
 
 ReactDOM.render(
 	<React.StrictMode>
