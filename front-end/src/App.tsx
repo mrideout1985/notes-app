@@ -1,4 +1,5 @@
 import { FormProvider, useForm } from "react-hook-form"
+import Layout from "./components/layout/Layout"
 
 function App() {
 	const methods = useForm()
@@ -6,7 +7,9 @@ function App() {
 	return (
 		<>
 			<FormProvider {...methods}>
-				<div>Hello</div>
+				<Layout>
+					<div>Wank Me Off Son</div>
+				</Layout>
 			</FormProvider>
 		</>
 	)
