@@ -3,7 +3,7 @@ import styles from "./Button.module.scss"
 
 interface ButtonProps {
 	className?: string
-	onClick: () => void
+	onClick: any
 	type: "button" | "submit" | "reset" | undefined
 	text: string
 }

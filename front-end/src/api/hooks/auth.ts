@@ -1,15 +1,21 @@
-import axios, { AxiosResponse } from "axios"
-import { useEffect, useState } from "react"
+import axios from "axios"
+import { useState } from "react"
+import useUserStore from "../../stores/store"
 
 const API_URL = "http://localhost:3000/users/auth/"
 
-const useAuth = (authEndPoint: string, email: string, password: string) => {
+const useAuth = () => {
 	const [loading, setIsLoading] = useState<boolean>(false)
-	const [response, setResponse] = useState<AxiosResponse<any, any>>()
 	const [error, setError] = useState<Error>()
+	const { currentUser } = useUserStore()
 
-	useEffect(() => {
-		axios
+	const execute = async (
+		authEndPoint: string,
+		email: string,
+		password: string
+	) => {
+		setIsLoading(true)
+		await axios
 			.post(
 				API_URL + authEndPoint,
 				{ email, password },
@@ -17,18 +23,14 @@ const useAuth = (authEndPoint: string, email: string, password: string) => {
 					withCredentials: true,
 				}
 			)
-			.then(res => {
-				setIsLoading(true)
-				setResponse(res)
+			.then(() => {
+				setIsLoading(false)
 			})
-			.catch((error: Error) => {
-				setError(new Error(error.message))
-			})
-	}, [authEndPoint, email, password])
+	}
 
 	return {
+		execute,
 		loading,
-		response,
 		error,
 	}
 }
