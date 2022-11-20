@@ -6,14 +6,14 @@ import React, {
 	useState,
 } from "react"
 
-interface UserContextProps {
+interface AuthContextProps {
 	user: string | null
 	setUser: Dispatch<SetStateAction<string | null>>
 	userAuth: (a: string, b: string, c: string) => Promise<void>
 	logout: () => Promise<void>
 }
 
-export const UserContext = createContext<UserContextProps>({
+export const AuthContext = createContext<AuthContextProps>({
 	user: "",
 	setUser: () => {},
 	userAuth: async () => {},
@@ -82,9 +82,9 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	)
 
 	return (
-		<UserContext.Provider value={providerValue}>
+		<AuthContext.Provider value={providerValue}>
 			{children}
-		</UserContext.Provider>
+		</AuthContext.Provider>
 	)
 }
 
