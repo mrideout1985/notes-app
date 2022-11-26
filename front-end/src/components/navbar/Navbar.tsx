@@ -1,38 +1,32 @@
-import { useContext, useState } from "react"
-import { useFormContext } from "react-hook-form"
+import { useContext } from "react"
+import { Link } from "react-router-dom"
 import { Button } from "reactstrap"
 import { AuthContext } from "../../stores/AuthProvider"
-import AuthModal from "../authmodal/AuthModal"
 import styles from "./Navbar.module.scss"
 
 const Navbar = () => {
 	const auth = useContext(AuthContext)
-	const [open, setOpen] = useState(false)
-	const form = useFormContext()
 
-	const closeModal = () => {
-		setOpen(false)
-	}
+	console.log(auth?.user)
 
-	const openModal = () => {
-		setOpen(true)
+	const handleLogout = () => {
+		auth?.logout()
 	}
 
 	return (
 		<>
 			<nav className={styles.navbar}>
 				<div className={styles.button_group}>
-					{!auth.user ? (
+					{!auth?.user ? (
 						<>
-							<Button onClick={openModal}>Login</Button>
-							<Button onClick={openModal}>Register</Button>
+							<Link to='/login'>Login</Link>
+							<Link to='/register'>Register</Link>
 						</>
 					) : (
-						<Button>Logout</Button>
+						<Button onClick={handleLogout}>Logout</Button>
 					)}
 				</div>
 			</nav>
-			<AuthModal isOpen={open} closeModal={closeModal} />
 		</>
 	)
 }

@@ -1,0 +1,47 @@
+form {
+	fieldset {
+		margin: 0;
+		border: none;
+		padding: 3rem;
+		border-bottom: 1px #a1a1a1 solid;
+		legend {
+			position: absolute;
+			left: -5000px;
+		}
+		.controls_container {
+			.controls {
+				label {
+					display: flex;
+					justify-content: space-between;
+					font-weight: 500;
+					width: 100%;
+					min-width: 257px;
+
+					div {
+						font-weight: 400;
+						font-size: 1rem;
+						color: #000;
+					}
+				}
+
+				input[type="text"],
+				input[type="password"] {
+					outline: none;
+					border: 1px solid #dddddd;
+					width: 100%;
+					padding: 0.5rem 1rem;
+					margin: 0.8rem 0;
+					display: inline-block;
+					border-radius: 0.4rem;
+					box-sizing: border-box;
+				}
+
+				input[type="text"]:focus,
+				input[type="password"]:focus {
+					box-shadow: 0 0 0.5rem var(--pink-7);
+					border: 1px solid var(--pink-8);
+				}
+			}
+		}
+	}
+}

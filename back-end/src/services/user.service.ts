@@ -18,10 +18,10 @@ export class UserService {
 		if (user) {
 			throw new HttpException(
 				{
-					status: HttpStatus.INTERNAL_SERVER_ERROR,
+					status: HttpStatus.FORBIDDEN,
 					error: "User already exists",
 				},
-				HttpStatus.INTERNAL_SERVER_ERROR
+				HttpStatus.FORBIDDEN
 			)
 		}
 		const createdUser = new this.userModel(createUserDto)

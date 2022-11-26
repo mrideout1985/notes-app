@@ -9,74 +9,104 @@ import React, {
 interface AuthContextProps {
 	user: string | null
 	setUser: Dispatch<SetStateAction<string | null>>
-	userAuth: (a: string, b: string, c: string) => Promise<void>
+	register: (
+		email: string,
+		password: string
+	) => Promise<{ loading: boolean; error: Error | undefined }>
+	login: (
+		email: string,
+		password: string
+	) => Promise<{ loading: boolean; error: Error | undefined }>
 	logout: () => Promise<void>
 }
 
-export const AuthContext = createContext<AuthContextProps>({
-	user: "",
-	setUser: () => {},
-	userAuth: async () => {},
-	logout: async () => {},
-})
+export const AuthContext = createContext<AuthContextProps | null>(null)
+
+interface User {
+	user: {
+		email: string
+		notes: []
+		_id: string
+	}
+}
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	const [user, setUser] = useState<string | null>(null)
 	const [loading, setIsLoading] = useState<boolean>(false)
-	const [error, setError] = useState<Error | undefined>()
+	const [error, setError] = useState<Error>()
 
-	const userAuth = async (
-		authEndPoint: string,
-		email: string,
-		password: string
-	) => {
+	const register = async (email: string, password: string) => {
 		setIsLoading(true)
-		await fetch(`http://localhost:3000/users/auth/${authEndPoint}`, {
+		await fetch(`http://localhost:3000/users/auth/register`, {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			credentials: "include",
 			body: JSON.stringify({ email, password }),
 		})
-			.then((response: Response) => {
-				return response.json()
+			.then(res => res.json())
+			.then(result => {
+				if (result.status === 403) {
+					throw new Error(result.error)
+				} else {
+					throw new Error("Something went wrong")
+				}
 			})
-			.then(data => {
-				setUser(data.user.email)
-				setIsLoading(false)
-				setError(undefined)
-			})
-			.catch((error: Error) => {
+			.catch(error => {
 				setError(error)
 			})
+
+		return {
+			loading,
+			error,
+		}
+	}
+
+	const login = async (email: string, password: string) => {
+		setIsLoading(true)
+		await fetch(`http://localhost:3000/users/auth/login`, {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			credentials: "include",
+			body: JSON.stringify({ email, password }),
+		})
+			.then(res => {
+				if (!res.ok) {
+					return console.log("failed", res.body)
+				}
+				return res.json()
+			})
+			.then((user: User) => {
+				setUser(user.user.email)
+			})
+			.catch((responseError: Error) => {})
+			.finally(() => {
+				setIsLoading(false)
+			})
+		return {
+			loading,
+			error,
+		}
 	}
 
 	const logout = async () => {
-		setIsLoading(true)
 		await fetch("http://localhost:3000/users/auth/logout", {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			credentials: "include",
 		})
-			.then(() => {
-				setUser(null)
-				setIsLoading(false)
-				setError(undefined)
-			})
-			.catch((error: Error) => {
-				setError(error)
-			})
 	}
 
 	const providerValue = useMemo(
 		() => ({
 			user,
 			setUser,
-			userAuth,
+			register,
+			logout,
 			loading,
 			error,
 			setIsLoading,
 			setError,
-			logout,
+			login,
 		}),
 		[error, loading, user]
 	)
