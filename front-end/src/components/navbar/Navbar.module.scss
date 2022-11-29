@@ -1,8 +1,19 @@
 .navbar {
 	width: 100%;
-	height: 5rem;
-	background-color: seagreen;
-	&button_group {
-		background-color: purple;
+	height: 3rem;
+	position: absolute;
+	top: 0;
+	background-color: var(--blue-7);
+
+	.button_group {
+		display: flex;
+		height: 100%;
+		align-items: center;
+		justify-content: end;
+
+		a {
+			text-decoration: none;
+			margin: 0;
+		}
 	}
 }

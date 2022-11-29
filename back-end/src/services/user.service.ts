@@ -34,6 +34,7 @@ export class UserService {
 	async loginUser(userDto: Partial<User>): Promise<User> {
 		const { email } = userDto
 		const user = await this.userModel.findOne({ email })
+
 		if (!user) {
 			throw new HttpException(
 				{
@@ -43,6 +44,7 @@ export class UserService {
 				HttpStatus.NOT_FOUND
 			)
 		}
+
 		return this.userModel.findOne(userDto)
 	}
 

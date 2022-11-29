@@ -1,61 +1,85 @@
-import React from "react"
-import { FieldErrorsImpl, UseFormRegister, UseFormReset } from "react-hook-form"
-import { Button } from "reactstrap"
-import { AuthValues } from "../../pages/Register"
+import { useContext } from "react"
+import { Controller, useFormContext } from "react-hook-form"
+import { useNavigate } from "react-router-dom"
+import { Button, Form, FormGroup, Input, Label } from "reactstrap"
+import { AuthContext } from "../../stores/AuthProvider"
+import SvgAlertCircle from "../icons/AlertCircle"
 import styles from "./AuthForm.module.scss"
 
-type AuthFormProps = {
-	onSubmit: (
-		e?: React.BaseSyntheticEvent<object, any, any> | undefined
-	) => Promise<void>
-	register: UseFormRegister<AuthValues>
-	errors: Partial<
-		FieldErrorsImpl<{
-			email: string
-			password: string
-		}>
-	>
-	legend: string
-	reset: UseFormReset<AuthValues>
-}
+const AuthForm = () => {
+	const { handleSubmit, setError, control, clearErrors } = useFormContext()
+	const navigate = useNavigate()
 
-const AuthForm = ({
-	onSubmit,
-	register,
-	errors,
-	legend,
-	reset,
-}: AuthFormProps) => {
+	const auth = useContext(AuthContext)
+
+	const onRegisterSubmit = handleSubmit(async data => {
+		await auth?.register(data.email, data.password).then(res => {
+			if (!res.ok) {
+				setError(res.message, { message: res.error })
+			}
+		})
+	})
+
 	return (
-		<form onSubmit={onSubmit}>
-			<fieldset>
-				<legend>{legend}</legend>
-				<div className={styles.controls_container}>
-					<div className={styles.controls}>
-						<label aria-label={"required"} htmlFor='email'>
-							Email
-						</label>
-						<input
-							type='text'
-							id='email'
-							{...(register("email"), { required: true })}
-						/>
-					</div>
-					<div className={styles.controls}>
-						<label htmlFor='password'>Password</label>
-						<input
-							type='password'
-							id='password'
-							{...register("password")}
-						/>
-					</div>
-				</div>
-			</fieldset>
-			<div className={styles.footer}>
-				<Button type='submit'>Submit</Button>
-				<Button type='button'>Clear</Button>
+		<Form action='POST' onSubmit={onRegisterSubmit}>
+			<legend>Register</legend>
+			<div className={styles.controls_container}>
+				<FormGroup className={styles.controls}>
+					<Controller
+						name='email'
+						control={control}
+						rules={{ required: true }}
+						render={({ fieldState: { error }, field }) => (
+							<>
+								<Label className={styles.label} htmlFor='email'>
+									Email
+								</Label>
+								<Input id='email' type='text' {...field} />
+								<div className={styles.error}>
+									{error?.message && (
+										<>
+											<SvgAlertCircle size={24} />
+											<p>{error.message}</p>
+											{console.log(error.message)}
+										</>
+									)}
+								</div>
+							</>
+						)}
+						defaultValue=''
+					/>
+				</FormGroup>
+
+				<FormGroup className={styles.controls}>
+					<Controller
+						name='password'
+						control={control}
+						render={({ field }) => (
+							<>
+								<Label
+									className={styles.label}
+									htmlFor='password'
+								>
+									Password
+								</Label>
+								<Input
+									id='password'
+									type='password'
+									{...field}
+								/>
+							</>
+						)}
+						defaultValue=''
+					/>
+				</FormGroup>
 			</div>
-		</form>
+
+			<div className={styles.buttons}>
+				<Button size='small' color='primary' type='submit'>
+					Submit
+				</Button>
+			</div>
+		</Form>
 	)
 }
 

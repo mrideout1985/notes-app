@@ -1,36 +1,108 @@
 import { useContext } from "react"
-import { useForm } from "react-hook-form"
+import { Controller, useFormContext } from "react-hook-form"
 import { useNavigate } from "react-router-dom"
+import { Button, Form, FormGroup, Input, Label } from "reactstrap"
+import SvgAlertCircle from "../components/icons/AlertCircle"
 import { AuthContext } from "../stores/AuthProvider"
-import { AuthValues } from "./Register"
+import styles from "../styles/pagestyles/AuthPage.module.scss"
+
+export type AuthValues = {
+	email: string
+	password: string
+}
 
 const Login = () => {
-	const { register, handleSubmit } = useForm<AuthValues>()
-
-	const auth = useContext(AuthContext)
+	const { handleSubmit, setError, control } = useFormContext()
 	const navigate = useNavigate()
 
-	const onLoginSubmit = handleSubmit(async data => {
-		try {
-			await auth?.login(data.email, data.password)
-		} catch (error) {}
+	const auth = useContext(AuthContext)
+
+	const onLoginSubmit = handleSubmit(data => {
+		auth?.login(data.email, data.password)
+			.then(res => {
+				if (res.ok) {
+					navigate("/")
+				}
+				if (!res.ok) {
+					return res.json()
+				}
+			})
+			.then(response => {
+				setError("email", { message: response.error })
+			})
 	})
 
 	return (
-		<div>
-			<form onSubmit={onLoginSubmit}>
-				<input
-					style={{ color: "white" }}
-					type='text'
-					{...register("email")}
-				/>
-				<input
-					style={{ color: "white" }}
-					type='text'
-					{...register("password")}
-				/>
-				<input type='submit' />
-			</form>
+		<div className={styles.container}>
+			<div className={styles.auth}>
+				<Form action='POST' onSubmit={onLoginSubmit}>
+					<legend>Login</legend>
+					<div className={styles.controls_container}>
+						<FormGroup className={styles.controls}>
+							<Controller
+								name='email'
+								control={control}
+								rules={{ required: true }}
+								render={({ fieldState: { error }, field }) => (
+									<>
+										<Label
+											className={styles.label}
+											htmlFor='email'
+										>
+											Email
+										</Label>
+										<Input
+											id='email'
+											type='text'
+											{...field}
+										/>
+										<div className={styles.error}>
+											{error?.message && (
+												<>
+													<SvgAlertCircle size={24} />
+													{console.log(error.message)}
+													<p>{error.message}</p>
+												</>
+											)}
+										</div>
+									</>
+								)}
+								defaultValue=''
+							/>
+						</FormGroup>
+
+						<FormGroup className={styles.controls}>
+							<Controller
+								name='password'
+								control={control}
+								render={({ field }) => (
+									<>
+										<Label
+											className={styles.label}
+											htmlFor='password'
+										>
+											Password
+										</Label>
+										<Input
+											id='password'
+											type='password'
+											{...field}
+										/>
+									</>
+								)}
+								defaultValue=''
+							/>
+						</FormGroup>
+					</div>
+
+					<div className={styles.buttons}>
+						<Button size='small' color='primary' type='submit'>
+							Submit
+						</Button>
+					</div>
+				</Form>
+			</div>
+			<div className={styles.splash} />
 		</div>
 	)
 }

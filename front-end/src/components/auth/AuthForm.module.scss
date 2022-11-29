@@ -1,47 +1,53 @@
 form {
-	fieldset {
-		margin: 0;
-		border: none;
-		padding: 3rem;
-		border-bottom: 1px #a1a1a1 solid;
-		legend {
-			position: absolute;
-			left: -5000px;
-		}
-		.controls_container {
-			.controls {
-				label {
-					display: flex;
-					justify-content: space-between;
+	border: 1px solid var(--gray-2);
+	padding: 2.5rem;
+	box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
+	position: relative;
+
+	legend {
+		font-size: 1.2rem;
+		font-weight: 700;
+	}
+
+	.controls_container {
+		.controls {
+			label {
+				font-size: 0.8rem;
+			}
+
+			input {
+				padding: 0.4rem;
+				border-radius: 0;
+				font-weight: 200;
+				border-radius: 4px;
+			}
+
+			.error {
+				color: var(--red-8);
+				svg {
+					display: inline;
+					margin-right: 3px;
+				}
+
+				p {
+					font-size: 0.8rem;
 					font-weight: 500;
-					width: 100%;
-					min-width: 257px;
-
-					div {
-						font-weight: 400;
-						font-size: 1rem;
-						color: #000;
-					}
-				}
-
-				input[type="text"],
-				input[type="password"] {
-					outline: none;
-					border: 1px solid #dddddd;
-					width: 100%;
-					padding: 0.5rem 1rem;
-					margin: 0.8rem 0;
-					display: inline-block;
-					border-radius: 0.4rem;
-					box-sizing: border-box;
-				}
-
-				input[type="text"]:focus,
-				input[type="password"]:focus {
-					box-shadow: 0 0 0.5rem var(--pink-7);
-					border: 1px solid var(--pink-8);
+					display: inline;
 				}
 			}
+		}
+	}
+
+	.buttons {
+		height: 3rem;
+		display: flex;
+		align-items: flex-end;
+
+		button {
+			border-radius: 4px;
+			font-size: 0.8rem;
+			font-weight: 600;
+			background-color: var(--blue-7);
 		}
 	}
 }
