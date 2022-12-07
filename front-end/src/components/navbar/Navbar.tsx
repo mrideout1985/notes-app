@@ -1,20 +1,23 @@
-import { useContext } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { Button } from "reactstrap"
-import { AuthContext } from "../../stores/AuthProvider"
+import { logout } from "../../api/services/services"
+import { useUserStore } from "../../stores/authstore"
 import styles from "./Navbar.module.scss"
 
 const Navbar = () => {
-	const auth = useContext(AuthContext)
+	const navigate = useNavigate()
+	const user = useUserStore()
 
 	const handleLogout = () => {
-		auth?.logout()
+		logout()
+		user.setUser(null)
+		navigate("/login")
 	}
 
 	return (
 		<nav className={styles.navbar}>
 			<div className={styles.button_group}>
-				{!auth?.user ? (
+				{user.currentUser === null ? (
 					<>
 						<Link to='/login'>Login</Link>
 						<Link to='/register'>Register</Link>

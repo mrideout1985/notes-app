@@ -1,7 +1,7 @@
 type Props = {}
 
 const Notes = (props: Props) => {
-	return <div>Notes</div>
+	return <div></div>
 }
 
 export default Notes

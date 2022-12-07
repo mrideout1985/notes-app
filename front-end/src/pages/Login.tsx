@@ -1,9 +1,10 @@
-import { useContext } from "react"
+import { useEffect } from "react"
 import { Controller, useFormContext } from "react-hook-form"
 import { useNavigate } from "react-router-dom"
 import { Button, Form, FormGroup, Input, Label } from "reactstrap"
+import { login } from "../api/services/services"
 import SvgAlertCircle from "../components/icons/AlertCircle"
-import { AuthContext } from "../stores/AuthProvider"
+import { useUserStore } from "../stores/authstore"
 import styles from "../styles/pagestyles/AuthPage.module.scss"
 
 export type AuthValues = {
@@ -12,25 +13,26 @@ export type AuthValues = {
 }
 
 const Login = () => {
-	const { handleSubmit, setError, control } = useFormContext()
+	const { handleSubmit, setError, control, clearErrors } = useFormContext()
+	const auth = useUserStore()
 	const navigate = useNavigate()
 
-	const auth = useContext(AuthContext)
-
 	const onLoginSubmit = handleSubmit(data => {
-		auth?.login(data.email, data.password)
-			.then(res => {
-				if (res.ok) {
-					navigate("/")
-				}
-				if (!res.ok) {
-					return res.json()
-				}
-			})
-			.then(response => {
-				setError("email", { message: response.error })
-			})
+		login(data.email, data.password).then(res => {
+			if (res.name === "AxiosError") {
+				setError("email", {
+					message: res.response.data.message,
+				})
+			} else if (res.status === 201) {
+				auth.setUser(res.data.email)
+				navigate("/")
+			}
+		})
 	})
+
+	useEffect(() => {
+		clearErrors()
+	}, [clearErrors])
 
 	return (
 		<div className={styles.container}>
@@ -60,7 +62,6 @@ const Login = () => {
 											{error?.message && (
 												<>
 													<SvgAlertCircle size={24} />
-													{console.log(error.message)}
 													<p>{error.message}</p>
 												</>
 											)}
