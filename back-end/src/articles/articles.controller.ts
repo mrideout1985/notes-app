@@ -8,6 +8,7 @@ import {
   Post,
 } from '@nestjs/common';
 import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { UsersService } from 'src/users/users.service';
 import { ArticlesService } from './articles.service';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
@@ -16,7 +17,10 @@ import { ArticleEntity } from './entities/article.entity';
 @Controller('articles')
 @ApiTags('articles')
 export class ArticlesController {
-  constructor(private readonly articlesService: ArticlesService) {}
+  constructor(
+    private readonly articlesService: ArticlesService,
+    private readonly userService: UsersService,
+  ) {}
 
   @Post()
   @ApiCreatedResponse({ type: ArticleEntity })
@@ -34,6 +38,14 @@ export class ArticlesController {
   @ApiOkResponse({ type: ArticleEntity, isArray: true })
   findDrafts() {
     return this.articlesService.findDrafts();
+  }
+
+  //   @UseGuards(JwtAuthGuard)
+  //   @ApiSecurity('access-key')
+  //   @UseInterceptors(ClassSerializerInterceptor)
+  @Get('user/:id')
+  public async findUserArticles(@Param('id') id: string) {
+    return this.userService.findByPayload({ id });
   }
 
   @Get(':id')

@@ -25,6 +25,7 @@ export class UsersController {
   public async me(@Request() req) {
     return new RenderUser(req.user);
   }
+
   @UseGuards(JwtAuthGuard)
   @ApiSecurity('access-key')
   @UseInterceptors(ClassSerializerInterceptor)

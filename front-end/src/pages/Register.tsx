@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { AxiosError } from "axios"
 import { Controller, useFormContext } from "react-hook-form"
 import { useNavigate } from "react-router-dom"
 import { Button, Form, FormGroup, Input, Label } from "reactstrap"
@@ -16,28 +16,19 @@ const Register = () => {
 	const auth = useUserStore()
 	const navigate = useNavigate()
 
-	const {
-		handleSubmit,
-		setError,
-		control,
-		formState: { errors, isSubmitting },
-		clearErrors,
-	} = useFormContext()
+	const { handleSubmit, setError, control } = useFormContext()
 
 	const onRegisterSubmit = handleSubmit(data => {
 		register(data.email, data.password).then(res => {
-			if (res.name === "AxiosError") {
-				setError("email", {
-					message: res.response.data.message,
+			if (res instanceof AxiosError) {
+				return setError("email", {
+					type: "manual",
+					message: res.response?.data.message,
 				})
-			} else if (res.status === 201) {
-				auth.setUser(res.data.email)
-				navigate("/login")
 			}
+			navigate("/login")
 		})
 	})
-
-	useEffect(() => clearErrors(), [clearErrors])
 
 	return (
 		<div className={styles.container}>

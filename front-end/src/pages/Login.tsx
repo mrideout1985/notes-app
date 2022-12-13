@@ -1,3 +1,4 @@
+import { AxiosError } from "axios"
 import { useEffect } from "react"
 import { Controller, useFormContext } from "react-hook-form"
 import { useNavigate } from "react-router-dom"
@@ -19,14 +20,15 @@ const Login = () => {
 
 	const onLoginSubmit = handleSubmit(data => {
 		login(data.email, data.password).then(res => {
-			if (res.name === "AxiosError") {
-				setError("email", {
-					message: res.response.data.message,
+			if (res instanceof AxiosError) {
+				return setError("email", {
+					type: "manual",
+					message: res.response?.data.message,
 				})
-			} else if (res.status === 201) {
-				auth.setUser(res.data.email)
-				navigate("/")
 			}
+			auth.setToken(res.data.Authorization)
+			sessionStorage.setItem("token", res.data.Authorization)
+			navigate("/")
 		})
 	})
 

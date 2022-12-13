@@ -6,16 +6,16 @@ type State = {
 }
 
 type Actions = {
-	setUser: (email: string | null) => void
+	setToken: (token: string | null) => void
 }
 
 export const useUserStore = create<State & Actions>()(
 	devtools(
 		persist(
-			(set, get) => ({
+			set => ({
 				currentUser: null,
-				setUser: email => {
-					set({ currentUser: email })
+				setToken: token => {
+					set({ currentUser: token })
 				},
 			}),
 			{

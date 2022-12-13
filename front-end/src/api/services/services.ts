@@ -22,6 +22,7 @@ export const register = (email: string, password: string) => {
 
 	return response
 }
+
 export const login = (email: string, password: string) => {
 	let response = axios
 		.post(
@@ -42,7 +43,7 @@ export const login = (email: string, password: string) => {
 				return res
 			}
 		})
-		.catch(function (error) {
+		.catch(error => {
 			if (error) {
 				return error
 			}
@@ -53,4 +54,15 @@ export const login = (email: string, password: string) => {
 
 export const logout = () => {
 	return axios.post("http://localhost:3000/auth/logout")
+}
+
+export const getAndSetLoggedInUser = async (token: string) => {
+	let response = axios.get("http://localhost:3000/user/me", {
+		withCredentials: true,
+		headers: {
+			"Content-Type": "application/json",
+			Authorization: "Bearer " + token,
+		},
+	})
+	return response
 }

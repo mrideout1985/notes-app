@@ -10,7 +10,7 @@ const Navbar = () => {
 
 	const handleLogout = () => {
 		logout()
-		user.setUser(null)
+		user.setToken(null)
 		navigate("/login")
 	}
 
