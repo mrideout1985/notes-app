@@ -9,14 +9,19 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { ApiSecurity, ApiTags } from '@nestjs/swagger';
+import { AuthService } from '../auth/auth.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { UpdatePasswordDto } from './dto/users.user.dto';
 import { RenderUser } from './render-user';
 import { UsersService } from './users.service';
+
 @ApiTags('user')
 @Controller('user')
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(
+    private readonly usersService: UsersService,
+    private readonly authService: AuthService,
+  ) {}
 
   @UseGuards(JwtAuthGuard)
   @ApiSecurity('access-key')

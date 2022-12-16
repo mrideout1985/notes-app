@@ -36,7 +36,6 @@ export class UsersService {
   }
   //use by auth module to register user in database
   async create(userDto: CreateUserDto): Promise<any> {
-    // // check if the user exists in the db
     const userInDb = await this.prisma.user.findFirst({
       where: { email: userDto.email },
     });
@@ -51,7 +50,14 @@ export class UsersService {
       },
     });
   }
-  //use by auth module to login user
+
+  async getUserArticles(email: string): Promise<any> {
+    return await this.prisma.user.findFirst({
+      where: { email },
+      include: { articles: true },
+    });
+  }
+
   async findByLogin({ email, password }: LoginUserDto): Promise<FormatLogin> {
     const user = await this.prisma.user.findFirst({
       where: { email },
@@ -73,7 +79,7 @@ export class UsersService {
   }
 
   //use by auth module to get user in database
-  async findByPayload({ email }: any): Promise<any> {
+  async findByPayload(email: string): Promise<any> {
     return await this.prisma.user.findFirst({
       where: { email },
     });
