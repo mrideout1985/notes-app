@@ -26,6 +26,6 @@ model Article {
     published   Boolean  @default(false)
     createdAt   DateTime @default(now())
     updatedAt   DateTime @updatedAt
-    User        User?    @relation(fields: [userId], references: [id])
-    userId      Int?
+    user        User?    @relation(fields: [userEmail], references: [email], onDelete: SetNull)
+    userEmail   String?
 }
