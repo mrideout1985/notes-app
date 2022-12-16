@@ -8,16 +8,16 @@ const Navbar = () => {
 	const navigate = useNavigate()
 	const user = useUserStore()
 
-	const handleLogout = () => {
-		logout()
-		user.setToken(null)
+	const handleLogout = async () => {
+		await logout()
+		user.setEmail(null)
 		navigate("/login")
 	}
 
 	return (
 		<nav className={styles.navbar}>
 			<div className={styles.button_group}>
-				{user.currentUser === null ? (
+				{user.email === null ? (
 					<>
 						<Link to='/login'>Login</Link>
 						<Link to='/register'>Register</Link>

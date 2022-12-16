@@ -2,21 +2,19 @@ import create from "zustand"
 import { devtools, persist } from "zustand/middleware"
 
 type State = {
-	currentUser: string | null
+	email?: string | null
 }
 
 type Actions = {
-	setToken: (token: string | null) => void
+	setEmail: (email: string | null) => void
 }
 
 export const useUserStore = create<State & Actions>()(
 	devtools(
 		persist(
 			set => ({
-				currentUser: null,
-				setToken: token => {
-					set({ currentUser: token })
-				},
+				email: null,
+				setEmail: email => set({ email }),
 			}),
 			{
 				name: "user-store",

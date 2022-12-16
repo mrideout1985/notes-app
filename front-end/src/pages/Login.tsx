@@ -26,8 +26,7 @@ const Login = () => {
 					message: res.response?.data.message,
 				})
 			}
-			auth.setToken(res.data.Authorization)
-			sessionStorage.setItem("token", res.data.Authorization)
+			auth.setEmail(res.data.user.email)
 			navigate("/")
 		})
 	})

@@ -52,8 +52,13 @@ export const login = (email: string, password: string) => {
 	return response
 }
 
-export const logout = () => {
-	return axios.post("http://localhost:3000/auth/logout")
+export const logout = async () => {
+	sessionStorage.clear()
+	localStorage.clear()
+	return await fetch("http://localhost:3000/auth/logout", {
+		method: "POST",
+		credentials: "include",
+	})
 }
 
 export const getAndSetLoggedInUser = async (token: string) => {
