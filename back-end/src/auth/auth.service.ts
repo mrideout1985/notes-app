@@ -44,7 +44,7 @@ export class AuthService {
 
     return {
       ...token,
-      data: user,
+      user,
     };
   }
 
@@ -53,7 +53,9 @@ export class AuthService {
     Authorization: string;
   } {
     const user: JwtPayload = { email };
-    const Authorization = this.jwtService.sign(user);
+    const Authorization = this.jwtService.sign(user, {
+      expiresIn: process.env.EXPIRESIN,
+    });
 
     return {
       expiresIn: process.env.EXPIRESIN,
@@ -61,7 +63,8 @@ export class AuthService {
     };
   }
 
-  async validateUser(payload: JwtPayload): Promise<any> {
+  // pass this with the request to the controller to validate the user token and get the user data
+  async validateUser(payload: string): Promise<any> {
     const user = await this.usersService.findByPayload(payload);
     if (!user) {
       throw new HttpException('INVALID_TOKEN', HttpStatus.UNAUTHORIZED);
@@ -69,8 +72,8 @@ export class AuthService {
     return user;
   }
 
-  async logout(response: any): Promise<any> {
-    response.clearCookie('token');
+  async logout(response): Promise<any> {
+    response.cookie('token', '', { httpOnly: true, expires: new Date(0) });
     return {
       message: 'LOGOUT_SUCCESS',
     };
