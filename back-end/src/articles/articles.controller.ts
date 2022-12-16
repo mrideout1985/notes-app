@@ -28,24 +28,21 @@ export class ArticlesController {
     return this.articlesService.create(createArticleDto);
   }
 
-  @Get()
   @ApiOkResponse({ type: ArticleEntity, isArray: true })
+  @Get()
   findAll() {
     return this.articlesService.findAll();
   }
 
-  @Get('drafts')
   @ApiOkResponse({ type: ArticleEntity, isArray: true })
+  @Get('drafts')
   findDrafts() {
     return this.articlesService.findDrafts();
   }
-
-  //   @UseGuards(JwtAuthGuard)
-  //   @ApiSecurity('access-key')
-  //   @UseInterceptors(ClassSerializerInterceptor)
-  @Get('user/:id')
-  public async findUserArticles(@Param('id') id: string) {
-    return this.userService.findByPayload({ id });
+  @ApiOkResponse({ type: ArticleEntity, isArray: true })
+  @Get('user/:id/articles')
+  public async findUserArticles(@Param('email') email: string) {
+    return this.articlesService.findNotesByEmail(email);
   }
 
   @Get(':id')
