@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom"
 import { Button, Form, FormGroup, Input, Label } from "reactstrap"
 import { login } from "../api/services/services"
 import SvgAlertCircle from "../components/icons/AlertCircle"
-import { useUserStore } from "../stores/authstore"
 import styles from "../styles/pagestyles/AuthPage.module.scss"
 
 export type AuthValues = {
@@ -15,7 +14,6 @@ export type AuthValues = {
 
 const Login = () => {
 	const { handleSubmit, setError, control, clearErrors } = useFormContext()
-	const auth = useUserStore()
 	const navigate = useNavigate()
 
 	const onLoginSubmit = handleSubmit(data => {
@@ -26,7 +24,7 @@ const Login = () => {
 					message: res.response?.data.message,
 				})
 			}
-			auth.setEmail(res.data.user.email)
+			localStorage.setItem("token", res.data.Authorization)
 			navigate("/")
 		})
 	})

@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom"
 import { Button, Form, FormGroup, Input, Label } from "reactstrap"
 import { register } from "../api/services/services"
 import SvgAlertCircle from "../components/icons/AlertCircle"
-import { useUserStore } from "../stores/authstore"
 import styles from "../styles/pagestyles/AuthPage.module.scss"
 
 export type AuthValues = {
@@ -13,7 +12,6 @@ export type AuthValues = {
 }
 
 const Register = () => {
-	const auth = useUserStore()
 	const navigate = useNavigate()
 
 	const { handleSubmit, setError, control } = useFormContext()

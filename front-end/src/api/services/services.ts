@@ -61,8 +61,8 @@ export const logout = async () => {
 	})
 }
 
-export const getAndSetLoggedInUser = async (token: string) => {
-	let response = axios.get("http://localhost:3000/user/me", {
+export const getAndSetLoggedInUser = async (token: string | null) => {
+	let response = axios.get("http://localhost:3000/articles/my-articles", {
 		withCredentials: true,
 		headers: {
 			"Content-Type": "application/json",

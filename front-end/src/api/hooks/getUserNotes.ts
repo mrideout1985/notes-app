@@ -1,34 +1,49 @@
-import axios from "axios"
 import { useEffect, useState } from "react"
 
-function useGetUserNotes<Payload>(email: string | null | undefined): {
-	data: Payload | undefined
+export interface Data {
+	body: string
+	createdAt: string
+	description: string
+	id: number
+	published: boolean
+	title: string
+	updatedAt: string
+	userEmail: string
+}
+
+function useGetUserNotes(): {
+	data: Data[] | undefined
 	done: boolean
 	error: string | undefined
 } {
-	const [data, setData] = useState<Payload>()
+	const [data, setData] = useState<Data[]>()
 	const [done, setDone] = useState(false)
 	const [error, setError] = useState("")
+	const jwtToken = localStorage.getItem("token")
 
 	useEffect(() => {
-		if (email !== null && email !== undefined) {
-			axios
-				.get<Payload>(`http://localhost:3000/articles/user/${email}`)
+		if (jwtToken) {
+			fetch("http://localhost:3000/articles/my-articles", {
+				method: "GET",
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${jwtToken}`,
+				},
+			})
+				.then(res => res.json())
 				.then(res => {
-					if (!data) {
-						setDone(false)
-					} else {
-						setData(res.data)
+					if (res) {
+						setData(res)
 						setDone(true)
 					}
 				})
+				.catch(error => {
+					if (error) {
+						setError(error)
+					}
+				})
 		}
-
-		return () => {
-			setDone(true)
-			setError("You should not be here user is not logged in")
-		}
-	}, [data, email])
+	}, [jwtToken])
 
 	return {
 		data,
