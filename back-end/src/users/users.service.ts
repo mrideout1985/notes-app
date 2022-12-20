@@ -3,9 +3,9 @@ import { User } from '@prisma/client';
 import { compare, hash } from 'bcrypt';
 import { PrismaService } from 'src/prisma/prisma.service';
 import {
-  CreateUserDto,
-  LoginUserDto,
-  UpdatePasswordDto,
+	CreateUserDto,
+	LoginUserDto,
+	UpdatePasswordDto
 } from './dto/users.user.dto';
 
 interface FormatLogin extends Partial<User> {
@@ -68,7 +68,7 @@ export class UsersService {
     }
 
     // compare passwords
-    const areEqual = await compare(password, user.password);
+    const areEqual = await compare(password, user	.password);
 
     if (!areEqual) {
       throw new HttpException('invalid_credentials', HttpStatus.UNAUTHORIZED);

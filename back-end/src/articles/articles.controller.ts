@@ -40,7 +40,7 @@ export class ArticlesController {
     return this.articlesService.findDrafts();
   }
   @ApiOkResponse({ type: ArticleEntity, isArray: true })
-  @Get('user/:id/articles')
+  @Get('user/:email')
   public async findUserArticles(@Param('email') email: string) {
     return this.articlesService.findNotesByEmail(email);
   }
@@ -62,6 +62,4 @@ export class ArticlesController {
   remove(@Param('id') id: string) {
     return this.articlesService.remove(+id);
   }
-
-  // ...
 }

@@ -1,6 +1,6 @@
 // src/articles/articles.service.ts
 
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { AuthService } from 'src/auth/auth.service';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateArticleDto } from './dto/create-article.dto';
@@ -24,11 +24,10 @@ export class ArticlesService {
     return this.prisma.article.findMany({ where: { published: false } });
   }
 
-  findNotesByEmail(user: string) {
+  async findNotesByEmail(user: string) {
     const email = this.authService.validateUser(user);
 
-    if (!email)
-      throw new NotFoundException('You do not have access to these articles');
+    console.log(await email);
 
     return this.prisma.article.findMany({ where: { userEmail: user } });
   }
