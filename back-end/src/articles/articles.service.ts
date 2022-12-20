@@ -25,10 +25,6 @@ export class ArticlesService {
   }
 
   async findNotesByEmail(user: string) {
-    const email = this.authService.validateUser(user);
-
-    console.log(await email);
-
     return this.prisma.article.findMany({ where: { userEmail: user } });
   }
 

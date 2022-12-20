@@ -1,13 +1,23 @@
 import {
   Body,
+  ClassSerializerInterceptor,
   Controller,
   Delete,
   Get,
   Param,
   Patch,
   Post,
+  Request,
+  UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
-import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiCreatedResponse,
+  ApiOkResponse,
+  ApiSecurity,
+  ApiTags,
+} from '@nestjs/swagger';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { UsersService } from 'src/users/users.service';
 import { ArticlesService } from './articles.service';
 import { CreateArticleDto } from './dto/create-article.dto';
@@ -39,10 +49,15 @@ export class ArticlesController {
   findDrafts() {
     return this.articlesService.findDrafts();
   }
+  @UseGuards(JwtAuthGuard)
+  @ApiSecurity('access-key')
+  @UseInterceptors(ClassSerializerInterceptor)
   @ApiOkResponse({ type: ArticleEntity, isArray: true })
-  @Get('user/:email')
-  public async findUserArticles(@Param('email') email: string) {
-    return this.articlesService.findNotesByEmail(email);
+  @Get('my-articles')
+  async getMyArticles(@Request() req) {
+    const userId = req.user.email;
+    const articles = await this.articlesService.findNotesByEmail(userId);
+    return articles;
   }
 
   @Get(':id')

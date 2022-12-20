@@ -3,9 +3,9 @@ import { User } from '@prisma/client';
 import { compare, hash } from 'bcrypt';
 import { PrismaService } from 'src/prisma/prisma.service';
 import {
-	CreateUserDto,
-	LoginUserDto,
-	UpdatePasswordDto
+  CreateUserDto,
+  LoginUserDto,
+  UpdatePasswordDto,
 } from './dto/users.user.dto';
 
 interface FormatLogin extends Partial<User> {
@@ -51,13 +51,6 @@ export class UsersService {
     });
   }
 
-  async getUserArticles(email: string): Promise<any> {
-    return await this.prisma.user.findFirst({
-      where: { email },
-      include: { articles: true },
-    });
-  }
-
   async findByLogin({ email, password }: LoginUserDto): Promise<FormatLogin> {
     const user = await this.prisma.user.findFirst({
       where: { email },
@@ -68,7 +61,7 @@ export class UsersService {
     }
 
     // compare passwords
-    const areEqual = await compare(password, user	.password);
+    const areEqual = await compare(password, user.password);
 
     if (!areEqual) {
       throw new HttpException('invalid_credentials', HttpStatus.UNAUTHORIZED);
