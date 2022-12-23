@@ -6,7 +6,7 @@ import Notes from "./pages/Notes"
 import Register from "./pages/Register"
 
 function PrivateRoute({ children }: any) {
-	if (localStorage.length === 0) {
+	if (localStorage.key(0) !== "token") {
 		return <Navigate to='/login' />
 	}
 

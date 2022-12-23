@@ -2,8 +2,12 @@
 @import "open-props/normalize";
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
-
-/*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
+@import url("https://fonts.googleapis.com/css2?family=Nabla&family=Pacifico&family=Quicksand&family=Roboto&family=VT323&display=swap"); // font-family: 'Pacifico', cursive;
+// font-family: 'Nabla', cursive;
+// font-family: 'Pacifico', cursive;
+// font-family: 'Quicksand', sans-serif;
+// font-family: 'Roboto', sans-serif;
+// font-family: 'VT323', monospace;
 
 /* Document
    ========================================================================== */
@@ -27,6 +31,7 @@ html {
 
 body {
 	margin: 0;
+	height: 100%;
 }
 
 /**
@@ -35,6 +40,7 @@ body {
 
 main {
 	display: block;
+	height: 100%;
 }
 
 /**
