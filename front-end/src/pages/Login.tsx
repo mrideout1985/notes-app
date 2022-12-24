@@ -7,7 +7,7 @@ import { login } from "../api/services/services"
 import SvgAlertCircle from "../components/icons/AlertCircle"
 import styles from "../styles/pagestyles/AuthPage.module.scss"
 
-export type AuthValues = {
+export interface AuthValues {
 	email: string
 	password: string
 }

@@ -1,7 +1,7 @@
 import axios from "axios"
 
-export const register = (email: string, password: string) => {
-	let response = axios
+export const register = async (email: string, password: string) => {
+	const response = axios
 		.post(
 			"http://localhost:3000/auth/register",
 			{
@@ -20,11 +20,11 @@ export const register = (email: string, password: string) => {
 			}
 		})
 
-	return response
+	return await response
 }
 
-export const login = (email: string, password: string) => {
-	let response = axios
+export const login = async (email: string, password: string) => {
+	const response = axios
 		.post(
 			`http://localhost:3000/auth/login`,
 			{
@@ -49,7 +49,7 @@ export const login = (email: string, password: string) => {
 			}
 		})
 
-	return response
+	return await response
 }
 
 export const logout = async () => {
@@ -62,12 +62,12 @@ export const logout = async () => {
 }
 
 export const getAndSetLoggedInUser = async (token: string | null) => {
-	let response = axios.get("http://localhost:3000/articles/my-articles", {
+	const response = axios.get("http://localhost:3000/articles/my-articles", {
 		withCredentials: true,
 		headers: {
 			"Content-Type": "application/json",
 			Authorization: "Bearer " + token,
 		},
 	})
-	return response
+	return await response
 }

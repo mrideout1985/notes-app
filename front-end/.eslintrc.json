@@ -1,0 +1,68 @@
+{
+	"env": {
+		"browser": true,
+		"es2021": true,
+		"jest/globals": true
+	},
+	"extends": [
+		"plugin:react/recommended",
+		"plugin:jest/recommended",
+		"standard-with-typescript",
+		"prettier"
+	],
+	"overrides": [],
+	"parserOptions": {
+		"ecmaFeatures": {
+			"jsx": true
+		},
+		"ecmaVersion": "latest",
+		"sourceType": "module",
+		"project": "./tsconfig.json"
+	},
+	"plugins": ["react"],
+	"rules": {
+		"no-underscore-dangle": 0,
+		"import/extensions": [
+			"error",
+			"ignorePackages",
+			{
+				"js": "always",
+				"jsx": "always"
+			}
+		],
+		"arrow-body-style": "error",
+		"@typescript-eslint/explicit-function-return-type": "off",
+		"no-restricted-imports": [
+			"error",
+			{
+				"patterns": ["../*"]
+			}
+		],
+		"@typescript-eslint/prefer-nullish-coalescing": [
+			{ "strictNullChecks": true }
+		],
+		"react/react-in-jsx-scope": "off",
+		"import/order": [
+			"error",
+			{
+				"groups": [
+					"builtin",
+					"external",
+					"parent",
+					"sibling",
+					"index",
+					"object",
+					"type"
+				],
+				"pathGroups": [
+					{
+						"pattern": "@/**/**",
+						"group": "parent",
+						"position": "before"
+					}
+				],
+				"alphabetize": { "order": "asc" }
+			}
+		]
+	}
+}

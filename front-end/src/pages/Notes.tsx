@@ -1,6 +1,6 @@
 import useGetUserNotes, { Data } from "../api/hooks/getUserNotes"
 
-type Props = {}
+interface Props {}
 
 const Notes = (props: Props) => {
 	// const [authEnticatedUser, setAuthEnticatedUser] = useState()

@@ -12,7 +12,7 @@ const Button: React.FC<ButtonProps> = ({ text, type, onClick, className }) => {
 	return (
 		<button
 			type={type}
-			className={type !== "submit" ? styles["cancel"] : ""}
+			className={type !== "submit" ? styles.cancel : ""}
 			onClick={onClick}
 		>
 			{text}

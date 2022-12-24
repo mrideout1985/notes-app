@@ -30,7 +30,7 @@ function useGetUserNotes(): {
 					Authorization: `Bearer ${jwtToken}`,
 				},
 			})
-				.then(res => res.json())
+				.then(async res => await res.json())
 				.then(res => {
 					if (res) {
 						setData(res)
