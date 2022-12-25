@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { Outlet } from "react-router-dom"
+
 import TopNavBar from "../navbar/TopNavbar"
 import styles from "./Layout.module.scss"
 
