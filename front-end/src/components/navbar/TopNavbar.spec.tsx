@@ -78,34 +78,4 @@ describe("TopNavbar", () => {
 
     expect(profileButton).toHaveAttribute("aria-hidden", "false");
   });
-
-  //   it.only("should call the logout function when the logout button is clicked", async () => {
-  //     mockLocalStorage.getItem.mockReturnValue("token");
-
-  //     const screen = render(
-  //       <BrowserRouter>
-  //         <Routes>
-  //           <Route path="/" element={<TopNavBar sideBarOpen={() => false} />} />
-  //         </Routes>
-  //       </BrowserRouter>
-  //     );
-
-  //     const profileButton = await screen.findByLabelText("user options dropdown");
-
-  //     expect(profileButton).toHaveAttribute("aria-hidden", "false");
-
-  //     fireEvent.click(profileButton);
-
-  //     const logoutButton = screen.getByText("Logout");
-
-  //     expect(logoutButton).toBeInTheDocument();
-
-  //     fireEvent.click(logoutButton);
-
-  //     mockLogout.mockResolvedValueOnce({});
-
-  //     await waitFor(() => {
-  //       expect(profileButton).toHaveAttribute("aria-hidden", "true");
-  //     });
-  //   });
 });
