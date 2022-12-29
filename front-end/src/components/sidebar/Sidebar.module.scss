@@ -1,0 +1,61 @@
+.sidebar {
+  width: 0;
+  .links {
+    padding: 1rem;
+
+    &:hover {
+      .text {
+        width: 150px;
+        p {
+          padding: 0;
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  a {
+    display: flex;
+    text-decoration: none;
+    color: black;
+    padding: 1rem;
+    margin: 0.1rem 0;
+    border-radius: 50px;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.537);
+    }
+
+    img {
+      height: 2rem;
+      width: 2rem;
+      align-self: center;
+      z-index: 2;
+    }
+
+    .text {
+      display: flex;
+      align-items: center;
+      font-weight: 600;
+      width: 0;
+      transition: all 0.25s ease;
+
+      p {
+        opacity: 0;
+        transition: all 0.25s ease;
+        margin: 0 0 0 2rem;
+      }
+    }
+  }
+
+  .active {
+    background-color: var(--pink-6);
+    &:hover {
+      background-color: var(--pink-6);
+    }
+  }
+}
+
+.sidebar[aria-expanded="true"] {
+  width: auto;
+}
