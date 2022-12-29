@@ -32,7 +32,7 @@ export class AuthController {
   public async login(
     @Body() loginUserDto: LoginUserDto,
     @Res({ passthrough: true })
-    response: Response,
+    response: any,
   ): Promise<any> {
     return await this.authService.login(loginUserDto, response);
   }
