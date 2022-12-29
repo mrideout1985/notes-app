@@ -18,7 +18,8 @@
     "test:unit": "jest --watchAll",
     "test:unit:ci": "jest",
     "test:unit:coverage": "jest --silent --watchAll=false --coverage",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "gen": "npx @svgr/cli -d src/components/icons --ignore-existing src/assets/icons --ext=tsx"
   },
   "lint-staged": {
     "*.{css,md,json}": [
@@ -37,7 +38,8 @@
   },
   "dependencies": {
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "vite-plugin-svgr": "^2.4.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.0.2",
