@@ -1,7 +1,6 @@
 $navbar-background-color: var(--gray-9);
 $navbar-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 $navbar-height: 60px;
-$navbar-padding: 0 0.5rem;
 $menu-item-color: var(--pink-8);
 $menu-item-hover-color: #f8f9fa;
 $menu-item-padding: 1rem 1.5rem;
@@ -13,7 +12,6 @@ $menu-item-border-color: rgba(0, 0, 0, 0.1);
   display: flex;
   justify-content: space-between;
   height: $navbar-height;
-  padding: $navbar-padding;
 
   .sidebartoggler {
     background-color: transparent;

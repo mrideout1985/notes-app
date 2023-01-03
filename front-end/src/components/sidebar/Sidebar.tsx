@@ -11,8 +11,6 @@ interface SideBarProps {
 }
 
 const Sidebar = ({ open }: SideBarProps) => {
-  const path = useLocation();
-
   return (
     <div className={styles.sidebar} aria-expanded={open}>
       <div className={styles.links}>

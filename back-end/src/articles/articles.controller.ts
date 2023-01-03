@@ -32,6 +32,9 @@ export class ArticlesController {
     private readonly userService: UsersService,
   ) {}
 
+  @UseGuards(JwtAuthGuard)
+  @ApiSecurity('access-key')
+  @UseInterceptors(ClassSerializerInterceptor)
   @Post()
   @ApiCreatedResponse({ type: ArticleEntity })
   create(@Body() createArticleDto: CreateArticleDto) {
