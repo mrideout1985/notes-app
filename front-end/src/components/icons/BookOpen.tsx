@@ -7,6 +7,7 @@ const SvgBookOpen = ({
   stroke,
   strokeWidth,
   viewBox,
+  className,
 }: SvgProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -18,6 +19,7 @@ const SvgBookOpen = ({
     strokeLinecap="round"
     strokeLinejoin="round"
     viewBox={viewBox || "0 0 35 35"}
+    className={className || ""}
   >
     <path
       transform="translate(5, 7)"

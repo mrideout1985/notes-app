@@ -12,52 +12,45 @@ const Sidebar = ({ open }: SideBarProps) => {
     <div className={styles.sidebar} aria-expanded={open}>
       <div className={styles.links}>
         <NavLink
-          className={({ isActive }) => (isActive ? styles.active : undefined)}
+          className={({ isActive }) =>
+            isActive ? styles.active : styles.notActive
+          }
           to={"/"}
         >
-          <BookOpen
-            stroke={"#212529"}
-            fill="#F7F5EB"
-            height={"2.5rem"}
-            width={"2.5rem"}
-            strokeWidth=".2rem"
-          />
+          <BookOpen className={styles.icon} />
           <div className={styles.text}>
             <p>Notes</p>
           </div>
         </NavLink>
-        <NavLink to="/reminders" className={styles.link}>
-          <Bell
-            stroke={"#212529"}
-            fill="#F7F5EB"
-            height={"2.5rem"}
-            width={"2.5rem"}
-            strokeWidth=".2rem"
-          />
+        <NavLink
+          className={({ isActive }) =>
+            isActive ? styles.active : styles.notActive
+          }
+          to="/reminders"
+        >
+          <Bell className={styles.icon} />
           <div className={styles.text}>
             <p>Reminders</p>
           </div>
         </NavLink>
-        <NavLink to="/drafts" className={styles.link}>
-          <Archive
-            stroke={"#212529"}
-            fill="#F7F5EB"
-            height={"2.5rem"}
-            width={"2.5rem"}
-            strokeWidth=".2rem"
-          />
+        <NavLink
+          className={({ isActive }) =>
+            isActive ? styles.active : styles.notActive
+          }
+          to="/unpublished"
+        >
+          <Archive className={styles.icon} />
           <div className={styles.text}>
             <p>Drafts</p>
           </div>
         </NavLink>
-        <NavLink to="/trash" className={styles.link}>
-          <Trash
-            stroke={"#212529"}
-            fill="#F7F5EB"
-            height={"2.5rem"}
-            width={"2.5rem"}
-            strokeWidth=".2rem"
-          />
+        <NavLink
+          to="/trash"
+          className={({ isActive }) =>
+            isActive ? styles.active : styles.notActive
+          }
+        >
+          <Trash className={styles.icon} />
           <div className={styles.text}>
             <p>Trash</p>
           </div>

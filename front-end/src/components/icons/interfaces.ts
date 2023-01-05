@@ -5,4 +5,5 @@ export interface SvgProps {
   strokeWidth?: string;
   fill?: string;
   viewBox?: string;
+  className?: string;
 }

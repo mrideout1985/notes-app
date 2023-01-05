@@ -7,6 +7,7 @@ const SvgAlertCircle = ({
   stroke,
   strokeWidth,
   viewBox,
+  className,
 }: SvgProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -18,6 +19,7 @@ const SvgAlertCircle = ({
     strokeLinecap="round"
     strokeLinejoin="round"
     viewBox={viewBox || "0 0 35 35"}
+    className={className || ""}
   >
     <circle cx={12} cy={12} r={10} />
     <path d="M12 8v4M12 16h.01" />
