@@ -1,9 +1,6 @@
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
-import unpublished from "../../assets/icons/archive.svg";
-import notifications from "../../assets/icons/bell.svg";
-import notes from "../../assets/icons/book-open.svg";
-import trash from "../../assets/icons/trash.svg";
+import { Archive, Bell, BookOpen, Trash } from "../icons";
 import styles from "./Sidebar.module.scss";
 
 interface SideBarProps {
@@ -18,25 +15,49 @@ const Sidebar = ({ open }: SideBarProps) => {
           className={({ isActive }) => (isActive ? styles.active : undefined)}
           to={"/"}
         >
-          <img src={notes} alt="notepad" />
+          <BookOpen
+            stroke={"#212529"}
+            fill="#F7F5EB"
+            height={"2.5rem"}
+            width={"2.5rem"}
+            strokeWidth=".2rem"
+          />
           <div className={styles.text}>
             <p>Notes</p>
           </div>
         </NavLink>
         <NavLink to="/reminders" className={styles.link}>
-          <img src={notifications} alt="notifications" />
+          <Bell
+            stroke={"#212529"}
+            fill="#F7F5EB"
+            height={"2.5rem"}
+            width={"2.5rem"}
+            strokeWidth=".2rem"
+          />
           <div className={styles.text}>
             <p>Reminders</p>
           </div>
         </NavLink>
         <NavLink to="/drafts" className={styles.link}>
-          <img src={unpublished} alt="unpublished" />
+          <Archive
+            stroke={"#212529"}
+            fill="#F7F5EB"
+            height={"2.5rem"}
+            width={"2.5rem"}
+            strokeWidth=".2rem"
+          />
           <div className={styles.text}>
             <p>Drafts</p>
           </div>
         </NavLink>
         <NavLink to="/trash" className={styles.link}>
-          <img src={trash} alt="trash" />
+          <Trash
+            stroke={"#212529"}
+            fill="#F7F5EB"
+            height={"2.5rem"}
+            width={"2.5rem"}
+            strokeWidth=".2rem"
+          />
           <div className={styles.text}>
             <p>Trash</p>
           </div>

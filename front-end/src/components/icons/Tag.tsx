@@ -1,14 +1,23 @@
-const SvgTag = (props: any) => (
+import { SvgProps } from "./interfaces";
+
+const SvgTag = ({
+  fill,
+  height,
+  width,
+  stroke,
+  strokeWidth,
+  viewBox,
+}: SvgProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width={props.size ?? 16}
-    height={props.size ?? 16}
-    fill={props.color}
-    stroke="currentColor"
-    strokeWidth={2}
+    width={width || 24}
+    height={height || 24}
+    fill={fill || "currentColor"}
+    stroke={stroke || "currentColor"}
+    strokeWidth={strokeWidth || 2}
     strokeLinecap="round"
     strokeLinejoin="round"
-    className="tag_svg__feather tag_svg__feather-tag"
+    viewBox={viewBox || "0 0 35 35"}
   >
     <path
       transform="translate(5, 5)"
