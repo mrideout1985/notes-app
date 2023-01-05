@@ -45,7 +45,7 @@ const Sidebar = ({ open }: SideBarProps) => {
           </div>
         </NavLink>
         <NavLink
-          to="/trash"
+          to="/trashbin"
           className={({ isActive }) =>
             isActive ? styles.active : styles.notActive
           }

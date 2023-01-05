@@ -7,6 +7,7 @@ import Login from "./pages/Login";
 import Notes from "./pages/Notes";
 import Register from "./pages/Register";
 import Reminders from "./pages/Reminders";
+import TrashBin from "./pages/Trash";
 import Unpublished from "./pages/Unpublished";
 
 function PrivateRoute({ children }: any) {
@@ -45,17 +46,15 @@ function App() {
               path="/unpublished"
               element={
                 <PrivateRoute>
-                  {" "}
-                  <Notes />
                   <Unpublished />
                 </PrivateRoute>
               }
             />
             <Route
-              path="/trash"
+              path="/trashbin"
               element={
                 <PrivateRoute>
-                  <Trash />
+                  <TrashBin />
                 </PrivateRoute>
               }
             />
