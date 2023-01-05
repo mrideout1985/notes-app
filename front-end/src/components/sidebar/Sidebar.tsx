@@ -1,9 +1,6 @@
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
-import unpublished from "../../assets/icons/archive.svg";
-import notifications from "../../assets/icons/bell.svg";
-import notes from "../../assets/icons/book-open.svg";
-import trash from "../../assets/icons/trash.svg";
+import { Archive, Bell, BookOpen, Trash } from "../icons";
 import styles from "./Sidebar.module.scss";
 
 interface SideBarProps {
@@ -15,28 +12,45 @@ const Sidebar = ({ open }: SideBarProps) => {
     <div className={styles.sidebar} aria-expanded={open}>
       <div className={styles.links}>
         <NavLink
-          className={({ isActive }) => (isActive ? styles.active : undefined)}
+          className={({ isActive }) =>
+            isActive ? styles.active : styles.notActive
+          }
           to={"/"}
         >
-          <img src={notes} alt="notepad" />
+          <BookOpen className={styles.icon} />
           <div className={styles.text}>
             <p>Notes</p>
           </div>
         </NavLink>
-        <NavLink to="/reminders" className={styles.link}>
-          <img src={notifications} alt="notifications" />
+        <NavLink
+          className={({ isActive }) =>
+            isActive ? styles.active : styles.notActive
+          }
+          to="/reminders"
+        >
+          <Bell className={styles.icon} />
           <div className={styles.text}>
             <p>Reminders</p>
           </div>
         </NavLink>
-        <NavLink to="/drafts" className={styles.link}>
-          <img src={unpublished} alt="unpublished" />
+        <NavLink
+          className={({ isActive }) =>
+            isActive ? styles.active : styles.notActive
+          }
+          to="/unpublished"
+        >
+          <Archive className={styles.icon} />
           <div className={styles.text}>
             <p>Drafts</p>
           </div>
         </NavLink>
-        <NavLink to="/trash" className={styles.link}>
-          <img src={trash} alt="trash" />
+        <NavLink
+          to="/trashbin"
+          className={({ isActive }) =>
+            isActive ? styles.active : styles.notActive
+          }
+        >
+          <Trash className={styles.icon} />
           <div className={styles.text}>
             <p>Trash</p>
           </div>

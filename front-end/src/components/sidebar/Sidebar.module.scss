@@ -1,13 +1,32 @@
 .sidebar {
-  width: 0;
+  width: auto;
   background-color: var(--gray-9);
   transition: width 0.25s ease;
+
+  &[aria-expanded="true"] {
+    width: auto;
+    transition: width 0.25s ease;
+  
+    .text {
+      width: 150px;
+      p {
+        padding: 0;
+        transition: opacity 0.25s ease-in-out;
+        opacity: 1;
+      }
+    }
+  
+    a {
+      visibility: visible;
+    }
+  }
+
   .links {
     padding: 1rem;
 
     &:hover {
       .text {
-        width: 150px;
+        width: 125px;
         p {
           padding: 0;
           transition: opacity 0.25s ease-in-out;
@@ -24,18 +43,19 @@
     margin: 0.1rem 0;
     border-radius: 50px;
     color: white;
-    visibility: hidden;
 
     &:hover {
-      background-color: var(--yellow-9);
+      background-color: var(--yellow-5);
     }
 
-    img {
-      height: 1.5rem;
-      width: 1.5rem;
-      align-self: center;
-      z-index: 2;
+    .icon {
+      height: 2rem;
+      width: 2rem;
+      transition: all 0.25s ease;
+      
     }
+
+    
 
     .text {
       display: flex;
@@ -46,23 +66,33 @@
 
       p {
         opacity: 0;
-        margin: 0 0 0 2rem;
+        margin: 0 0 0 1rem;
       }
     }
   }
 
   .active {
     background-color: var(--pink-6);
+    .icon {
+      stroke: black;
+    }
+
     &:hover {
       background-color: var(--pink-6);
     }
   }
-}
 
-.sidebar[aria-expanded="true"] {
-  width: auto;
+  .notActive {
 
-  a {
-    visibility: visible;
+    .icon {
+    }
+  
+
+    &:hover {
+      .icon {
+        stroke: black;
+      }
+    }
   }
 }
+

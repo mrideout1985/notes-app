@@ -44,7 +44,7 @@ const TopNavBar = ({ sideBarOpen }: TopNavbar) => {
           className={styles.dropdown}
         >
           <DropdownToggle className={styles.dropdowntoggle}>
-            <SvgUser />
+            <SvgUser height="3rem" width="3rem" />
           </DropdownToggle>
           {user && (
             <DropdownMenu className={styles.dropdownmenu}>

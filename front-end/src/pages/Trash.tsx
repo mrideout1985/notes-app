@@ -1,6 +1,6 @@
 import useGetUserNotes, { Data } from "../api/hooks/getUserNotes";
 
-const Notes = () => {
+const TrashBin = () => {
   const userNotes = useGetUserNotes();
 
   return (
@@ -31,4 +31,4 @@ const Notes = () => {
   );
 };
 
-export default Notes;
+export default TrashBin;
