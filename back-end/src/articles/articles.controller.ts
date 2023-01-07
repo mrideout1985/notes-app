@@ -52,16 +52,16 @@ export class ArticlesController {
   findDrafts() {
     return this.articlesService.findDrafts();
   }
-  @UseGuards(JwtAuthGuard)
-  @ApiSecurity('access-key')
-  @UseInterceptors(ClassSerializerInterceptor)
-  @ApiOkResponse({ type: ArticleEntity, isArray: true })
-  @Get('my-articles')
-  async getMyArticles(@Request() req) {
-    const userId = req.user.email;
-    const articles = await this.articlesService.findNotesByEmail(userId);
-    return articles;
-  }
+  // @UseGuards(JwtAuthGuard)
+  // @ApiSecurity('access-key')
+  // @UseInterceptors(ClassSerializerInterceptor)
+  // @ApiOkResponse({ type: ArticleEntity, isArray: true })
+  // @Get('my-articles')
+  // async getMyArticles(@Request() req) {
+  //   const userId = req.user.email;
+  //   const articles = await this.articlesService.findNotesByEmail(userId);
+  //   return articles;
+  // }
 
   @Get(':id')
   @ApiOkResponse({ type: ArticleEntity })

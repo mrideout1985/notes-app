@@ -26,5 +26,5 @@ export class ArticleEntity implements Article {
   updatedAt: Date;
 
   @ApiProperty()
-  userEmail: string;
+  authorId: number;
 }

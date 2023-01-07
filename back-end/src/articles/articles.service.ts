@@ -24,9 +24,9 @@ export class ArticlesService {
     return this.prisma.article.findMany({ where: { published: false } });
   }
 
-  async findNotesByEmail(user: string) {
-    return this.prisma.article.findMany({ where: { userEmail: user } });
-  }
+  // async findNotesByEmail(user: string) {
+  //   return this.prisma.article.findMany({ where: { userEmail: user } });
+  // }
 
   findOne(id: number) {
     return this.prisma.article.findUnique({ where: { id } });
