@@ -15,7 +15,8 @@
     "jsx-a11y",
     "@typescript-eslint",
     "import",
-    "simple-import-sort" // Plugin for sorting imports in file.
+    "simple-import-sort",
+    "prettier"// Plugin for sorting imports in file.
   ],
   "rules": {
     "import/first": "warn",
