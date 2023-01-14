@@ -30,7 +30,8 @@
     "prettier/prettier": [
       "error",
       {
-        "endOfLine": "auto"
+        "endOfLine": "auto",
+        "singleQuote": true,
       }
     ],
     "react/jsx-sort-props": [

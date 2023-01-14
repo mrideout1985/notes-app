@@ -3,5 +3,9 @@
     "trailingComma": "all",
     "singleQuote": true,
     "printWidth": 80,
-    "tabWidth": 3
-  }
+    "tabWidth": 4,
+    "useTabs": true,
+    "bracketSpacing": true,
+    "endOfLine": "auto"
+
+ }

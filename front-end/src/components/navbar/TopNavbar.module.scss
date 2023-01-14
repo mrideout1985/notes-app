@@ -1,78 +1,79 @@
 $navbar-background-color: var(--gray-9);
 $navbar-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-$navbar-height: 60px;
 $menu-item-color: var(--pink-8);
 $menu-item-hover-color: #f8f9fa;
 $menu-item-padding: 1rem 1.5rem;
 $menu-item-border-color: rgba(0, 0, 0, 0.1);
 
 .navbar {
-  background-color: $navbar-background-color;
-  box-shadow: $navbar-box-shadow;
-  display: flex;
-  justify-content: space-between;
-  height: $navbar-height;
+	background-color: $navbar-background-color;
+	box-shadow: $navbar-box-shadow;
+	padding: 1rem;
 
-  .sidebartoggler {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    margin: 0 0 0.3rem 0;
+	.sidebartoggler {
+		background-color: transparent;
+		border: none;
+		cursor: pointer;
+		padding: 0;
 
-    &:focus {
-      outline: none;
-    }
-  }
+		&:focus {
+			box-shadow: 0px 0px 2px 3px var(--pink-6);
+			outline: none;
+			width: fit-content;
+		}
+	}
 
-  .brand {
-    font-family: "Pacifico", cursive;
-    &::first-letter {
-      font-size: 2rem;
-      color: var(--pink-6);
-      letter-spacing: 0.1rem;
-      transform: translateY(-0.25rem);
-    }
+	.brand {
+		font-family: 'Pacifico', cursive;
+		font-size: 3rem;
     color: white;
 
-    svg {
-      display: inline;
-      vertical-align: sub;
+		&::first-letter {
+			color: var(--pink-6);
+			letter-spacing: 0.1rem;
+			transform: translateY(-0.25rem);
     }
-  }
+    
 
-  .dropdown {
-    display: flex;
-    align-items: center;
+		svg {
+			display: inline;
+      margin-left: -1rem;
+			vertical-align: sub;
+      justify-self: start;
 
-    .dropdowntoggle {
-      background-color: transparent;
-      border: none;
-      cursor: pointer;
-      padding: 0;
+		}
+	}
 
-      &:focus {
-        outline: none;
-      }
-    }
+	.dropdown {
+		display: flex;
+		align-items: center;
 
-    .dropdownmenu {
-      border: none;
-      box-shadow: $navbar-box-shadow;
-      font-family: "Quicksand", sans-serif;
-      margin-top: 0.5rem;
-      min-width: 200px;
+		.dropdowntoggle {
+			background-color: transparent;
+			border: none;
+			cursor: pointer;
+			padding: 0;
 
-      a {
-        color: $menu-item-color;
-        display: block;
-        padding: $menu-item-padding;
-        text-decoration: none;
+			&:focus {
+				outline: none;
+			}
+		}
 
-        &:hover {
-          background-color: $menu-item-hover-color;
-        }
-      }
-    }
-  }
+		.dropdownmenu {
+			border: none;
+			box-shadow: $navbar-box-shadow;
+			font-family: 'Quicksand', sans-serif;
+
+			a {
+				color: $menu-item-color;
+				display: block;
+				padding: $menu-item-padding;
+				text-decoration: none;
+
+				&:hover {
+					background-color: $menu-item-hover-color;
+				}
+			}
+		}
+	}
 }

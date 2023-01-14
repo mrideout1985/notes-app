@@ -18,7 +18,6 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
-import { UsersService } from 'src/users/users.service';
 import { ArticlesService } from './articles.service';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
@@ -27,10 +26,7 @@ import { ArticleEntity } from './entities/article.entity';
 @Controller('articles')
 @ApiTags('articles')
 export class ArticlesController {
-  constructor(
-    private readonly articlesService: ArticlesService,
-    private readonly userService: UsersService,
-  ) {}
+  constructor(private readonly articlesService: ArticlesService) {}
 
   @UseGuards(JwtAuthGuard)
   @ApiSecurity('access-key')
@@ -52,16 +48,15 @@ export class ArticlesController {
   findDrafts() {
     return this.articlesService.findDrafts();
   }
-  // @UseGuards(JwtAuthGuard)
-  // @ApiSecurity('access-key')
-  // @UseInterceptors(ClassSerializerInterceptor)
-  // @ApiOkResponse({ type: ArticleEntity, isArray: true })
-  // @Get('my-articles')
-  // async getMyArticles(@Request() req) {
-  //   const userId = req.user.email;
-  //   const articles = await this.articlesService.findNotesByEmail(userId);
-  //   return articles;
-  // }
+  @UseGuards(JwtAuthGuard)
+  @ApiSecurity('access-key')
+  @UseInterceptors(ClassSerializerInterceptor)
+  @ApiOkResponse({ type: ArticleEntity, isArray: true })
+  @Get('my-articles')
+  async getMyArticles(@Request() req) {
+    const articles = await this.articlesService.findUserNotes(req.user.email);
+    return articles;
+  }
 
   @Get(':id')
   @ApiOkResponse({ type: ArticleEntity })

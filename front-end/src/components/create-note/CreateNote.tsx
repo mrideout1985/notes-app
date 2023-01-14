@@ -1,61 +1,76 @@
 import { createArticle } from '@/api/services/services'
 import useUserStore from '@/stores/authstore'
-import { useRef } from 'react'
+import { AxiosError } from 'axios'
+import { useEffect, useRef, useState } from 'react'
 import { Controller, useFormContext } from 'react-hook-form'
 import { FormGroup, Label, Input, Form } from 'reactstrap'
+import styles from './CreateNote.module.scss'
 
 const CreateNote = () => {
-   const { control, handleSubmit } = useFormContext()
-   const user = useUserStore()
-   const token = localStorage.getItem('token')
-   const ref = useRef()
+	const [focused, setFocused] = useState(false)
+	const {
+		control,
+		handleSubmit,
+		reset,
+		formState: { isDirty },
+	} = useFormContext()
+	const user = useUserStore()
+	const token = localStorage.getItem('token')
+	const titleRef = useRef<boolean>()
+	const descriptionRef = useRef<boolean>(null)
 
-   const onSubmit = handleSubmit((data) => {
-      createArticle(data, token, user.currentUser?.id).then((res) => {
-         //handle errors
-      })
-   })
+	const onSubmit = handleSubmit((data) =>
+		createArticle(data, token, user.currentUser?.email).then((res) => {
+			if (res) {
+				reset()
+			}
+		}),
+	)
 
-   return (
-      <Form onSubmit={onSubmit}>
-         <FormGroup>
-            <Controller
-               name="title"
-               control={control}
-               render={({ field }) => (
-                  <>
-                     <Label htmlFor="title">title</Label>
-                     <Input id="title" type="text" {...field} />
-                  </>
-               )}
-               defaultValue=""
-            />
-            <Controller
-               name="description"
-               control={control}
-               render={({ field }) => (
-                  <>
-                     <Label htmlFor="description">description</Label>
-                     <Input id="description" type="text" {...field} />
-                  </>
-               )}
-               defaultValue=""
-            />
-            <Controller
-               name="body"
-               control={control}
-               render={({ field }) => (
-                  <>
-                     <Label htmlFor="body">body</Label>
-                     <Input id="body" type="text" {...field} />
-                  </>
-               )}
-               defaultValue=""
-            />
-            <Input type="submit" />
-         </FormGroup>
-      </Form>
-   )
+	const handleFocus = () => {
+		setFocused(true)
+		titleRef.current = false
+	}
+
+	const handleBlurr = () => {
+		setFocused(false)
+	}
+
+	return (
+		<Form onSubmit={onSubmit} className={styles.form}>
+			<FormGroup className={styles.formgroup}>
+				<Controller
+					name="title"
+					control={control}
+					render={({ field }) => (
+						<>
+							<Label htmlFor="title">Title</Label>
+							<Input id="title" type="text" {...field} />
+						</>
+					)}
+					defaultValue=""
+				/>
+				<Controller
+					name="description"
+					control={control}
+					render={({ field }) => (
+						<>
+							<Label htmlFor="description">Description</Label>
+							<Input
+								onFocus={handleFocus}
+								onBlurCapture={handleBlurr}
+								id="description"
+								type="text"
+								{...field}
+							/>
+						</>
+					)}
+					defaultValue=""
+				/>
+				<Input type="submit" />
+			</FormGroup>
+		</Form>
+	)
 }
 
 export default CreateNote

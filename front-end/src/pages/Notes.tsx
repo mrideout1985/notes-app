@@ -1,68 +1,40 @@
-import { Controller, useFormContext } from 'react-hook-form'
-import { Form, FormGroup, Input, Label } from 'reactstrap'
-
-import { createArticle } from '@/api/services/services'
+import useGetUserNotes, { Data } from '@/api/hooks/getUserNotes'
+import { getUserNotes } from '@/api/services/services'
+import CreateNote from '@/components/create-note/CreateNote'
 import useUserStore from '@/stores/authstore'
 
 const Notes = () => {
-   const { control, handleSubmit } = useFormContext()
-   const user = useUserStore()
-   const token = localStorage.getItem('token')
+	const { data, done, error } = useGetUserNotes()
 
-   const onSubmit = handleSubmit((data) => {
-      createArticle(data, token, user.currentUser?.id).then((res) => {
-         console.log(res)
-      })
-   })
-
-   return (
-      <div
-         style={{
-            display: 'flex',
-            gap: '1rem',
-            flexWrap: 'wrap',
-         }}
-      >
-         <Form onSubmit={onSubmit}>
-            <FormGroup>
-               <Controller
-                  name="title"
-                  control={control}
-                  render={({ field }) => (
-                     <>
-                        <Label htmlFor="title">title</Label>
-                        <Input id="title" type="text" {...field} />
-                     </>
-                  )}
-                  defaultValue=""
-               />
-               <Controller
-                  name="description"
-                  control={control}
-                  render={({ field }) => (
-                     <>
-                        <Label htmlFor="description">description</Label>
-                        <Input id="description" type="text" {...field} />
-                     </>
-                  )}
-                  defaultValue=""
-               />
-               <Controller
-                  name="body"
-                  control={control}
-                  render={({ field }) => (
-                     <>
-                        <Label htmlFor="body">body</Label>
-                        <Input id="body" type="text" {...field} />
-                     </>
-                  )}
-                  defaultValue=""
-               />
-               <Input type="submit" />
-            </FormGroup>
-         </Form>
-      </div>
-   )
+	return (
+		<div>
+			<CreateNote />
+			<div
+				style={{
+					display: 'flex',
+					gap: '1rem',
+					flexWrap: 'wrap',
+				}}
+			>
+				{data?.map((note: Data) => {
+					return (
+						<div
+							key={note.id}
+							style={{
+								width: '200px',
+								height: '200px',
+								fontSize: '10px',
+								backgroundColor: 'darkgray',
+							}}
+						>
+							<h1>{note.title}</h1>
+							<p>{note.description}</p>
+						</div>
+					)
+				})}
+			</div>
+		</div>
+	)
 }
 
 export default Notes

@@ -2,17 +2,14 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateArticleDto {
   @ApiProperty()
-  title: string;
+  title: string | undefined;
 
   @ApiProperty({ required: false })
-  description?: string;
-
-  @ApiProperty()
-  body: string;
+  description: string;
 
   @ApiProperty({ required: false, default: false })
   published?: boolean = false;
 
-  @ApiProperty()
-  authorId: number;
+  @ApiProperty({ required: true, default: false })
+  authorEmail: string;
 }

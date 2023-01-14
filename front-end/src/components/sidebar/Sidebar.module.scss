@@ -1,14 +1,16 @@
 .sidebar {
   width: auto;
+  flex-shrink: 0;
   background-color: var(--gray-9);
   transition: width 0.25s ease;
 
   &[aria-expanded="true"] {
     width: auto;
     transition: width 0.25s ease;
-  
+    
     .text {
-      width: 150px;
+      width: 125px;
+    
       p {
         padding: 0;
         transition: opacity 0.25s ease-in-out;
@@ -22,7 +24,10 @@
   }
 
   .links {
-    padding: 1rem;
+    padding: 1rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: .25rem;
 
     &:hover {
       .text {
@@ -73,6 +78,7 @@
 
   .active {
     background-color: var(--pink-6);
+    
     .icon {
       stroke: black;
     }

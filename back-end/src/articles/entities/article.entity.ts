@@ -14,9 +14,6 @@ export class ArticleEntity implements Article {
   description: string | null;
 
   @ApiProperty()
-  body: string;
-
-  @ApiProperty()
   published: boolean;
 
   @ApiProperty()
@@ -26,5 +23,5 @@ export class ArticleEntity implements Article {
   updatedAt: Date;
 
   @ApiProperty()
-  authorId: number;
+  authorEmail: string;
 }
