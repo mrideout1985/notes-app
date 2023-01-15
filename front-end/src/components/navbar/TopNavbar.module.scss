@@ -1,4 +1,4 @@
-$navbar-background-color: var(--gray-9);
+$navbar-background-color: var(--gray-10);
 $navbar-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 $menu-item-color: var(--pink-8);
 $menu-item-hover-color: #f8f9fa;
@@ -26,21 +26,19 @@ $menu-item-border-color: rgba(0, 0, 0, 0.1);
 	.brand {
 		font-family: 'Pacifico', cursive;
 		font-size: 3rem;
-    color: white;
+		color: white;
 
 		&::first-letter {
 			color: var(--pink-6);
 			letter-spacing: 0.1rem;
 			transform: translateY(-0.25rem);
-    }
-    
+		}
 
 		svg {
 			display: inline;
-      margin-left: -1rem;
+			margin-left: -1rem;
 			vertical-align: sub;
-      justify-self: start;
-
+			justify-self: start;
 		}
 	}
 

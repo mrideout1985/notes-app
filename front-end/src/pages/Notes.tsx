@@ -1,37 +1,19 @@
 import useGetUserNotes, { Data } from '@/api/hooks/getUserNotes'
 import { getUserNotes } from '@/api/services/services'
-import CreateNote from '@/components/create-note/CreateNote'
+import CreateNote from '@/components/forms/CreateNoteForm'
 import useUserStore from '@/stores/authstore'
+import styles from '../pages/Notes.module.scss'
+import { useEffect } from 'react'
 
 const Notes = () => {
 	const { data, done, error } = useGetUserNotes()
 
+	useEffect(() => {})
+
 	return (
-		<div>
-			<CreateNote />
-			<div
-				style={{
-					display: 'flex',
-					gap: '1rem',
-					flexWrap: 'wrap',
-				}}
-			>
-				{data?.map((note: Data) => {
-					return (
-						<div
-							key={note.id}
-							style={{
-								width: '200px',
-								height: '200px',
-								fontSize: '10px',
-								backgroundColor: 'darkgray',
-							}}
-						>
-							<h1>{note.title}</h1>
-							<p>{note.description}</p>
-						</div>
-					)
-				})}
+		<div className={styles.container}>
+			<div className={styles.header}>
+				<CreateNote />
 			</div>
 		</div>
 	)

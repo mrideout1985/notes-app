@@ -1,3 +1,4 @@
+import { FormValues } from '@/components/forms/CreateNoteForm'
 import axios from 'axios'
 import { FieldValues } from 'react-hook-form'
 
@@ -74,7 +75,7 @@ export const getUserNotes = async (token: string | null) => {
 }
 
 export const createArticle = async (
-	data: FieldValues,
+	data: FormValues,
 	token: any,
 	email: string | undefined,
 ) => {
