@@ -1,104 +1,98 @@
 .sidebar {
-  width: auto;
-  flex-shrink: 0;
-  background-color: var(--gray-9);
-  transition: width 0.25s ease;
+	width: auto;
+	flex-shrink: 0;
+	background-color: var(--gray-10);
+	transition: width 0.25s ease;
 
-  &[aria-expanded="true"] {
-    width: auto;
-    transition: width 0.25s ease;
-    
-    .text {
-      width: 125px;
-    
-      p {
-        padding: 0;
-        transition: opacity 0.25s ease-in-out;
-        opacity: 1;
-      }
-    }
-  
-    a {
-      visibility: visible;
-    }
-  }
+	&[aria-expanded='true'] {
+		width: auto;
+		transition: width 0.25s ease;
 
-  .links {
-    padding: 1rem 1.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: .25rem;
+		.text {
+			width: 125px;
 
-    &:hover {
-      .text {
-        width: 125px;
-        p {
-          padding: 0;
-          transition: opacity 0.25s ease-in-out;
-          opacity: 1;
-        }
-      }
-    }
-  }
+			p {
+				padding: 0;
+				transition: opacity 0.25s ease-in-out;
+				opacity: 1;
+			}
+		}
 
-  a {
-    display: flex;
-    text-decoration: none;
-    padding: 1rem;
-    margin: 0.1rem 0;
-    border-radius: 50px;
-    color: white;
+		a {
+			visibility: visible;
+		}
+	}
 
-    &:hover {
-      background-color: var(--yellow-5);
-    }
+	.links {
+		padding: 1rem 1.5rem;
+		display: flex;
+		flex-direction: column;
+		gap: 0.25rem;
 
-    .icon {
-      height: 2rem;
-      width: 2rem;
-      transition: all 0.25s ease;
-      
-    }
+		&:hover {
+			.text {
+				width: 125px;
+				p {
+					padding: 0;
+					transition: opacity 0.25s ease-in-out;
+					opacity: 1;
+				}
+			}
+		}
+	}
 
-    
+	a {
+		display: flex;
+		text-decoration: none;
+		padding: 1rem;
+		margin: 0.1rem 0;
+		border-radius: 50px;
+		color: white;
 
-    .text {
-      display: flex;
-      align-items: center;
-      font-weight: 500;
-      width: 0;
-      transition: all 0.25s ease;
+		&:hover {
+			background-color: var(--yellow-5);
+		}
 
-      p {
-        opacity: 0;
-        margin: 0 0 0 1rem;
-      }
-    }
-  }
+		.icon {
+			height: 2rem;
+			width: 2rem;
+			transition: all 0.25s ease;
+		}
 
-  .active {
-    background-color: var(--pink-6);
-    
-    .icon {
-      stroke: black;
-    }
+		.text {
+			display: flex;
+			align-items: center;
+			font-weight: 500;
+			width: 0;
+			transition: all 0.25s ease;
 
-    &:hover {
-      background-color: var(--pink-6);
-    }
-  }
+			p {
+				opacity: 0;
+				margin: 0 0 0 1rem;
+			}
+		}
+	}
 
-  .notActive {
+	.active {
+		background-color: var(--pink-6);
 
-    .icon {
-    }
-  
+		.icon {
+			stroke: black;
+		}
 
-    &:hover {
-      .icon {
-        stroke: black;
-      }
-    }
-  }
+		&:hover {
+			background-color: var(--pink-6);
+		}
+	}
+
+	.notActive {
+		.icon {
+		}
+
+		&:hover {
+			.icon {
+				stroke: black;
+			}
+		}
+	}
 }
-
