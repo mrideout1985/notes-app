@@ -6,15 +6,14 @@ import styles from '../pages/Notes.module.scss'
 import { useEffect } from 'react'
 
 const Notes = () => {
-	const { data, done, error } = useGetUserNotes()
-
-	useEffect(() => {})
+	const { data, done, error, refetch } = useGetUserNotes()
 
 	return (
 		<div className={styles.container}>
 			<div className={styles.header}>
 				<CreateNote />
 			</div>
+			<div>{data?.map((el) => el.description)}</div>
 		</div>
 	)
 }

@@ -13,7 +13,6 @@ CREATE TABLE "Article" (
     "id" SERIAL NOT NULL,
     "title" TEXT,
     "description" TEXT NOT NULL,
-    "body" TEXT,
     "published" BOOLEAN NOT NULL DEFAULT false,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
@@ -26,7 +25,7 @@ CREATE TABLE "Article" (
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Article_title_key" ON "Article"("title");
+CREATE UNIQUE INDEX "Article_description_key" ON "Article"("description");
 
 -- AddForeignKey
 ALTER TABLE "Article" ADD CONSTRAINT "Article_authorEmail_fkey" FOREIGN KEY ("authorEmail") REFERENCES "User"("email") ON DELETE RESTRICT ON UPDATE CASCADE;
