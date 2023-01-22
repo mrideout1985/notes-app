@@ -10,11 +10,11 @@ const Notes = () => {
 	const { data, done, error, refetch } = useGetUserNotes()
 
 	return (
-		<div className={styles.container}>
-			<div className={styles.header}>
+		<div className={styles['container']}>
+			<div className={styles['header']}>
 				<CreateNote refetch={refetch} />
 			</div>
-			<div>
+			<div className={styles['notes']}>
 				{data?.map((el) => (
 					<NoteCard data={el} />
 				))}

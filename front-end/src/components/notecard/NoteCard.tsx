@@ -1,4 +1,4 @@
-import { Card, CardBody, CardText, CardTitle } from 'reactstrap'
+import { Card, CardBody, CardFooter, CardText, CardTitle } from 'reactstrap'
 import { Data } from '../../api/hooks/getUserNotes'
 import styles from './NoteCard.module.scss'
 
@@ -7,14 +7,24 @@ export interface NoteCardProps {
 }
 
 const NoteCard = (data: NoteCardProps) => {
+	const removeNote = (id: number) => {}
+
 	return (
-		<div className={styles['card-container']}>
-			{data.data.title && (
-				<div className={styles['title']}>
-					<h5>{data.data.title}</h5>
+		<Card className={styles['card-container']}>
+			<CardBody>
+				{data.data.title && (
+					<CardTitle className={styles['title']}>
+						<h5>{data.data.title}</h5>
+					</CardTitle>
+				)}
+				<div className={styles['description']}>
+					{data.data.description}
 				</div>
-			)}
-		</div>
+			</CardBody>
+			<CardFooter className={styles['footer']}>
+				<button>Delete</button>
+			</CardFooter>
+		</Card>
 	)
 }
 
