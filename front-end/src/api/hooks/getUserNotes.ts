@@ -16,7 +16,7 @@ function useGetUserNotes(): {
 	data: Data[] | undefined
 	done: boolean
 	error: string | undefined
-	refetch: () => Promise<void>
+	refetch: { execute: () => Promise<void> }
 } {
 	const [data, setData] = useState<Data[]>()
 	const [done, setDone] = useState(false)
@@ -47,7 +47,9 @@ function useGetUserNotes(): {
 		}
 	}
 
-	const refetch = getUserNotes
+	const refetch = {
+		execute: getUserNotes,
+	}
 
 	useEffect(() => {
 		getUserNotes()

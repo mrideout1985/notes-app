@@ -11,7 +11,11 @@ export type FormValues = {
 	description: string
 }
 
-const CreateNote = () => {
+interface CreateNoteInterface {
+	refetch: { execute: () => Promise<void> }
+}
+
+const CreateNote = ({ refetch }: CreateNoteInterface) => {
 	const [focused, setFocused] = useState(false)
 	const user = useUserStore()
 	const token = localStorage.getItem('token')
@@ -30,6 +34,7 @@ const CreateNote = () => {
 				if (res) {
 					reset()
 					setFocused(false)
+					refetch.execute()
 				}
 			})
 		}
