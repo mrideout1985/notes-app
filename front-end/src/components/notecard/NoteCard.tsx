@@ -1,28 +1,54 @@
+import { deleteNote } from '@/api/services/services'
+import useUserStore from '@/stores/authstore'
+import { MouseEventHandler } from 'react'
 import { Card, CardBody, CardFooter, CardText, CardTitle } from 'reactstrap'
-import { Data } from '../../api/hooks/getUserNotes'
 import styles from './NoteCard.module.scss'
 
-export interface NoteCardProps {
-	data: Data
+interface Data {
+	body: string
+	createdAt: string
+	description: string
+	id: number
+	published: boolean
+	title: string
+	updatedAt: string
+	authorEmail: string
 }
 
-const NoteCard = (data: NoteCardProps) => {
-	const removeNote = (id: number) => {}
+interface NoteCardProps {
+	note: {
+		body: string
+		createdAt: string
+		description: string
+		id: number
+		published: boolean
+		title: string
+		updatedAt: string
+		authorEmail: string
+	}
+	removeNote(id: number): void
+}
+
+const NoteCard = ({ note, removeNote }: NoteCardProps) => {
+	const handleRemoveNote = (id: number) => {
+		removeNote(id)
+	}
 
 	return (
 		<Card className={styles['card-container']}>
 			<CardBody>
-				{data.data.title && (
+				{note.title && (
 					<CardTitle className={styles['title']}>
-						<h5>{data.data.title}</h5>
+						<h5>{note.title}</h5>
 					</CardTitle>
 				)}
-				<div className={styles['description']}>
-					{data.data.description}
-				</div>
+				<div className={styles['description']}>{note.description}</div>
 			</CardBody>
 			<CardFooter className={styles['footer']}>
-				<button>Delete</button>
+				<button onClick={() => handleRemoveNote(note.id)}>
+					Delete
+				</button>
+				<button>Edit</button>
 			</CardFooter>
 		</Card>
 	)
