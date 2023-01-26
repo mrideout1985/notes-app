@@ -1,19 +1,31 @@
 import useGetUserNotes, { Data } from '@/api/hooks/getUserNotes'
-import { getUserNotes } from '@/api/services/services'
+import { deleteNote, getUserNotes } from '@/api/services/services'
 import CreateNote from '@/components/forms/CreateNoteForm'
 import useUserStore from '@/stores/authstore'
 import styles from '../pages/Notes.module.scss'
 import { useEffect } from 'react'
+import NoteCard from '@/components/notecard/NoteCard'
 
 const Notes = () => {
-	const { data, done, error } = useGetUserNotes()
+	const { data, done, error, refetch } = useGetUserNotes()
 
-	useEffect(() => {})
+	const removeNote = (id: number) => {
+		deleteNote(id).then((res) => {
+			if (res.status === 200) {
+				refetch.execute()
+			}
+		})
+	}
 
 	return (
-		<div className={styles.container}>
-			<div className={styles.header}>
-				<CreateNote />
+		<div className={styles['container']}>
+			<div className={styles['header']}>
+				<CreateNote refetch={refetch} />
+			</div>
+			<div className={styles['notes']}>
+				{data?.map((el) => (
+					<NoteCard key={el.id} note={el} removeNote={removeNote} />
+				))}
 			</div>
 		</div>
 	)

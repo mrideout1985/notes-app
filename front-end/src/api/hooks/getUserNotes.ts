@@ -16,13 +16,14 @@ function useGetUserNotes(): {
 	data: Data[] | undefined
 	done: boolean
 	error: string | undefined
+	refetch: { execute: () => Promise<void> }
 } {
 	const [data, setData] = useState<Data[]>()
 	const [done, setDone] = useState(false)
 	const [error, setError] = useState('')
 	const jwtToken = localStorage.getItem('token')
 
-	useEffect(() => {
+	const getUserNotes = async () => {
 		if (jwtToken) {
 			fetch('http://localhost:3000/articles/my-articles', {
 				method: 'GET',
@@ -44,12 +45,21 @@ function useGetUserNotes(): {
 					}
 				})
 		}
-	}, [])
+	}
+
+	const refetch = {
+		execute: getUserNotes,
+	}
+
+	useEffect(() => {
+		getUserNotes()
+	}, [done])
 
 	return {
 		data,
 		done,
 		error,
+		refetch,
 	}
 }
 

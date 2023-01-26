@@ -96,3 +96,10 @@ export const createArticle = async (
 	)
 	return await response
 }
+
+export const deleteNote = async (id: number) => {
+	const response = axios.delete(`http://localhost:3000/articles/${id}`, {
+		withCredentials: true,
+	})
+	return await response
+}
