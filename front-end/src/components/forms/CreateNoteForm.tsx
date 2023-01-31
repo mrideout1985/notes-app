@@ -1,4 +1,4 @@
-import { createArticle } from '@/api/services/services'
+import { createArticle, deleteNote } from '@/api/services/services'
 import useUserStore from '@/stores/authstore'
 import { BaseSyntheticEvent, useEffect, useRef, useState } from 'react'
 import { Controller, useFormContext } from 'react-hook-form'
@@ -18,7 +18,6 @@ interface CreateNoteInterface {
 const CreateNote = ({ refetch }: CreateNoteInterface) => {
 	const [focused, setFocused] = useState(false)
 	const user = useUserStore()
-	const token = localStorage.getItem('token')
 	const submitRef = useRef(null)
 
 	const {
@@ -30,7 +29,11 @@ const CreateNote = ({ refetch }: CreateNoteInterface) => {
 
 	const onSubmit = handleSubmit((data: FormValues) => {
 		if (data.title || data.description !== '') {
-			createArticle(data, token, user.currentUser?.email).then((res) => {
+			createArticle(
+				data,
+				user.currentUser?.token,
+				user.currentUser?.email,
+			).then((res) => {
 				if (res) {
 					reset()
 					setFocused(false)
