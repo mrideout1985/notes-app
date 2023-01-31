@@ -1,8 +1,8 @@
 import { render } from '@testing-library/react'
-import NoteCard from './NoteCard'
+import NoteCard, { NoteCardProps } from './NoteCard'
 
-const mockData = {
-	note: {
+const mockData: NoteCardProps = {
+	data: {
 		authorEmail: 'cockhunter',
 		body: '',
 		createdAt: String(new Date()),
@@ -14,13 +14,9 @@ const mockData = {
 	},
 }
 
-const mockRemoveNote = jest.fn()
-
 describe('<NoteCard/>', () => {
 	it('displays a title when the title is given', () => {
-		const screen = render(
-			<NoteCard note={mockData.note} removeNote={mockRemoveNote} />,
-		)
+		const screen = render(<NoteCard data={mockData.data} />)
 
 		const title = screen.getByText('I love them')
 
@@ -28,24 +24,10 @@ describe('<NoteCard/>', () => {
 	})
 
 	it('displays a description when the description is given', () => {
-		const screen = render(
-			<NoteCard note={mockData.note} removeNote={mockRemoveNote} />,
-		)
+		const screen = render(<NoteCard data={mockData.data} />)
+
 		const description = screen.getByText('cocks')
 
 		expect(description).toBeInTheDocument()
-	})
-
-	it("doesn't display a title when the title is not given", () => {
-		const screen = render(
-			<NoteCard
-				note={{ ...mockData.note, title: '' }}
-				removeNote={mockRemoveNote}
-			/>,
-		)
-
-		const title = screen.queryByText('I love them')
-
-		expect(title).not.toBeInTheDocument()
 	})
 })

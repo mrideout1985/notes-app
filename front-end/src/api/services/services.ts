@@ -97,9 +97,13 @@ export const createArticle = async (
 	return await response
 }
 
-export const deleteNote = async (id: number) => {
+export const deleteArticle = async (id: number, token: string | undefined) => {
 	const response = axios.delete(`http://localhost:3000/articles/${id}`, {
 		withCredentials: true,
+		headers: {
+			'Content-Type': 'application/json',
+			Authorization: 'Bearer ' + token,
+		},
 	})
 	return await response
 }
