@@ -70,6 +70,9 @@ export class ArticlesController {
     return this.articlesService.update(+id, updateArticleDto);
   }
 
+  @UseGuards(JwtAuthGuard)
+  @ApiSecurity('access-key')
+  @UseInterceptors(ClassSerializerInterceptor)
   @Delete(':id')
   @ApiOkResponse({ type: ArticleEntity })
   remove(@Param('id') id: string) {
