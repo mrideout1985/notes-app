@@ -97,6 +97,31 @@ export const createArticle = async (
 	return await response
 }
 
+export const updateArticle = async (
+	data: FormValues,
+	token: any,
+	email: string | undefined,
+	id: string,
+) => {
+	const response = axios.patch(
+		'http://localhost:3000/articles',
+		{
+			title: data.title,
+			description: data.description,
+			authorEmail: email,
+		},
+		{
+			withCredentials: true,
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: 'Bearer ' + token,
+			},
+		},
+	)
+
+	return response
+}
+
 export const deleteNote = async (id: number) => {
 	const response = axios.delete(`http://localhost:3000/articles/${id}`, {
 		withCredentials: true,

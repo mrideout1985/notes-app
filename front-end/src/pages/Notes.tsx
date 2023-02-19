@@ -24,7 +24,12 @@ const Notes = () => {
 			</div>
 			<div className={styles['notes']}>
 				{data?.map((el) => (
-					<NoteCard key={el.id} note={el} removeNote={removeNote} />
+					<NoteCard
+						refetch={refetch}
+						key={el.id}
+						note={el}
+						removeNote={removeNote}
+					/>
 				))}
 			</div>
 		</div>

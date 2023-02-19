@@ -1,7 +1,7 @@
 import { AxiosError } from 'axios'
 import { useEffect } from 'react'
 import { Controller, useFormContext } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { Button, Form, FormGroup, Input, Label } from 'reactstrap'
 
 import useUserStore from '@/stores/authstore'
@@ -28,7 +28,6 @@ const Login = () => {
 					message: res.response?.data.message,
 				})
 			}
-			console.log(res)
 			localStorage.setItem('token', res.data.Authorization)
 			user.setCurrentUser(res.data.user.email, res.data.Authorization)
 			navigate('/')
@@ -39,8 +38,8 @@ const Login = () => {
 		<div className={styles.container}>
 			<div className={styles.auth}>
 				<Form action="POST" onSubmit={onLoginSubmit}>
-					<legend>Login</legend>
 					<div className={styles.controls_container}>
+						<legend>Login</legend>
 						<FormGroup className={styles.controls}>
 							<Controller
 								name="email"
@@ -48,15 +47,10 @@ const Login = () => {
 								rules={{ required: true }}
 								render={({ fieldState: { error }, field }) => (
 									<>
-										<Label
-											className={styles.label}
-											htmlFor="email"
-										>
-											Email
-										</Label>
 										<Input
 											id="email"
 											type="text"
+											aria-label="email"
 											{...field}
 										/>
 										<div className={styles.error}>
@@ -72,22 +66,16 @@ const Login = () => {
 								defaultValue=""
 							/>
 						</FormGroup>
-
 						<FormGroup className={styles.controls}>
 							<Controller
 								name="password"
 								control={control}
 								render={({ field }) => (
 									<>
-										<Label
-											className={styles.label}
-											htmlFor="password"
-										>
-											Password
-										</Label>
 										<Input
 											id="password"
 											type="password"
+											aria-label="password"
 											{...field}
 										/>
 									</>
@@ -96,15 +84,14 @@ const Login = () => {
 							/>
 						</FormGroup>
 					</div>
-
 					<div className={styles.buttons}>
+						<NavLink to="/register">Register</NavLink>
 						<Button size="small" color="primary" type="submit">
-							Submit
+							Login
 						</Button>
 					</div>
 				</Form>
 			</div>
-			<div className={styles.splash} />
 		</div>
 	)
 }
