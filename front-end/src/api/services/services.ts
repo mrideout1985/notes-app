@@ -140,7 +140,7 @@ export const updateNote = async (
 	return response
 }
 
-export const deleteNote = async (id: number, token: string) => {
+export const deleteNote = async (id: number, token: string | undefined) => {
 	const response = axios.delete(`http://localhost:3000/articles/${id}`, {
 		withCredentials: true,
 		headers: {

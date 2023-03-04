@@ -1,25 +1,12 @@
-import { deleteArticle } from '@/api/services/services'
+import { useState } from 'react'
 import { Card, CardBody, CardFooter, CardText, CardTitle } from 'reactstrap'
 import { Data } from '../../api/hooks/getUserNotes'
+import NoteCardModal from '../notecard-modal/NoteCardModal'
 import styles from './NoteCard.module.scss'
 
 export interface NoteCardProps {
-	data: Data
+	note: Data
 	removeNote: (id: number) => void
-}
-
-interface NoteCardProps {
-	note: {
-		body: string
-		createdAt: string
-		description: string
-		id: number
-		published: boolean
-		title: string
-		updatedAt: string
-		authorEmail: string
-	}
-	removeNote(id: number): void
 	refetch: { execute: () => Promise<void> }
 }
 

@@ -12,7 +12,7 @@ interface FormData {
 	description: string
 }
 
-const CreateNote = () => {
+const CreateNote = ({ refetch }: any) => {
 	const [focused, setFocused] = useState(false)
 	const user = useUserStore()
 	const submitRef = useRef(null)
@@ -26,7 +26,6 @@ const CreateNote = () => {
 	} = useForm<FormData>()
 
 	const onSubmit = handleSubmit((data) => {
-		console.log(data)
 		if (data.title || data.description !== '') {
 			createNote(
 				data as FormData,
@@ -35,6 +34,7 @@ const CreateNote = () => {
 			).then((res) => {
 				if (res) {
 					reset()
+					refetch.execute()
 					setFocused(false)
 				}
 			})
