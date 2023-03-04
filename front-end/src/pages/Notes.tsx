@@ -5,6 +5,7 @@ import useUserStore from '@/stores/authstore'
 import styles from '../pages/Notes.module.scss'
 import { useEffect } from 'react'
 import NoteCard from '@/components/notecard/NoteCard'
+import { useForm } from 'react-hook-form'
 
 const Notes = () => {
 	const { data, done, error, refetch } = useGetUserNotes()
@@ -19,11 +20,16 @@ const Notes = () => {
 	return (
 		<div className={styles['container']}>
 			<div className={styles['header']}>
-				<CreateNote refetch={refetch} />
+				<CreateNote />
 			</div>
 			<div className={styles['notes']}>
 				{data?.map((el) => (
-					<NoteCard removeNote={removeNote} data={el} />
+					<NoteCard
+						refetch={refetch}
+						key={el.id}
+						note={el}
+						removeNote={removeNote}
+					/>
 				))}
 			</div>
 		</div>

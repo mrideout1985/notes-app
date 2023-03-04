@@ -1,6 +1,4 @@
-import { FormValues } from '@/components/forms/CreateNoteForm'
 import axios from 'axios'
-import { FieldValues } from 'react-hook-form'
 
 export const register = async (email: string, password: string) => {
 	const response = axios
@@ -74,8 +72,8 @@ export const getUserNotes = async (token: string | null) => {
 	return await response
 }
 
-export const createArticle = async (
-	data: FormValues,
+export const createNote = async (
+	data: { title: string; description: string },
 	token: any,
 	email: string | undefined,
 ) => {
@@ -94,10 +92,55 @@ export const createArticle = async (
 			},
 		},
 	)
+
 	return await response
 }
 
-export const deleteArticle = async (id: number, token: string | undefined) => {
+export const updateNote = async (
+	data: { title: string; description: string },
+	token: string | undefined,
+	email: string | undefined,
+	id: number | undefined,
+) => {
+	const response = axios
+		.patch(
+			`http://localhost:3000/articles/${id}`,
+			{
+				title: data.title,
+				description: data.description,
+				authorEmail: email,
+			},
+			{
+				withCredentials: true,
+				headers: {
+					'Content-Type': 'application/json',
+					Authorization: 'Bearer ' + token,
+				},
+			},
+		)
+		.catch(function (error) {
+			if (error.response) {
+				// The request was made and the server responded with a status code
+				// that falls out of the range of 2xx
+				console.log(error.response.data)
+				console.log(error.response.status)
+				console.log(error.response.headers)
+			} else if (error.request) {
+				// The request was made but no response was received
+				// `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+				// http.ClientRequest in node.js
+				console.log(error.request)
+			} else {
+				// Something happened in setting up the request that triggered an Error
+				console.log('Error', error.message)
+			}
+			console.log(error.config)
+		})
+
+	return response
+}
+
+export const deleteNote = async (id: number, token: string) => {
 	const response = axios.delete(`http://localhost:3000/articles/${id}`, {
 		withCredentials: true,
 		headers: {

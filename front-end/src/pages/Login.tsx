@@ -1,7 +1,16 @@
 import { AxiosError } from 'axios'
 import { useEffect } from 'react'
+<<<<<<< Updated upstream
 import { Controller, useFormContext } from 'react-hook-form'
+<<<<<<< Updated upstream
+import { NavLink, useNavigate } from 'react-router-dom'
+=======
 import { useNavigate } from 'react-router-dom'
+=======
+import { Controller, useForm, useFormContext } from 'react-hook-form'
+import { NavLink, useNavigate } from 'react-router-dom'
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
 import { Button, Form, FormGroup, Input, Label } from 'reactstrap'
 
 import useUserStore from '@/stores/authstore'
@@ -16,7 +25,7 @@ export interface AuthValues {
 }
 
 const Login = () => {
-	const { handleSubmit, setError, control, clearErrors } = useFormContext()
+	const { handleSubmit, setError, control, clearErrors } = useForm()
 	const navigate = useNavigate()
 	const user = useUserStore()
 
@@ -28,9 +37,12 @@ const Login = () => {
 					message: res.response?.data.message,
 				})
 			}
-			console.log(res)
 			localStorage.setItem('token', res.data.Authorization)
-			user.setCurrentUser(res.data.user.email, res.data.Authorization)
+			user.setCurrentUser(
+				res.data.user.email,
+				res.data.Authorization,
+				res.data.user.id,
+			)
 			navigate('/')
 		})
 	})
@@ -39,8 +51,8 @@ const Login = () => {
 		<div className={styles.container}>
 			<div className={styles.auth}>
 				<Form action="POST" onSubmit={onLoginSubmit}>
-					<legend>Login</legend>
 					<div className={styles.controls_container}>
+						<legend>Login</legend>
 						<FormGroup className={styles.controls}>
 							<Controller
 								name="email"
@@ -48,15 +60,10 @@ const Login = () => {
 								rules={{ required: true }}
 								render={({ fieldState: { error }, field }) => (
 									<>
-										<Label
-											className={styles.label}
-											htmlFor="email"
-										>
-											Email
-										</Label>
 										<Input
 											id="email"
 											type="text"
+											aria-label="email"
 											{...field}
 										/>
 										<div className={styles.error}>
@@ -72,22 +79,16 @@ const Login = () => {
 								defaultValue=""
 							/>
 						</FormGroup>
-
 						<FormGroup className={styles.controls}>
 							<Controller
 								name="password"
 								control={control}
 								render={({ field }) => (
 									<>
-										<Label
-											className={styles.label}
-											htmlFor="password"
-										>
-											Password
-										</Label>
 										<Input
 											id="password"
 											type="password"
+											aria-label="password"
 											{...field}
 										/>
 									</>
@@ -96,15 +97,14 @@ const Login = () => {
 							/>
 						</FormGroup>
 					</div>
-
 					<div className={styles.buttons}>
+						<NavLink to="/register">Register</NavLink>
 						<Button size="small" color="primary" type="submit">
-							Submit
+							Login
 						</Button>
 					</div>
 				</Form>
 			</div>
-			<div className={styles.splash} />
 		</div>
 	)
 }

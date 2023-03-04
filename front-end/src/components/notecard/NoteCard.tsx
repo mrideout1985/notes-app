@@ -8,21 +8,58 @@ export interface NoteCardProps {
 	removeNote: (id: number) => void
 }
 
-const NoteCard = ({ data, removeNote }: NoteCardProps) => {
+interface NoteCardProps {
+	note: {
+		body: string
+		createdAt: string
+		description: string
+		id: number
+		published: boolean
+		title: string
+		updatedAt: string
+		authorEmail: string
+	}
+	removeNote(id: number): void
+	refetch: { execute: () => Promise<void> }
+}
+
+const NoteCard = ({ note, removeNote, refetch }: NoteCardProps) => {
+	const [openModal, setOpenModal] = useState(false)
+
+	const toggleModal = () => setOpenModal(!openModal)
+
 	return (
-		<Card className={styles['card-container']}>
-			<CardBody>
-				{data.title && (
-					<CardTitle className={styles['title']}>
-						<h5>{data.title}</h5>
-					</CardTitle>
-				)}
-				<div className={styles['description']}>{data.description}</div>
-			</CardBody>
-			<CardFooter className={styles['footer']}>
-				<button onClick={() => removeNote(data.id)}>Delete</button>
-			</CardFooter>
-		</Card>
+		<>
+			<Card className={styles['card-container']}>
+				<CardBody>
+					{note.title && (
+						<CardTitle className={styles['title']}>
+							<h5>{note.title}</h5>
+						</CardTitle>
+					)}
+					<div className={styles['description']}>
+						{note.description}
+					</div>
+				</CardBody>
+				<CardFooter className={styles['footer']}>
+					<button onClick={() => removeNote(note.id)}>Delete</button>
+					<button onClick={() => setOpenModal(true)}>Edit</button>
+				</CardFooter>
+			</Card>
+			<NoteCardModal
+				title={note.title}
+				toggle={toggleModal}
+				description={note.description}
+				open={openModal}
+				refetch={refetch}
+				id={note.id}
+				handleOnClose={() => setOpenModal(false)}
+				handleOnSubmit={(e) => {
+					e.preventDefault()
+					console.log(e)
+				}}
+			/>
+		</>
 	)
 }
 
