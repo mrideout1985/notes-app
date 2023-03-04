@@ -5,6 +5,8 @@
 	.form {
 		width: 100%;
 		.formgroup {
+			display: flex;
+			flex-direction: column;
 			.input {
 				margin: 0.25rem 0;
 
@@ -12,11 +14,12 @@
 					display: none;
 				}
 
-				.title[aria-hidden='true'] {
+				.title[hidden='true'] {
 					display: block;
 				}
 
 				.description {
+					display: block;
 				}
 			}
 		}

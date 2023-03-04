@@ -1,43 +1,41 @@
-import { createArticle, deleteNote } from '@/api/services/services'
+import { createNote, deleteNote } from '@/api/services/services'
 import useUserStore from '@/stores/authstore'
 import { BaseSyntheticEvent, useEffect, useRef, useState } from 'react'
-import { Controller, useFormContext } from 'react-hook-form'
+import { Controller, useForm, useFormContext } from 'react-hook-form'
 import { FormGroup, Label, Input, Form } from 'reactstrap'
 import { useClickAway } from 'react-use'
 import styles from './CreateNoteForm.module.scss'
+import useGetUserNotes from '@/api/hooks/getUserNotes'
 
-export type FormValues = {
+interface FormData {
 	title: string
 	description: string
 }
 
-interface CreateNoteInterface {
-	refetch: { execute: () => Promise<void> }
-}
-
-const CreateNote = ({ refetch }: CreateNoteInterface) => {
+const CreateNote = () => {
 	const [focused, setFocused] = useState(false)
 	const user = useUserStore()
 	const submitRef = useRef(null)
 
 	const {
-		control,
 		handleSubmit,
 		reset,
+		register,
+		watch,
 		formState: { isDirty },
-	} = useFormContext<FormValues>()
+	} = useForm<FormData>()
 
-	const onSubmit = handleSubmit((data: FormValues) => {
+	const onSubmit = handleSubmit((data) => {
+		console.log(data)
 		if (data.title || data.description !== '') {
-			createArticle(
-				data,
+			createNote(
+				data as FormData,
 				user.currentUser?.token,
 				user.currentUser?.email,
 			).then((res) => {
 				if (res) {
 					reset()
 					setFocused(false)
-					refetch.execute()
 				}
 			})
 		}
@@ -60,43 +58,16 @@ const CreateNote = ({ refetch }: CreateNoteInterface) => {
 		<div ref={submitRef} className={styles.container}>
 			<Form onSubmit={onSubmit} className={styles.form}>
 				<FormGroup className={styles.formgroup}>
-					<Controller
-						name="title"
-						control={control}
-						render={({ field }) => (
-							<div className={styles.input}>
-								<Input
-									aria-label="Title"
-									aria-hidden={focused}
-									spellCheck={true}
-									placeholder="Title"
-									className={styles.title}
-									id="title"
-									type="text"
-									{...field}
-								/>
-							</div>
-						)}
-						defaultValue=""
+					<input
+						{...register('title')}
+						className={styles.title}
+						hidden={!focused}
 					/>
-					<Controller
-						name="description"
-						control={control}
-						render={({ field }) => (
-							<div className={styles.input}>
-								<Input
-									onFocus={handleFocus}
-									className={styles.description}
-									spellCheck={true}
-									aria-label="Take a note..."
-									placeholder="Take a note..."
-									id="description"
-									type="text"
-									{...field}
-								/>
-							</div>
-						)}
-						defaultValue=""
+					<input
+						{...register('description')}
+						className={styles.description}
+						onFocus={handleFocus}
+						placeholder="Take a note..."
 					/>
 				</FormGroup>
 			</Form>
