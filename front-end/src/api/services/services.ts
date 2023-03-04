@@ -96,33 +96,6 @@ export const createNote = async (
 	return await response
 }
 
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-export const updateArticle = async (
-	data: FormValues,
-	token: any,
-	email: string | undefined,
-	id: string,
-) => {
-	const response = axios.patch(
-		'http://localhost:3000/articles',
-		{
-			title: data.title,
-			description: data.description,
-			authorEmail: email,
-		},
-		{
-			withCredentials: true,
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: 'Bearer ' + token,
-			},
-		},
-	)
-=======
-<<<<<<< Updated upstream
-export const deleteArticle = async (id: number, token: string | undefined) => {
-=======
 export const updateNote = async (
 	data: { title: string; description: string },
 	token: string | undefined,
@@ -163,19 +136,11 @@ export const updateNote = async (
 			}
 			console.log(error.config)
 		})
->>>>>>> Stashed changes
 
 	return response
 }
 
-export const deleteNote = async (id: number) => {
-<<<<<<< Updated upstream
-=======
->>>>>>> Stashed changes
->>>>>>> Stashed changes
-=======
-export const deleteArticle = async (id: number, token: string | undefined) => {
->>>>>>> main
+export const deleteNote = async (id: number, token: string) => {
 	const response = axios.delete(`http://localhost:3000/articles/${id}`, {
 		withCredentials: true,
 		headers: {
