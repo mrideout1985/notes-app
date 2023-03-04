@@ -96,6 +96,7 @@ export const createNote = async (
 	return await response
 }
 
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 export const updateArticle = async (
 	data: FormValues,
@@ -172,8 +173,15 @@ export const deleteNote = async (id: number) => {
 =======
 >>>>>>> Stashed changes
 >>>>>>> Stashed changes
+=======
+export const deleteArticle = async (id: number, token: string | undefined) => {
+>>>>>>> main
 	const response = axios.delete(`http://localhost:3000/articles/${id}`, {
 		withCredentials: true,
+		headers: {
+			'Content-Type': 'application/json',
+			Authorization: 'Bearer ' + token,
+		},
 	})
 	return await response
 }

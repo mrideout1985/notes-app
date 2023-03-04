@@ -1,77 +1,69 @@
-import { updateArticle } from '@/api/services/services'
+import { updateNote } from '@/api/services/services'
 import useUserStore from '@/stores/authstore'
-import { Controller, useFormContext } from 'react-hook-form'
+import { FormEventHandler } from 'react'
+import { Controller, useForm, useFormContext } from 'react-hook-form'
 import { Card, Form, FormGroup, Input, Modal } from 'reactstrap'
-import { FormValues } from '../forms/CreateNoteForm'
+import styles from '../forms/CreateNoteForm.module.scss'
 
 interface NoteCardModalInterface {
 	open: boolean
-	title: string
-	description: string
 	refetch: { execute: () => Promise<void> }
 	toggle: any
+	id: number
+	title: string
+	description: string
+	handleOnClose: () => void
+	handleOnSubmit: FormEventHandler<HTMLFormElement>
 }
 
 const NoteCardModal = ({
 	open,
-	title,
-	description,
 	refetch,
 	toggle,
+	id,
+	title,
+	description,
+	handleOnClose,
+	handleOnSubmit,
 }: NoteCardModalInterface) => {
 	const user = useUserStore()
 
-	const {
-		control,
-		handleSubmit,
-		reset,
-		register,
-		formState: { isDirty },
-	} = useFormContext<FormValues>()
+	const { register, handleSubmit, resetField } = useForm()
 
-	const onSubmit = handleSubmit((data: FormValues) => {
+	const onSubmit = handleSubmit((data) => {
 		if (data.title || data.description !== '') {
-			updateArticle(
-				data,
+			updateNote(
+				data as any,
 				user.currentUser?.token,
 				user.currentUser?.email,
-			).then((res) => {
-				if (res) {
-					reset()
-					refetch.execute()
-				}
-			})
+				id,
+			)
 		}
+		resetField('title')
+		resetField('description')
+		handleOnClose()
 	})
 
-	const handleOnClose = () => {
-		onSubmit()
-	}
-
 	return (
-		<Modal backdrop onExit={handleOnClose} toggle={toggle} isOpen={open}>
-			<Card>
-				<Form onSubmit={onSubmit}>
-					<FormGroup>
-						<Input
-							aria-label="Title"
-							spellCheck={true}
-							placeholder="Title"
-							id="title"
-							type="text"
-							defaultValue={title}
+		<Modal backdrop toggle={toggle} isOpen={open}>
+			<Card className={styles.container}>
+				<Form onSubmit={onSubmit} className={styles.form}>
+					<FormGroup className={styles.formgroup}>
+						<input
 							{...register('title')}
+							className={styles.title}
+							defaultValue={title}
+							aria-label="title"
 						/>
-						<Input
-							aria-label="Title"
-							spellCheck={true}
-							placeholder="Title"
-							id="title"
-							type="textarea"
-							defaultValue={description}
+						<input
 							{...register('description')}
+							className={styles.description}
+							placeholder="Take a note..."
+							defaultValue={description}
+							aria-label="description"
 						/>
 					</FormGroup>
+					<input type="submit" value="Complete" />
 				</Form>
 			</Card>
 		</Modal>

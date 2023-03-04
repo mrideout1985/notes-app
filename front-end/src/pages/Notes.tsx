@@ -1,5 +1,5 @@
 import useGetUserNotes, { Data } from '@/api/hooks/getUserNotes'
-import { deleteNote, getUserNotes } from '@/api/services/services'
+import { deleteArticle, getUserNotes } from '@/api/services/services'
 import CreateNote from '@/components/forms/CreateNoteForm'
 import useUserStore from '@/stores/authstore'
 import styles from '../pages/Notes.module.scss'
@@ -9,12 +9,11 @@ import { useForm } from 'react-hook-form'
 
 const Notes = () => {
 	const { data, done, error, refetch } = useGetUserNotes()
+	const token = useUserStore()
 
 	const removeNote = (id: number) => {
-		deleteNote(id).then((res) => {
-			if (res.status === 200) {
-				refetch.execute()
-			}
+		deleteArticle(id, token.currentUser?.token).then((res) => {
+			if (res.status === 200) refetch.execute()
 		})
 	}
 

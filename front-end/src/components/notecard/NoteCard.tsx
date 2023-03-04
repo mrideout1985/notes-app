@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { deleteNote } from '@/api/services/services'
 import useUserStore from '@/stores/authstore'
 import { MouseEventHandler, useState } from 'react'
@@ -11,19 +12,19 @@ import {
 	ModalHeader,
 } from 'reactstrap'
 import NoteCardModal from '../notecard-modal/NoteCardModal'
+=======
+import { deleteArticle } from '@/api/services/services'
+import { Card, CardBody, CardFooter, CardText, CardTitle } from 'reactstrap'
+import { Data } from '../../api/hooks/getUserNotes'
+>>>>>>> main
 import styles from './NoteCard.module.scss'
 
-interface Data {
-	body: string
-	createdAt: string
-	description: string
-	id: number
-	published: boolean
-	title: string
-	updatedAt: string
-	authorEmail: string
+export interface NoteCardProps {
+	data: Data
+	removeNote: (id: number) => void
 }
 
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 interface NoteCardProps {
 	note: {
@@ -52,6 +53,8 @@ const NoteCard = ({ note, removeNote, refetch }: NoteCardProps) => {
 	return (
 =======
 <<<<<<< Updated upstream
+=======
+>>>>>>> main
 const NoteCard = ({ data, removeNote }: NoteCardProps) => {
 	return (
 		<Card className={styles['card-container']}>
