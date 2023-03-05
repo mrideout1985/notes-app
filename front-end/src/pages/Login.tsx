@@ -1,16 +1,9 @@
 import { AxiosError } from 'axios'
 import { useEffect } from 'react'
-<<<<<<< Updated upstream
-import { Controller, useFormContext } from 'react-hook-form'
-<<<<<<< Updated upstream
-import { NavLink, useNavigate } from 'react-router-dom'
-=======
-import { useNavigate } from 'react-router-dom'
-=======
+
 import { Controller, useForm, useFormContext } from 'react-hook-form'
 import { NavLink, useNavigate } from 'react-router-dom'
->>>>>>> Stashed changes
->>>>>>> Stashed changes
+
 import { Button, Form, FormGroup, Input, Label } from 'reactstrap'
 
 import useUserStore from '@/stores/authstore'

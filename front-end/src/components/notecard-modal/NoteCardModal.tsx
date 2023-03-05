@@ -41,6 +41,7 @@ const NoteCardModal = ({
 		}
 		resetField('title')
 		resetField('description')
+		refetch.execute()
 		handleOnClose()
 	})
 

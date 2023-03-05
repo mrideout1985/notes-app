@@ -62,12 +62,14 @@ const CreateNote = ({ refetch }: any) => {
 						{...register('title')}
 						className={styles.title}
 						hidden={!focused}
+						aria-label="title"
 					/>
 					<input
 						{...register('description')}
 						className={styles.description}
 						onFocus={handleFocus}
 						placeholder="Take a note..."
+						aria-label="description"
 					/>
 				</FormGroup>
 			</Form>

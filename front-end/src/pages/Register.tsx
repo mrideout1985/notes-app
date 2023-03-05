@@ -1,5 +1,5 @@
 import { AxiosError } from 'axios'
-import { Controller, useFormContext } from 'react-hook-form'
+import { Controller, useForm, useFormContext } from 'react-hook-form'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { Button, Form, FormGroup, Input, Label } from 'reactstrap'
 
@@ -15,7 +15,7 @@ export interface AuthValues {
 const Register = () => {
 	const navigate = useNavigate()
 
-	const { handleSubmit, setError, control } = useFormContext()
+	const { handleSubmit, setError, control } = useForm()
 
 	const onRegisterSubmit = handleSubmit((data) => {
 		register(data.email, data.password).then((res) => {

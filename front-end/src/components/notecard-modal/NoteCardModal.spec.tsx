@@ -1,4 +1,4 @@
-import { fireEvent, render } from '@testing-library/react'
+import { fireEvent, render, waitFor } from '@testing-library/react'
 import { act } from 'react-dom/test-utils'
 import NoteCardModal from './NoteCardModal'
 
@@ -33,7 +33,7 @@ describe('NoteCardModal', () => {
 		).toBeInTheDocument()
 	})
 
-	it('should call the handleOnClose function when the close button is clicked', async () => {
+	it('should call the handleOnClose function when the submit button is clicked', async () => {
 		const screen = render(
 			<NoteCardModal
 				description="description"
@@ -55,6 +55,59 @@ describe('NoteCardModal', () => {
 			fireEvent.click(submitButton)
 		})
 
-		expect(mockHandleOnClose).toHaveBeenCalled()
+		waitFor(() => expect(mockHandleOnClose).toHaveBeenCalled())
+	})
+
+	it('should call the refetch function when the submit button is clicked', async () => {
+		const screen = render(
+			<NoteCardModal
+				description="description"
+				title="title"
+				handleOnClose={mockHandleOnClose}
+				handleOnSubmit={mockHandleOnSubmit}
+				id={1}
+				open={true}
+				refetch={mockRefetch}
+				toggle={mockToggle}
+				key={1}
+			/>,
+		)
+		const submitButton = screen.getByRole('button', {
+			name: 'Complete',
+		})
+
+		act(() => {
+			fireEvent.click(submitButton)
+		})
+
+		waitFor(() => expect(mockRefetch.execute).toHaveBeenCalled())
+	})
+
+	it('should allow the user to change the title and description of the note card', async () => {
+		const screen = render(
+			<NoteCardModal
+				description="description"
+				title="title"
+				handleOnClose={mockHandleOnClose}
+				handleOnSubmit={mockHandleOnSubmit}
+				id={1}
+				open={true}
+				refetch={mockRefetch}
+				toggle={mockToggle}
+				key={1}
+			/>,
+		)
+		const titleInput = screen.getByLabelText('title')
+		const descriptionInput = screen.getByLabelText('description')
+
+		act(() => {
+			fireEvent.change(titleInput, { target: { value: 'new title' } })
+			fireEvent.change(descriptionInput, {
+				target: { value: 'new description' },
+			})
+		})
+
+		expect(titleInput).toHaveValue('new title')
+		expect(descriptionInput).toHaveValue('new description')
 	})
 })
