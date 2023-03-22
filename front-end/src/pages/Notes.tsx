@@ -10,11 +10,13 @@ const Notes = () => {
 	const { data, done, error, refetch } = useGetUserNotes()
 	const token = useUserStore()
 
-	const removeNote = (id: number) => {
+	const removeNote = (id: string) => {
 		deleteNote(id, token.currentUser?.token).then((res) => {
 			if (res.status === 200) refetch.execute()
 		})
 	}
+
+	let i = 0
 
 	return (
 		<div className={styles['container']}>

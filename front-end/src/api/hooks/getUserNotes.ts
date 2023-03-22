@@ -5,7 +5,7 @@ export interface Data {
 	body: string
 	createdAt: string
 	description: string
-	id: number
+	id: string
 	published: boolean
 	title: string
 	updatedAt: string
@@ -53,6 +53,7 @@ function useGetUserNotes(): {
 
 	useEffect(() => {
 		getUserNotes()
+		console.log(data)
 	}, [done])
 
 	return {

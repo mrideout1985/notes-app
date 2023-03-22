@@ -100,7 +100,7 @@ export const updateNote = async (
 	data: { title: string; description: string },
 	token: string | undefined,
 	email: string | undefined,
-	id: number | undefined,
+	id: string | undefined,
 ) => {
 	const response = axios
 		.patch(
@@ -140,7 +140,7 @@ export const updateNote = async (
 	return response
 }
 
-export const deleteNote = async (id: number, token: string | undefined) => {
+export const deleteNote = async (id: string, token: string | undefined) => {
 	const response = axios.delete(`http://localhost:3000/articles/${id}`, {
 		withCredentials: true,
 		headers: {

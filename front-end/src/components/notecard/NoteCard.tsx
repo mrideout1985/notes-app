@@ -6,7 +6,7 @@ import styles from './NoteCard.module.scss'
 
 export interface NoteCardProps {
 	note: Data
-	removeNote: (id: number) => void
+	removeNote: (id: string) => void
 	refetch: { execute: () => Promise<void> }
 }
 

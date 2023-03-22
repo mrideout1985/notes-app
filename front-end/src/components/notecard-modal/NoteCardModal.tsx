@@ -9,7 +9,7 @@ interface NoteCardModalInterface {
 	open: boolean
 	refetch: { execute: () => Promise<void> }
 	toggle: any
-	id: number
+	id: string
 	title: string
 	description: string
 	handleOnClose: () => void

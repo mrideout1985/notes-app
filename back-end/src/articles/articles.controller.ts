@@ -13,6 +13,7 @@ import {
 } from '@nestjs/common';
 import {
   ApiCreatedResponse,
+  ApiHeader,
   ApiOkResponse,
   ApiSecurity,
   ApiTags,
@@ -30,6 +31,10 @@ export class ArticlesController {
 
   @UseGuards(JwtAuthGuard)
   @ApiSecurity('access-key')
+  @ApiHeader({
+    name: 'access-token',
+    description: 'Access token',
+  })
   @UseInterceptors(ClassSerializerInterceptor)
   @Post()
   @ApiCreatedResponse({ type: ArticleEntity })
@@ -50,6 +55,10 @@ export class ArticlesController {
   }
   @UseGuards(JwtAuthGuard)
   @ApiSecurity('access-key')
+  @ApiHeader({
+    name: 'access-token',
+    description: 'Access token',
+  })
   @UseInterceptors(ClassSerializerInterceptor)
   @ApiOkResponse({ type: ArticleEntity, isArray: true })
   @Get('my-articles')
@@ -61,21 +70,25 @@ export class ArticlesController {
   @Get(':id')
   @ApiOkResponse({ type: ArticleEntity })
   findOne(@Param('id') id: string) {
-    return this.articlesService.findOne(+id);
+    return this.articlesService.findOne(id);
   }
 
   @Patch(':id')
   @ApiOkResponse({ type: ArticleEntity })
   update(@Param('id') id: string, @Body() updateArticleDto: UpdateArticleDto) {
-    return this.articlesService.update(+id, updateArticleDto);
+    return this.articlesService.update(id, updateArticleDto);
   }
 
   @UseGuards(JwtAuthGuard)
   @ApiSecurity('access-key')
+  @ApiHeader({
+    name: 'access-token',
+    description: 'Access token',
+  })
   @UseInterceptors(ClassSerializerInterceptor)
   @Delete(':id')
   @ApiOkResponse({ type: ArticleEntity })
   remove(@Param('id') id: string) {
-    return this.articlesService.remove(+id);
+    return this.articlesService.remove(id);
   }
 }

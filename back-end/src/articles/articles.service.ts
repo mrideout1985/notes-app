@@ -25,18 +25,20 @@ export class ArticlesService {
     return this.prisma.article.findMany({ where: { authorEmail: email } });
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return this.prisma.article.findUnique({ where: { id } });
   }
 
-  update(id: number, updateArticleDto: UpdateArticleDto) {
-    return this.prisma.article.update({
+  async update(id: string, updateArticleDto: UpdateArticleDto) {
+    const updatedArticle = await this.prisma.article.update({
       where: { id },
       data: updateArticleDto,
     });
+
+    return updatedArticle;
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return this.prisma.article.delete({ where: { id } });
   }
 }

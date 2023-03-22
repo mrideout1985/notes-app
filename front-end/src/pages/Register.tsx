@@ -34,6 +34,7 @@ const Register = () => {
 			<div className={styles.auth}>
 				<Form action="POST" onSubmit={onRegisterSubmit}>
 					<div className={styles.controls_container}>
+						<legend>Register</legend>
 						<FormGroup className={styles.controls}>
 							<Controller
 								name="email"

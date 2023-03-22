@@ -4,19 +4,19 @@ import { persist } from 'zustand/middleware'
 export type User = {
 	email: string
 	token: string
-	id: number
+	id: string
 }
 
 export type State = {
 	currentUser: User | null
-	setCurrentUser: (email: string, token: string, id: number) => void
+	setCurrentUser: (email: string, token: string, id: string) => void
 }
 
 const useUserStore = create<State>()(
 	persist(
 		(set) => ({
 			currentUser: null,
-			setCurrentUser: (email: string, token: string, id: number) =>
+			setCurrentUser: (email: string, token: string, id: string) =>
 				set({
 					currentUser: {
 						email,

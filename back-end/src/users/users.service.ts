@@ -17,9 +17,11 @@ export class UsersService {
   constructor(private prisma: PrismaService) {}
 
   //use by user module to change user password
-  async updatePassword(payload: UpdatePasswordDto, id: number): Promise<User> {
+  async updatePassword(payload: UpdatePasswordDto, id: string): Promise<User> {
     const user = await this.prisma.user.findUnique({
-      where: { id },
+      where: {
+        id: id,
+      },
     });
     if (!user) {
       throw new HttpException('invalid_credentials', HttpStatus.UNAUTHORIZED);

@@ -6,7 +6,7 @@ import { User } from '@prisma/client';
 
 export class UserEntity implements User {
   @ApiProperty()
-  id: number;
+  id: string;
 
   @ApiProperty()
   createdAt: Date;
