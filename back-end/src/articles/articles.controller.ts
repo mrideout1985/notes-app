@@ -7,6 +7,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
   Request,
   UseGuards,
   UseInterceptors,
@@ -53,6 +54,21 @@ export class ArticlesController {
   findDrafts() {
     return this.articlesService.findDrafts();
   }
+
+  // @UseGuards(JwtAuthGuard)
+  // @ApiSecurity('access-key')
+  // @ApiHeader({
+  //   name: 'access-token',
+  //   description: 'Access token',
+  // })
+  // @UseInterceptors(ClassSerializerInterceptor)
+  // @ApiOkResponse({ type: ArticleEntity, isArray: true })
+  // @Get('my-articles')
+  // async getMyArticles(@Request() req) {
+  //   const articles = await this.articlesService.findUserNotes(req.user.email);
+  //   return articles;
+  // }
+
   @UseGuards(JwtAuthGuard)
   @ApiSecurity('access-key')
   @ApiHeader({
@@ -62,9 +78,16 @@ export class ArticlesController {
   @UseInterceptors(ClassSerializerInterceptor)
   @ApiOkResponse({ type: ArticleEntity, isArray: true })
   @Get('my-articles')
-  async getMyArticles(@Request() req) {
-    const articles = await this.articlesService.findUserNotes(req.user.email);
-    return articles;
+  async getArticlesByDateAndUser(
+    @Query('from') from: string,
+    @Query('to') to: string,
+    @Query('updatedBy') updatedBy: string,
+  ) {
+    return this.articlesService.getArticlesByDateAndUser(
+      new Date(from),
+      new Date(to),
+      updatedBy,
+    );
   }
 
   @Get(':id')

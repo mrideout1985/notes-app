@@ -38,6 +38,18 @@ export class ArticlesService {
     return updatedArticle;
   }
 
+  async getArticlesByDateAndUser(from: Date, to: Date, updatedAt: string) {
+    return this.prisma.article.findMany({
+      where: {
+        AND: [
+          { createdAt: { gte: from } },
+          { createdAt: { lte: to } },
+          { updatedAt: { equals: updatedAt } },
+        ],
+      },
+    });
+  }
+
   remove(id: string) {
     return this.prisma.article.delete({ where: { id } });
   }
