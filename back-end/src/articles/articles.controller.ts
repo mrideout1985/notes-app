@@ -7,11 +7,10 @@ import {
   Param,
   Patch,
   Post,
-  Query,
-  Request,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
+import { Query } from '@nestjs/common/decorators';
 import {
   ApiCreatedResponse,
   ApiHeader,
@@ -19,6 +18,7 @@ import {
   ApiSecurity,
   ApiTags,
 } from '@nestjs/swagger';
+import { Prisma } from '@prisma/client';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { ArticlesService } from './articles.service';
 import { CreateArticleDto } from './dto/create-article.dto';
@@ -55,20 +55,6 @@ export class ArticlesController {
     return this.articlesService.findDrafts();
   }
 
-  // @UseGuards(JwtAuthGuard)
-  // @ApiSecurity('access-key')
-  // @ApiHeader({
-  //   name: 'access-token',
-  //   description: 'Access token',
-  // })
-  // @UseInterceptors(ClassSerializerInterceptor)
-  // @ApiOkResponse({ type: ArticleEntity, isArray: true })
-  // @Get('my-articles')
-  // async getMyArticles(@Request() req) {
-  //   const articles = await this.articlesService.findUserNotes(req.user.email);
-  //   return articles;
-  // }
-
   @UseGuards(JwtAuthGuard)
   @ApiSecurity('access-key')
   @ApiHeader({
@@ -78,16 +64,12 @@ export class ArticlesController {
   @UseInterceptors(ClassSerializerInterceptor)
   @ApiOkResponse({ type: ArticleEntity, isArray: true })
   @Get('my-articles')
-  async getArticlesByDateAndUser(
-    @Query('from') from: string,
-    @Query('to') to: string,
-    @Query('updatedBy') updatedBy: string,
+  async getMyArticles(
+    @Query('email') email: string,
+    @Query('sortBy') sortBy: Prisma.SortOrder,
   ) {
-    return this.articlesService.getArticlesByDateAndUser(
-      new Date(from),
-      new Date(to),
-      updatedBy,
-    );
+    const articles = await this.articlesService.findUserNotes(email, sortBy);
+    return articles;
   }
 
   @Get(':id')

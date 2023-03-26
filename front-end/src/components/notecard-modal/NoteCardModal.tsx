@@ -7,7 +7,7 @@ import styles from '../forms/CreateNoteForm.module.scss'
 
 interface NoteCardModalInterface {
 	open: boolean
-	refetch: { execute: () => Promise<void> }
+	refetch: () => void
 	toggle: any
 	id: string
 	title: string
@@ -39,9 +39,9 @@ const NoteCardModal = ({
 				id,
 			)
 		}
+		refetch()
 		resetField('title')
 		resetField('description')
-		refetch.execute()
 		handleOnClose()
 	})
 

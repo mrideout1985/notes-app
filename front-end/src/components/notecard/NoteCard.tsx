@@ -1,13 +1,13 @@
+import { Article } from '@/api/hooks/getUserNotes'
 import { useState } from 'react'
 import { Card, CardBody, CardFooter, CardText, CardTitle } from 'reactstrap'
-import { Data } from '../../api/hooks/getUserNotes'
 import NoteCardModal from '../notecard-modal/NoteCardModal'
 import styles from './NoteCard.module.scss'
 
 export interface NoteCardProps {
-	note: Data
+	note: Article
 	removeNote: (id: string) => void
-	refetch: { execute: () => Promise<void> }
+	refetch: () => void
 }
 
 const NoteCard = ({ note, removeNote, refetch }: NoteCardProps) => {

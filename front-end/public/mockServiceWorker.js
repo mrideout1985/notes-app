@@ -168,7 +168,7 @@ async function handleRequest(event, requestId) {
 }
 
 // Resolve the main client for the given event.
-// Client that issues a request doesn't necessarily equal the client
+// Client that issues a request doesn't necessarily equ131al the client
 // that registered the worker. It's with the latter the worker should
 // communicate with during the response resolving phase.
 async function resolveMainClient(event) {

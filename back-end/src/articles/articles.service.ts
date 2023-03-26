@@ -1,6 +1,5 @@
-// src/articles/articles.service.ts
-
 import { Injectable } from '@nestjs/common';
+import { Article, Prisma } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
@@ -21,8 +20,21 @@ export class ArticlesService {
     return this.prisma.article.findMany({ where: { published: false } });
   }
 
-  async findUserNotes(email: string) {
-    return this.prisma.article.findMany({ where: { authorEmail: email } });
+  async findUserNotes(
+    email: string,
+    sortBy?: Prisma.SortOrder,
+  ): Promise<Article[]> {
+    console.log(email);
+    const articles = await this.prisma.article.findMany({
+      where: {
+        authorEmail: email,
+      },
+      orderBy: {
+        createdAt: sortBy,
+      },
+    });
+
+    return articles;
   }
 
   findOne(id: string) {
@@ -36,18 +48,6 @@ export class ArticlesService {
     });
 
     return updatedArticle;
-  }
-
-  async getArticlesByDateAndUser(from: Date, to: Date, updatedAt: string) {
-    return this.prisma.article.findMany({
-      where: {
-        AND: [
-          { createdAt: { gte: from } },
-          { createdAt: { lte: to } },
-          { updatedAt: { equals: updatedAt } },
-        ],
-      },
-    });
   }
 
   remove(id: string) {

@@ -21,7 +21,6 @@ const CreateNote = ({ refetch }: any) => {
 		handleSubmit,
 		reset,
 		register,
-		watch,
 		formState: { isDirty },
 	} = useForm<FormData>()
 
@@ -34,7 +33,7 @@ const CreateNote = ({ refetch }: any) => {
 			).then((res) => {
 				if (res) {
 					reset()
-					refetch.execute()
+					refetch()
 					setFocused(false)
 				}
 			})
