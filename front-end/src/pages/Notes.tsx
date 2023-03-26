@@ -12,7 +12,7 @@ interface UseArticlesOptions {
 
 const Notes = () => {
 	const store = useUserStore()
-	const [sortBy, setSortBy] = useState<UseArticlesOptions['sortBy']>('asc')
+	const [sortBy, setSortBy] = useState<UseArticlesOptions['sortBy']>('desc')
 	const { articles, refetch } = useArticles({
 		email: store.currentUser?.email,
 		sortBy: sortBy,
@@ -30,12 +30,8 @@ const Notes = () => {
 		<div className={styles['container']}>
 			<div className={styles['header']}>
 				<CreateNote refetch={refetch} />
-				<button onClick={() => setSortBy('asc')}>
-					Filter by Created At
-				</button>
-				<button onClick={() => setSortBy('desc')}>
-					Filter by Updated At
-				</button>
+				<button onClick={() => setSortBy('asc')}>Ascending</button>
+				<button onClick={() => setSortBy('desc')}>Descending</button>
 			</div>
 			<div className={styles['notes']}>
 				{articles?.map((el) => (
