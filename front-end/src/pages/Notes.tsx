@@ -5,6 +5,9 @@ import useUserStore from '@/stores/authstore'
 import styles from '../pages/Notes.module.scss'
 import NoteCard from '@/components/notecard/NoteCard'
 import { useEffect, useState } from 'react'
+import { Button, ButtonGroup } from 'reactstrap'
+import { ChevronDown, ChevronUp } from '@/components/icons'
+import NoteOrderButtons from '@/components/NoteOrderButtons/NoteOrderButtons'
 
 interface UseArticlesOptions {
 	sortBy: 'asc' | 'desc'
@@ -29,9 +32,11 @@ const Notes = () => {
 	return (
 		<div className={styles['container']}>
 			<div className={styles['header']}>
-				<CreateNote refetch={refetch} />
-				<button onClick={() => setSortBy('asc')}>Ascending</button>
-				<button onClick={() => setSortBy('desc')}>Descending</button>
+				<CreateNote
+					sortBy={sortBy}
+					setSortBy={setSortBy}
+					refetch={refetch}
+				/>
 			</div>
 			<div className={styles['notes']}>
 				{articles?.map((el) => (

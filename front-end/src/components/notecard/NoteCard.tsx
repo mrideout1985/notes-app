@@ -43,7 +43,6 @@ const NoteCard = ({ note, removeNote, refetch }: NoteCardProps) => {
 				handleOnClose={() => setOpenModal(false)}
 				handleOnSubmit={(e) => {
 					e.preventDefault()
-					console.log(e)
 				}}
 			/>
 		</>

@@ -6,7 +6,6 @@ import Layout from './components/layout/Layout'
 import Login from './pages/Login'
 import Notes from './pages/Notes'
 import Register from './pages/Register'
-import Reminders from './pages/Reminders'
 import TrashBin from './pages/Trash'
 import Unpublished from './pages/Unpublished'
 
@@ -28,14 +27,6 @@ function App() {
 						element={
 							<PrivateRoute>
 								<Notes />
-							</PrivateRoute>
-						}
-					/>
-					<Route
-						path="/reminders"
-						element={
-							<PrivateRoute>
-								<Reminders />
 							</PrivateRoute>
 						}
 					/>

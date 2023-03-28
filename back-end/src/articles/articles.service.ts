@@ -24,7 +24,6 @@ export class ArticlesService {
     email: string,
     sortBy?: Prisma.SortOrder,
   ): Promise<Article[]> {
-    console.log(email);
     const articles = await this.prisma.article.findMany({
       where: {
         authorEmail: email,

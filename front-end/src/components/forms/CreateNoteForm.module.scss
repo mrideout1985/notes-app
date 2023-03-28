@@ -1,25 +1,31 @@
+$navbar-background-color: var(--gray-10);
+
 .container {
 	width: 500px;
 	border-radius: 12px;
-
 	.form {
-		width: 100%;
 		.formgroup {
 			display: flex;
 			flex-direction: column;
 			.input {
-				margin: 0.25rem 0;
-
 				.title {
 					display: none;
 				}
-
 				.title[hidden='true'] {
 					display: block;
 				}
 
-				.description {
-					display: block;
+				.inputwithtoggle {
+					.description {
+						display: block;
+					}
+					.sortButton {
+						background-color: $navbar-background-color;
+						margin: 0;
+						border: none;
+						padding: 0.095rem 0.5rem;
+						border-top-left-radius: 0;
+					}
 				}
 			}
 		}

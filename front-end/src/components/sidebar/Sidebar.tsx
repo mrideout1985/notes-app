@@ -22,18 +22,7 @@ const Sidebar = ({ open }: SideBarProps) => {
 						<p>Notes</p>
 					</div>
 				</NavLink>
-				<NavLink
-					className={({ isActive }) =>
-						isActive ? styles.active : styles.notActive
-					}
-					to="/reminders"
-				>
-					<Bell className={styles.icon} />
-					<div className={styles.text}>
-						<p>Reminders</p>
-					</div>
-				</NavLink>
-				<NavLink
+				{/* <NavLink
 					className={({ isActive }) =>
 						isActive ? styles.active : styles.notActive
 					}
@@ -43,7 +32,7 @@ const Sidebar = ({ open }: SideBarProps) => {
 					<div className={styles.text}>
 						<p>Drafts</p>
 					</div>
-				</NavLink>
+				</NavLink> */}
 				<NavLink
 					to="/trashbin"
 					className={({ isActive }) =>
