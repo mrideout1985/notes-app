@@ -1,10 +1,9 @@
 import { AxiosError } from 'axios'
-import { useEffect } from 'react'
 
-import { Controller, useForm, useFormContext } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 import { NavLink, useNavigate } from 'react-router-dom'
 
-import { Button, Form, FormGroup, Input, Label } from 'reactstrap'
+import { Button, Form, FormGroup, Input } from 'reactstrap'
 
 import useUserStore from '@/stores/authstore'
 
@@ -31,11 +30,11 @@ const Login = () => {
 				})
 			}
 			localStorage.setItem('token', res.data.Authorization)
-			user.setCurrentUser(
-				res.data.user.email,
-				res.data.Authorization,
-				res.data.user.id,
-			)
+			user.setCurrentUser({
+				email: res.data.user.email,
+				token: res.data.Authorization,
+				id: res.data.user.id,
+			})
 			navigate('/')
 		})
 	})

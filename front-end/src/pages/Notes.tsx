@@ -1,13 +1,10 @@
 import useArticles from '@/api/hooks/getUserNotes'
 import { deleteNote } from '@/api/services/services'
 import CreateNote from '@/components/forms/CreateNoteForm'
-import useUserStore from '@/stores/authstore'
-import styles from '../pages/Notes.module.scss'
 import NoteCard from '@/components/notecard/NoteCard'
-import { useEffect, useState } from 'react'
-import { Button, ButtonGroup } from 'reactstrap'
-import { ChevronDown, ChevronUp } from '@/components/icons'
-import NoteOrderButtons from '@/components/NoteOrderButtons/NoteOrderButtons'
+import useUserStore from '@/stores/authstore'
+import { useState } from 'react'
+import styles from '../pages/Notes.module.scss'
 
 interface UseArticlesOptions {
 	sortBy: 'asc' | 'desc'
@@ -16,6 +13,7 @@ interface UseArticlesOptions {
 const Notes = () => {
 	const store = useUserStore()
 	const [sortBy, setSortBy] = useState<UseArticlesOptions['sortBy']>('desc')
+
 	const { articles, refetch } = useArticles({
 		email: store.currentUser?.email,
 		sortBy: sortBy,
@@ -31,7 +29,7 @@ const Notes = () => {
 
 	return (
 		<div className={styles['container']}>
-			<div className={styles['header']}>
+			<div className={styles['create_note_container']}>
 				<CreateNote
 					sortBy={sortBy}
 					setSortBy={setSortBy}

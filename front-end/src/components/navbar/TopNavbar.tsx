@@ -1,18 +1,10 @@
 import useUserStore from '@/stores/authstore'
 import { useNavigate } from 'react-router-dom'
-import {
-	DropdownItem,
-	DropdownMenu,
-	DropdownToggle,
-	Navbar,
-	NavbarBrand,
-	NavbarToggler,
-	UncontrolledDropdown,
-} from 'reactstrap'
+import { Navbar, NavbarBrand, NavbarToggler } from 'reactstrap'
 
 import { logout } from '../../api/services/services'
 import { BookOpen } from '../icons'
-import SvgUser from '../icons/User'
+import UserNavDropdown from '../UserNavDropdown/UserNavDropdown'
 import styles from './TopNavbar.module.scss'
 
 interface TopNavbar {
@@ -21,7 +13,7 @@ interface TopNavbar {
 
 const TopNavBar = ({ sideBarOpen }: TopNavbar) => {
 	const navigate = useNavigate()
-	const { currentUser } = useUserStore()
+	const { currentUser, setCurrentUser } = useUserStore()
 
 	const handleLogout = async () => {
 		await logout()
@@ -39,27 +31,11 @@ const TopNavBar = ({ sideBarOpen }: TopNavbar) => {
 			<NavbarBrand className={styles.brand} href="/">
 				<i>N</i>otes <BookOpen height={'4rem'} width={'4rem'} />
 			</NavbarBrand>
-			<UncontrolledDropdown
-				aria-hidden={currentUser?.token ? false : true}
-				aria-label="user options dropdown"
-				className={styles.dropdown}
-			>
-				<DropdownToggle className={styles.dropdowntoggle}>
-					<SvgUser height="3rem" width="3rem" />
-				</DropdownToggle>
-				{currentUser?.token && (
-					<DropdownMenu className={styles.dropdownmenu}>
-						<DropdownItem>Profile</DropdownItem>
-						<DropdownItem>Settings</DropdownItem>
-						<>
-							<DropdownItem divider />
-							<DropdownItem onClick={handleLogout}>
-								Logout
-							</DropdownItem>
-						</>
-					</DropdownMenu>
-				)}
-			</UncontrolledDropdown>
+
+			<UserNavDropdown
+				currentUser={currentUser}
+				handleLogout={handleLogout}
+			/>
 		</Navbar>
 	)
 }

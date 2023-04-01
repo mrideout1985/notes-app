@@ -9,7 +9,7 @@ const commands = [
 // Start the servers using the `concurrently` package
 async function startServers() {
   try {
-    await run(commands);
+    run(commands);
     console.log("Servers started successfully!");
   } catch (error) {
     console.error("Error starting servers:", error);

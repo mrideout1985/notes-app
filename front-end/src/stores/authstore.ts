@@ -9,14 +9,14 @@ export type User = {
 
 export type State = {
 	currentUser: User | null
-	setCurrentUser: (email: string, token: string, id: string) => void
+	setCurrentUser: ({ email, token, id }: User) => void
 }
 
 const useUserStore = create<State>()(
 	persist(
 		(set) => ({
 			currentUser: null,
-			setCurrentUser: (email: string, token: string, id: string) =>
+			setCurrentUser: ({ email, token, id }) =>
 				set({
 					currentUser: {
 						email,

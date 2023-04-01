@@ -1,0 +1,39 @@
+$navbar-background-color: var(--gray-10);
+$navbar-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+$menu-item-color: var(--pink-8);
+$menu-item-hover-color: #f8f9fa;
+$menu-item-padding: 1rem 1.5rem;
+$menu-item-border-color: rgba(0, 0, 0, 0.1);
+
+.dropdown {
+	display: flex;
+	align-items: center;
+
+	.dropdowntoggle {
+		background-color: transparent;
+		border: none;
+		cursor: pointer;
+		padding: 0;
+
+		&:focus {
+			outline: none;
+		}
+	}
+
+	.dropdownmenu {
+		border: none;
+		box-shadow: $navbar-box-shadow;
+		font-family: 'Quicksand', sans-serif;
+
+		a {
+			color: $menu-item-color;
+			display: block;
+			padding: $menu-item-padding;
+			text-decoration: none;
+
+			&:hover {
+				background-color: $menu-item-hover-color;
+			}
+		}
+	}
+}

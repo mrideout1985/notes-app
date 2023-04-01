@@ -1,6 +1,5 @@
-import { ButtonGroup, ButtonToggle } from 'reactstrap'
 import { ChevronDown, ChevronUp } from '../icons'
-
+import styles from './NoteOrderButtons.module.scss'
 export interface NoteOrderButtonsProps {
 	sortBy: 'asc' | 'desc'
 	setSortBy: React.Dispatch<React.SetStateAction<'desc' | 'asc'>>
@@ -16,18 +15,15 @@ const NoteOrderButtons = ({ sortBy, setSortBy }: NoteOrderButtonsProps) => {
 	}
 
 	return (
-		<ButtonGroup>
-			<ButtonToggle
-				onClick={() => handleToggleSortBy(sortBy)}
-				color="white"
-			>
+		<div className={styles['button_group']}>
+			<button onClick={() => handleToggleSortBy(sortBy)} color="white">
 				{sortBy === 'desc' ? (
-					<ChevronUp size={22} stroke="#E64980" />
+					<ChevronUp size={23} stroke="#E64980" />
 				) : (
-					<ChevronDown size={22} stroke="#E64980" />
+					<ChevronDown size={23} stroke="#E64980" />
 				)}
-			</ButtonToggle>
-		</ButtonGroup>
+			</button>
+		</div>
 	)
 }
 

@@ -15,7 +15,9 @@ module.exports = {
 	// Jest transformations
 	// https://jestjs.io/docs/configuration#transform-objectstring-pathtotransformer--pathtotransformer-object
 	transform: {
-		"^.+\\.tsx?$": "ts-jest", // Transform TypeScript files using ts-jest
+		"^.+\\.tsx?$": "ts-jest",
+		"^.+\\.jsx?$": "babel-jest",
+		// Transform TypeScript files using ts-jest
 	},
 
 	// A list of paths to modules that run some code to configure or set up the testing framework before each test file in the suite is executed
@@ -37,7 +39,7 @@ module.exports = {
 	moduleNameMapper: {
 		// Handle CSS imports (with CSS modules)
 		// https://jestjs.io/docs/webpack#mocking-css-modules
-		"^.+\\.module\\.(css|sass|scss|less)$": "identity-obj-proxy",
+		"^.+\\.module\\.(css|sass|scss|less)$": "identity-obj-proxy", 
 
 		// Handle CSS imports (without CSS modules)
 		"^.+\\.(css|sass|scss|less)$": "<rootDir>/__mocks__/styleMock.js",
@@ -48,6 +50,8 @@ module.exports = {
 
 		// Handle TypeScript path aliases
 		"^@/(.*)$": "<rootDir>/src/$1",
+
+		// Handle module aliases
 	},
 
 	verbose: true,
