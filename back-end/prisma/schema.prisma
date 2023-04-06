@@ -18,7 +18,7 @@ model User {
 model Article {
   id          String   @id @default(uuid())
   title       String?
-  description String   @unique @db.Text
+  description String   @db.Text
   published   Boolean  @default(false)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt

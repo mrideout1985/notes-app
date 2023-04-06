@@ -13,7 +13,7 @@ interface TopNavbar {
 
 const TopNavBar = ({ sideBarOpen }: TopNavbar) => {
 	const navigate = useNavigate()
-	const { currentUser, setCurrentUser } = useUserStore()
+	const { currentUser } = useUserStore()
 
 	const handleLogout = async () => {
 		await logout()

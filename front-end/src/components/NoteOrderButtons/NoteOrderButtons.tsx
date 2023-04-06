@@ -18,9 +18,9 @@ const NoteOrderButtons = ({ sortBy, setSortBy }: NoteOrderButtonsProps) => {
 		<div className={styles['button_group']}>
 			<button onClick={() => handleToggleSortBy(sortBy)} color="white">
 				{sortBy === 'desc' ? (
-					<ChevronUp size={23} stroke="#E64980" />
+					<ChevronUp size={23} stroke="#FFF" />
 				) : (
-					<ChevronDown size={23} stroke="#E64980" />
+					<ChevronDown size={23} stroke="#FFF" />
 				)}
 			</button>
 		</div>

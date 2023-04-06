@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom'
 
-import { Archive, Bell, BookOpen, Trash } from '../icons'
+import { BookOpen, Trash } from '../icons'
 import styles from './Sidebar.module.scss'
 
 interface SideBarProps {
@@ -8,6 +8,7 @@ interface SideBarProps {
 }
 
 const Sidebar = ({ open }: SideBarProps) => {
+	console.log(open)
 	return (
 		<div className={styles.sidebar} aria-expanded={open}>
 			<div className={styles.links}>
@@ -22,17 +23,6 @@ const Sidebar = ({ open }: SideBarProps) => {
 						<p>Notes</p>
 					</div>
 				</NavLink>
-				{/* <NavLink
-					className={({ isActive }) =>
-						isActive ? styles.active : styles.notActive
-					}
-					to="/unpublished"
-				>
-					<Archive className={styles.icon} />
-					<div className={styles.text}>
-						<p>Drafts</p>
-					</div>
-				</NavLink> */}
 				<NavLink
 					to="/trashbin"
 					className={({ isActive }) =>

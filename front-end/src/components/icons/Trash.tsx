@@ -1,30 +1,29 @@
-import { SvgProps } from "./interfaces";
+import { SvgProps } from './interfaces'
 
 const SvgTrash = ({
-  fill,
-  height,
-  width,
-  stroke,
-  strokeWidth,
-  viewBox,
-  className,
+	fill,
+	height,
+	width,
+	stroke,
+	strokeWidth,
+	viewBox,
+	className,
 }: SvgProps) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width={width || 24}
-    height={height || 24}
-    fill={fill || "currentColor"}
-    stroke={stroke || "currentColor"}
-    strokeWidth={strokeWidth || 2}
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    viewBox={viewBox || "0 0 35 35"}
-    className={className || ""}
-  >
-    <path
-      transform="translate(5, 7)"
-      d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
-    />
-  </svg>
-);
-export default SvgTrash;
+	<svg
+		xmlns="http://www.w3.org/2000/svg"
+		height={height || 24}
+		width={width || 24}
+		fill={fill || 'none'}
+		viewBox={viewBox || '0 0 24 24'}
+		strokeWidth={1.5 || strokeWidth}
+		stroke={stroke || 'currentColor'}
+		className={className || 'w-6 h-6'}
+	>
+		<path
+			strokeLinecap="round"
+			strokeLinejoin="round"
+			d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
+		/>
+	</svg>
+)
+export default SvgTrash

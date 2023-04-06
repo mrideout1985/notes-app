@@ -9,12 +9,14 @@
 		transition: width 0.25s ease;
 
 		.text {
-			width: 125px;
+			text-align: center;
+			width: 120px;
 
 			p {
 				padding: 0;
 				transition: opacity 0.25s ease-in-out;
 				opacity: 1;
+				line-height: 2rem;
 			}
 		}
 
@@ -31,7 +33,7 @@
 
 		&:hover {
 			.text {
-				width: 125px;
+				width: 120px;
 				p {
 					padding: 0;
 					transition: opacity 0.25s ease-in-out;
@@ -54,14 +56,15 @@
 		}
 
 		.icon {
-			height: 2rem;
-			width: 2rem;
 			transition: all 0.25s ease;
+			display: inline-block;
+			width: 2rem;
+			height: 2rem;
 		}
 
 		.text {
-			display: flex;
-			align-items: center;
+			display: inline-block;
+			text-align: center;
 			font-weight: 500;
 			width: 0;
 			transition: all 0.25s ease;
@@ -77,7 +80,7 @@
 		background-color: var(--pink-6);
 
 		.icon {
-			stroke: black;
+			color: white;
 		}
 
 		&:hover {
@@ -91,7 +94,6 @@
 
 		&:hover {
 			.icon {
-				stroke: black;
 			}
 		}
 	}

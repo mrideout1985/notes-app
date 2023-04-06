@@ -4,7 +4,7 @@ import CreateNote from '@/components/forms/CreateNoteForm'
 import NoteCard from '@/components/notecard/NoteCard'
 import useUserStore from '@/stores/authstore'
 import { useState } from 'react'
-import styles from '../pages/Notes.module.scss'
+import styles from './Notes.module.scss'
 
 interface UseArticlesOptions {
 	sortBy: 'asc' | 'desc'
@@ -13,8 +13,7 @@ interface UseArticlesOptions {
 const Notes = () => {
 	const store = useUserStore()
 	const [sortBy, setSortBy] = useState<UseArticlesOptions['sortBy']>('desc')
-
-	const { articles, refetch } = useArticles({
+	const { articles, refetch, error, loading } = useArticles({
 		email: store.currentUser?.email,
 		sortBy: sortBy,
 	})
@@ -28,20 +27,20 @@ const Notes = () => {
 	}
 
 	return (
-		<div className={styles['container']}>
-			<div className={styles['create_note_container']}>
+		<div className={styles['note-page-layout']}>
+			<div className={styles['create-note-container']}>
 				<CreateNote
-					sortBy={sortBy}
-					setSortBy={setSortBy}
 					refetch={refetch}
+					setSortBy={setSortBy}
+					sortBy={sortBy}
 				/>
 			</div>
 			<div className={styles['notes']}>
-				{articles?.map((el) => (
+				{articles.map((note) => (
 					<NoteCard
 						removeNote={removeNote}
-						note={el}
 						refetch={refetch}
+						note={note}
 					/>
 				))}
 			</div>
