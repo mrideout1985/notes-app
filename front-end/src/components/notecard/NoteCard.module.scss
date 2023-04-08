@@ -2,9 +2,7 @@
 	border-radius: 8px;
 	position: relative;
 	box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
-	display: grid;
 	padding: 1rem;
-	height: min-content;
 
 	.card-body {
 		word-break: break-word;
@@ -65,9 +63,9 @@
 }
 
 .small {
-	grid-row-end: span 15;
 	.card-body {
-		height: 200px;
+		min-height: 100px;
+
 		.title {
 			.title {
 			}
@@ -76,16 +74,11 @@
 }
 
 .medium {
-	grid-row-end: span 25;
 	.card-body {
-		height: 400px;
 	}
 }
 
 .large {
-	grid-row-end: span 45;
-
 	.card-body {
-		height: 600px;
 	}
 }

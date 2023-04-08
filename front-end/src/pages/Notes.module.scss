@@ -1,5 +1,7 @@
 .note-page-layout {
 	width: 100%;
+	height: 100%;
+
 	.create-note-container {
 		width: 100%;
 		display: flex;
@@ -8,12 +10,9 @@
 		gap: 1rem;
 		padding: 1rem;
 	}
+
 	.notes {
-		margin: 0;
-		padding: 0;
 		width: 100%;
-		display: grid;
-		grid-template-columns: repeat(auto-fill, 250px);
-		justify-content: center;
+		margin: 0;
 	}
 }

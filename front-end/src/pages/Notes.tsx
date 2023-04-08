@@ -3,6 +3,7 @@ import { deleteNote } from '@/api/services/services'
 import CreateNote from '@/components/forms/CreateNoteForm'
 import NoteCard from '@/components/notecard/NoteCard'
 import useUserStore from '@/stores/authstore'
+import { Masonry } from '@mui/lab'
 import { useState } from 'react'
 import styles from './Notes.module.scss'
 
@@ -35,7 +36,11 @@ const Notes = () => {
 					sortBy={sortBy}
 				/>
 			</div>
-			<div className={styles['notes']}>
+			<Masonry
+				columns={{ sm: 1, md: 3, lg: 4, xl: 6 }}
+				spacing={2}
+				className={styles['notes']}
+			>
 				{articles.map((note) => (
 					<NoteCard
 						removeNote={removeNote}
@@ -43,7 +48,7 @@ const Notes = () => {
 						note={note}
 					/>
 				))}
-			</div>
+			</Masonry>
 		</div>
 	)
 }
