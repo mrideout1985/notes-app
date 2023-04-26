@@ -1,12 +1,14 @@
 import { User } from '@/stores/authstore'
 import {
-	UncontrolledDropdown,
-	DropdownToggle,
-	DropdownMenu,
-	DropdownItem,
-} from 'reactstrap'
-import SvgUser from '../icons/User'
-import styles from './UserNavDropdown.module.scss'
+	Avatar,
+	Box,
+	IconButton,
+	Menu,
+	MenuItem,
+	Tooltip,
+	Typography,
+} from '@mui/material'
+import { useState } from 'react'
 
 interface UserNavDropdownInteface {
 	handleLogout: () => void
@@ -17,32 +19,65 @@ const UserNavDropdown = ({
 	handleLogout,
 	currentUser,
 }: UserNavDropdownInteface) => {
+	const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null)
+	const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null)
+
+	const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
+		setAnchorElNav(event.currentTarget)
+	}
+	const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
+		setAnchorElUser(event.currentTarget)
+	}
+
+	const handleCloseNavMenu = () => {
+		setAnchorElNav(null)
+	}
+
+	const handleCloseUserMenu = () => {
+		setAnchorElUser(null)
+	}
+
+	const settings = ['Profile', 'My account']
+
 	return (
 		currentUser && (
-			<UncontrolledDropdown
-				aria-hidden={currentUser?.token ? false : true}
-				aria-label="user options dropdown"
-				className={styles.dropdown}
-				a11y
-			>
-				<DropdownToggle
-					aria-label="dropdown button"
-					className={styles.dropdowntoggle}
+			<Box sx={{ flexGrow: 0 }}>
+				<Tooltip title="Open settings">
+					<IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+						<Avatar
+							alt="Remy Sharp"
+							src="/static/images/avatar/2.jpg"
+						/>
+					</IconButton>
+				</Tooltip>
+				<Menu
+					sx={{ mt: '45px' }}
+					id="menu-appbar"
+					anchorEl={anchorElUser}
+					anchorOrigin={{
+						vertical: 'top',
+						horizontal: 'right',
+					}}
+					keepMounted
+					transformOrigin={{
+						vertical: 'top',
+						horizontal: 'right',
+					}}
+					open={Boolean(anchorElUser)}
+					onClose={handleCloseUserMenu}
 				>
-					<SvgUser height="3rem" width="3rem" />
-				</DropdownToggle>
-
-				<DropdownMenu className={styles.dropdownmenu}>
-					<DropdownItem>Profile</DropdownItem>
-					<DropdownItem>Settings</DropdownItem>
-					<>
-						<DropdownItem divider />
-						<DropdownItem onClick={handleLogout}>
-							Logout
-						</DropdownItem>
-					</>
-				</DropdownMenu>
-			</UncontrolledDropdown>
+					{settings.map((setting) => (
+						<MenuItem key={setting} onClick={handleCloseUserMenu}>
+							<Typography textAlign="center">
+								{setting}
+							</Typography>
+						</MenuItem>
+					))}
+					<MenuItem>
+						<Typography onClick={handleLogout}>Logout</Typography>
+					</MenuItem>
+				</Menu>
+			</Box>
 		)
 	)
 }

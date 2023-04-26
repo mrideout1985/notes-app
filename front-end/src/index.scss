@@ -20,6 +20,11 @@
 #root {
 }
 
+html,
+body {
+	min-height: 100%;
+}
+
 html {
 	line-height: 1.15; /* 1 */
 	-webkit-text-size-adjust: 100%; /* 2 */
@@ -34,7 +39,6 @@ html {
 
 body {
 	margin: 0;
-	height: 100%;
 	font-family: Quicksand;
 }
 
@@ -44,7 +48,6 @@ body {
 
 main {
 	display: block;
-	height: 100%;
 }
 
 /**

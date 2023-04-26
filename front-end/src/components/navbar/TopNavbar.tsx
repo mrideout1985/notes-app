@@ -1,10 +1,10 @@
 import useUserStore from '@/stores/authstore'
-import { useNavigate } from 'react-router-dom'
-import { Navbar, NavbarBrand, NavbarToggler } from 'reactstrap'
-
+import MenuIcon from '@mui/icons-material/Menu'
+import { AppBar, Box, IconButton, Toolbar } from '@mui/material'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { logout } from '../../api/services/services'
-import { BookOpen } from '../icons'
 import UserNavDropdown from '../UserNavDropdown/UserNavDropdown'
+import { BookOpen } from '../icons'
 import styles from './TopNavbar.module.scss'
 
 interface TopNavbar {
@@ -21,22 +21,27 @@ const TopNavBar = ({ sideBarOpen }: TopNavbar) => {
 	}
 
 	return (
-		<Navbar dark className={styles.navbar}>
-			<NavbarToggler
-				tag="button"
-				className={styles.sidebartoggler}
-				aria-label="Toggle sidebar"
-				onClick={sideBarOpen}
-			/>
-			<NavbarBrand className={styles.brand} href="/">
-				<i>N</i>otes <BookOpen height={'4rem'} width={'4rem'} />
-			</NavbarBrand>
+		<AppBar position="static" className={styles.navbar}>
+			<Toolbar className={styles.toolbar} variant="dense">
+				<Box component="div" className={styles.content}>
+					<IconButton
+						className={styles.sidebartoggler}
+						aria-label="Toggle sidebar"
+						onClick={sideBarOpen}
+					>
+						<MenuIcon />
+					</IconButton>
+					<NavLink className={styles.brand} to="/">
+						<i>N</i>otes <BookOpen height={'4rem'} width={'4rem'} />
+					</NavLink>
 
-			<UserNavDropdown
-				currentUser={currentUser}
-				handleLogout={handleLogout}
-			/>
-		</Navbar>
+					<UserNavDropdown
+						currentUser={currentUser}
+						handleLogout={handleLogout}
+					/>
+				</Box>
+			</Toolbar>
+		</AppBar>
 	)
 }
 

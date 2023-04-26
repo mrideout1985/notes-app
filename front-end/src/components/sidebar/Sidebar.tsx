@@ -1,5 +1,4 @@
 import { NavLink } from 'react-router-dom'
-
 import { BookOpen, Trash } from '../icons'
 import styles from './Sidebar.module.scss'
 

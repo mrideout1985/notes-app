@@ -3,10 +3,9 @@ import { AxiosError } from 'axios'
 import { Controller, useForm } from 'react-hook-form'
 import { NavLink, useNavigate } from 'react-router-dom'
 
-import { Button, Form, FormGroup, Input } from 'reactstrap'
-
 import useUserStore from '@/stores/authstore'
 
+import { Button, FormGroup, Input } from '@mui/material'
 import { login } from '../api/services/services'
 import SvgAlertCircle from '../components/icons/AlertCircle'
 import styles from '../styles/pagestyles/AuthPage.module.scss'
@@ -42,7 +41,7 @@ const Login = () => {
 	return (
 		<div className={styles.container}>
 			<div className={styles.auth}>
-				<Form action="POST" onSubmit={onLoginSubmit}>
+				<form action="POST" onSubmit={onLoginSubmit}>
 					<div className={styles.controls_container}>
 						<legend>Login</legend>
 						<FormGroup className={styles.controls}>
@@ -95,7 +94,7 @@ const Login = () => {
 							Login
 						</Button>
 					</div>
-				</Form>
+				</form>
 			</div>
 		</div>
 	)

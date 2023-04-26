@@ -1,8 +1,8 @@
 import { AxiosError } from 'axios'
-import { Controller, useForm, useFormContext } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 import { NavLink, useNavigate } from 'react-router-dom'
-import { Button, Form, FormGroup, Input, Label } from 'reactstrap'
 
+import { Button, FormGroup, Input } from '@mui/material'
 import { register } from '../api/services/services'
 import SvgAlertCircle from '../components/icons/AlertCircle'
 import styles from '../styles/pagestyles/AuthPage.module.scss'
@@ -32,7 +32,7 @@ const Register = () => {
 	return (
 		<div className={styles.container}>
 			<div className={styles.auth}>
-				<Form action="POST" onSubmit={onRegisterSubmit}>
+				<form action="POST" onSubmit={onRegisterSubmit}>
 					<div className={styles.controls_container}>
 						<legend>Register</legend>
 						<FormGroup className={styles.controls}>
@@ -85,7 +85,7 @@ const Register = () => {
 							Register
 						</Button>
 					</div>
-				</Form>
+				</form>
 			</div>
 		</div>
 	)

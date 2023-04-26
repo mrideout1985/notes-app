@@ -1,75 +1,30 @@
-$navbar-background-color: var(--gray-10);
-$navbar-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-$menu-item-color: var(--pink-8);
-$menu-item-hover-color: #f8f9fa;
-$menu-item-padding: 1rem 1.5rem;
-$menu-item-border-color: rgba(0, 0, 0, 0.1);
-
 .navbar {
-	background-color: $navbar-background-color;
-	box-shadow: $navbar-box-shadow;
-	padding: 1rem;
+	.toolbar {
+		background-color: var(--gray-10);
+		.content {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 1rem;
+			min-width: 100%;
 
-	.sidebartoggler {
-		background-color: transparent;
-		border: none;
-		cursor: pointer;
-		padding: 0;
-
-		&:focus {
-			box-shadow: 0px 0px 2px 3px var(--pink-6);
-			outline: none;
-			width: fit-content;
-		}
-	}
-
-	.brand {
-		font-family: 'Pacifico', cursive;
-		font-size: 3rem;
-		color: white;
-
-		&::first-letter {
-			color: var(--pink-6);
-			letter-spacing: 0.1rem;
-			transform: translateY(-0.25rem);
-		}
-
-		svg {
-			display: inline;
-			margin-left: -1rem;
-			vertical-align: sub;
-			justify-self: start;
-		}
-	}
-
-	.dropdown {
-		display: flex;
-		align-items: center;
-
-		.dropdowntoggle {
-			background-color: transparent;
-			border: none;
-			cursor: pointer;
-			padding: 0;
-
-			&:focus {
-				outline: none;
-			}
-		}
-
-		.dropdownmenu {
-			border: none;
-			box-shadow: $navbar-box-shadow;
-			font-family: 'Quicksand', sans-serif;
-
-			a {
-				color: $menu-item-color;
-				display: block;
-				padding: $menu-item-padding;
+			.brand {
+				font-family: 'Pacifico', cursive;
+				font-size: 3rem;
+				color: white;
 				text-decoration: none;
 
-				&:hover {
-					background-color: $menu-item-hover-color;
+				&::first-letter {
+					color: var(--pink-6);
+					letter-spacing: 0.1rem;
+					transform: translateY(-0.25rem);
+				}
+
+				svg {
+					display: inline;
+					margin-left: -0.5rem;
+					vertical-align: sub;
+					justify-self: start;
 				}
 			}
 		}

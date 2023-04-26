@@ -1,9 +1,9 @@
 import { createNote } from '@/api/services/services'
 import useUserStore from '@/stores/authstore'
+import { Box, FormGroup, Input } from '@mui/material'
 import { useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useClickAway } from 'react-use'
-import { Form, FormGroup, InputGroup } from 'reactstrap'
 import NoteOrderButtons from '../NoteOrderButtons/NoteOrderButtons'
 import styles from './CreateNoteForm.module.scss'
 
@@ -55,18 +55,18 @@ const CreateNote = ({ refetch, sortBy, setSortBy }: CreateNoteInterface) => {
 	useClickAway(submitRef, handleClickAway)
 
 	return (
-		<div ref={submitRef} className={styles.container}>
-			<Form onSubmit={onSubmit} className={styles.form}>
+		<Box ref={submitRef} className={styles.container}>
+			<form onSubmit={onSubmit} className={styles.form}>
 				<FormGroup className={styles.formgroup}>
-					<InputGroup className={styles.inputgroup} tag="div">
-						<input
+					<Box className={styles.inputgroup}>
+						<Input
 							{...form.register('title')}
 							className={styles.title}
 							hidden={!focused}
 							aria-label="title"
 						/>
 						<div className={styles.inputwithtoggle}>
-							<input
+							<Input
 								{...form.register('description')}
 								className={styles.description}
 								onFocus={handleFocus}
@@ -78,10 +78,10 @@ const CreateNote = ({ refetch, sortBy, setSortBy }: CreateNoteInterface) => {
 								sortBy={sortBy}
 							/>
 						</div>
-					</InputGroup>
+					</Box>
 				</FormGroup>
-			</Form>
-		</div>
+			</form>
+		</Box>
 	)
 }
 

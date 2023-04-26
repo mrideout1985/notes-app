@@ -37,6 +37,7 @@
   "dependencies": {
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
+    "@mui/icons-material": "^5.11.16",
     "@mui/lab": "^5.0.0-alpha.125",
     "@mui/material": "^5.11.16",
     "axios": "^1.3.4",
@@ -47,7 +48,6 @@
     "react-hook-form": "latest",
     "react-router-dom": "latest",
     "react-use": "latest",
-    "reactstrap": "latest",
     "sass": "latest",
     "sort-package-json": "latest",
     "ts-jest": "^29.0.5",

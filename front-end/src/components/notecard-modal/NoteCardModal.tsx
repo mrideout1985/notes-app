@@ -1,9 +1,17 @@
 import { updateNote } from '@/api/services/services'
 import useUserStore from '@/stores/authstore'
+import {
+	Box,
+	Button,
+	Card,
+	CardContent,
+	FormGroup,
+	Input,
+	Modal,
+} from '@mui/material'
 import { FormEventHandler } from 'react'
-import { Controller, useForm, useFormContext } from 'react-hook-form'
-import { Card, Form, FormGroup, Input, Modal } from 'reactstrap'
-import styles from '../forms/CreateNoteForm.module.scss'
+import { useForm } from 'react-hook-form'
+import styles from './NoteCardModal.module.scss'
 
 interface NoteCardModalInterface {
 	open: boolean
@@ -24,7 +32,6 @@ const NoteCardModal = ({
 	title,
 	description,
 	handleOnClose,
-	handleOnSubmit,
 }: NoteCardModalInterface) => {
 	const user = useUserStore()
 
@@ -45,27 +52,53 @@ const NoteCardModal = ({
 		handleOnClose()
 	})
 
+	const determineCardSize = () => {
+		if (description.length < 150) {
+			return 'small'
+		}
+		if (description.length > 150 && description.length < 250) {
+			return 'medium'
+		}
+		if (description.length > 250) {
+			return 'large'
+		}
+		return 'medium'
+	}
+
 	return (
-		<Modal backdrop toggle={toggle} isOpen={open}>
-			<Card className={styles.container}>
-				<Form onSubmit={onSubmit} className={styles.form}>
-					<FormGroup className={styles.formgroup}>
-						<input
-							{...register('title')}
-							className={styles.title}
-							defaultValue={title}
-							aria-label="title"
-						/>
-						<input
-							{...register('description')}
-							className={styles.description}
-							placeholder="Take a note..."
-							defaultValue={description}
-							aria-label="description"
-						/>
-					</FormGroup>
-					<input type="submit" value="Complete" />
-				</Form>
+		<Modal className={styles.modal} open={open}>
+			<Card
+				className={`${styles['note-card']} ${
+					styles[determineCardSize()]
+				}`}
+			>
+				<form onSubmit={onSubmit} className={styles.form}>
+					<CardContent className={styles['card-body']}>
+						<FormGroup>
+							<Input
+								{...register('title')}
+								className={styles.title}
+								defaultValue={title}
+								aria-label="title"
+								multiline
+							/>
+							<Input
+								multiline
+								{...register('description')}
+								className={styles.description}
+								placeholder="Take a note..."
+								defaultValue={description}
+								aria-label="description"
+							/>
+						</FormGroup>
+					</CardContent>
+				</form>
+				<Box component="div" className={styles['footer']}>
+					<Button variant="contained" type="submit">
+						Complete
+					</Button>
+					<Button onClick={toggle}>Cancel</Button>
+				</Box>
 			</Card>
 		</Modal>
 	)

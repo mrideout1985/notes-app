@@ -1,7 +1,4 @@
-import { FormProvider, useForm } from 'react-hook-form'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
-
-import { Trash } from './components/icons'
 import Layout from './components/layout/Layout'
 import Login from './pages/Login'
 import Notes from './pages/Notes'

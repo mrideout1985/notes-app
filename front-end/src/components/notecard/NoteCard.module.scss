@@ -7,6 +7,7 @@
 	.card-body {
 		word-break: break-word;
 		overflow: hidden;
+		text-overflow: ellipsis;
 
 		.title {
 			font-family: 'Arial', sans-serif;
@@ -64,7 +65,7 @@
 
 .small {
 	.card-body {
-		min-height: 100px;
+		min-height: 150px;
 
 		.title {
 			.title {
@@ -75,10 +76,13 @@
 
 .medium {
 	.card-body {
+		min-height: 250px;
 	}
 }
 
 .large {
 	.card-body {
+		min-height: 350px;
+		max-height: 650px;
 	}
 }

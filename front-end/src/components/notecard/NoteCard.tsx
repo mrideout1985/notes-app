@@ -1,6 +1,6 @@
 import { Article } from '@/api/hooks/getUserNotes'
+import { Button, Card, CardContent, Typography } from '@mui/material'
 import { useState } from 'react'
-import { Button, Card, CardBody, CardText, CardTitle } from 'reactstrap'
 import { Edit, Trash } from '../icons'
 import NoteCardModal from '../notecard-modal/NoteCardModal'
 import styles from './NoteCard.module.scss'
@@ -36,18 +36,15 @@ const NoteCard = ({ note, removeNote, refetch }: NoteCardProps) => {
 				className={`${styles['note-card']} ${
 					styles[determineCardSize()]
 				}`}
-				id={`note-card-${note.id}`}
 			>
-				<CardBody className={styles['card-body']}>
+				<CardContent className={styles['card-body']}>
 					{note.title && (
-						<CardTitle key={note.id} className={styles['title']}>
-							<h5>{note.title}</h5>
-						</CardTitle>
+						<Typography variant="h5">{note.title}</Typography>
 					)}
-					<CardText className={styles['description']}>
+					<Typography className={styles['description']}>
 						{note.description}
-					</CardText>
-				</CardBody>
+					</Typography>
+				</CardContent>
 				<div className={styles['footer']}>
 					<Button onClick={() => removeNote(note.id)}>
 						<Trash />
