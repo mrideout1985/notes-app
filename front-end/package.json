@@ -1,98 +1,98 @@
 {
-  "name": "notes-app",
-  "version": "0.0.0",
-  "author": {
-    "name": "Matthew Rideout",
-    "url": "https://github.com/mrideout1985"
-  },
-  "scripts": {
-    "build": "npm run typecheck && vite build",
-    "dev": "vite",
-    "format": "prettier . --write --ignore-path .gitignore && git update-index --again",
-    "lint": "eslint . --ext .ts,.tsx --fix --ignore-path .gitignore",
-    "serve": "npm run build && vite preview --port 3000",
-    "test:e2e": "start-server-and-test serve http://127.0.0.1:3000/ 'cypress open'",
-    "test:e2e:ci": "start-server-and-test serve http://127.0.0.1:3000/ 'cypress run'",
-    "test:unit": "jest --watchAll",
-    "test:unit:ci": "jest",
-    "test:unit:coverage": "jest --silent --watchAll=false --coverage",
-    "typecheck": "tsc --noEmit",
-    "gen": "npx @svgr/cli -d src/components/icons --ignore-existing src/assets/icons --ext=tsx"
-  },
-  "lint-staged": {
-    "*.{css,md,json}": [
-      "prettier --write"
-    ],
-    "*.ts?(x)": [
-      "eslint",
-      "prettier --write"
-    ],
-    "package.json": "npx sort-package-json"
-  },
-  "config": {
-    "commitizen": {
-      "path": "@commitlint/cz-commitlint"
-    }
-  },
-  "dependencies": {
-    "@emotion/react": "^11.10.6",
-    "@emotion/styled": "^11.10.6",
-    "@mui/icons-material": "^5.11.16",
-    "@mui/lab": "^5.0.0-alpha.125",
-    "@mui/material": "^5.11.16",
-    "axios": "^1.3.4",
-    "bootstrap": "latest",
-    "open-props": "latest",
-    "react": "latest",
-    "react-dom": "latest",
-    "react-hook-form": "latest",
-    "react-router-dom": "latest",
-    "react-use": "latest",
-    "sass": "latest",
-    "sort-package-json": "latest",
-    "ts-jest": "^29.0.5",
-    "typescript": "latest",
-    "vite": "latest",
-    "vite-plugin-svgr": "latest",
-    "zustand": "latest"
-  },
-  "devDependencies": {
-    "@commitlint/cli": "latest",
-    "@commitlint/config-conventional": "latest",
-    "@commitlint/cz-commitlint": "latest",
-    "@cypress/vite-dev-server": "latest",
-    "@svgr/cli": "latest",
-    "@swc/jest": "latest",
-    "@testing-library/dom": "latest",
-    "@testing-library/jest-dom": "latest",
-    "@testing-library/react": "latest",
-    "@testing-library/user-event": "^14.4.3",
-    "@types/jest": "latest",
-    "@types/node": "latest",
-    "@types/react": "latest",
-    "@types/react-dom": "latest",
-    "@types/testing-library__user-event": "latest",
-    "@typescript-eslint/eslint-plugin": "latest",
-    "@typescript-eslint/parser": "latest",
-    "@vitejs/plugin-legacy": "latest",
-    "@vitejs/plugin-react": "latest",
-    "cypress": "latest",
-    "eslint": "latest",
-    "eslint-config-prettier": "latest",
-    "eslint-import-resolver-typescript": "latest",
-    "eslint-plugin-cypress": "latest",
-    "eslint-plugin-import": "latest",
-    "eslint-plugin-jest": "latest",
-    "eslint-plugin-jest-dom": "latest",
-    "eslint-plugin-jsx-a11y": "latest",
-    "eslint-plugin-prettier": "latest",
-    "eslint-plugin-react": "latest",
-    "eslint-plugin-react-hooks": "latest",
-    "eslint-plugin-simple-import-sort": "latest",
-    "eslint-plugin-testing-library": "latest",
-    "identity-obj-proxy": "^3.0.0",
-    "jest": "latest",
-    "jest-environment-jsdom": "latest",
-    "lint-staged": "latest"
-  }
+	"name": "notes-app",
+	"version": "0.0.0",
+	"author": {
+		"name": "Matthew Rideout",
+		"url": "https://github.com/mrideout1985"
+	},
+	"scripts": {
+		"build": "npm run typecheck && vite build",
+		"dev": "vite",
+		"format": "prettier . --write --ignore-path .gitignore && git update-index --again",
+		"lint": "eslint . --ext .ts,.tsx --fix --ignore-path .gitignore",
+		"serve": "npm run build && vite preview --port 3000",
+		"test:e2e": "start-server-and-test serve http://127.0.0.1:3000/ 'cypress open'",
+		"test:e2e:ci": "start-server-and-test serve http://127.0.0.1:3000/ 'cypress run'",
+		"test:unit": "jest --watchAll",
+		"test:unit:ci": "jest",
+		"test:unit:coverage": "jest --silent --watchAll=false --coverage",
+		"typecheck": "tsc --noEmit",
+		"gen": "npx @svgr/cli -d src/components/icons --ignore-existing src/assets/icons --ext=tsx"
+	},
+	"lint-staged": {
+		"*.{css,md,json}": [
+			"prettier --write"
+		],
+		"*.ts?(x)": [
+			"eslint",
+			"prettier --write"
+		],
+		"package.json": "npx sort-package-json"
+	},
+	"config": {
+		"commitizen": {
+			"path": "@commitlint/cz-commitlint"
+		}
+	},
+	"dependencies": {
+		"@emotion/react": "^11.10.6",
+		"@emotion/styled": "^11.10.6",
+		"@mui/icons-material": "^5.11.16",
+		"@mui/lab": "^5.0.0-alpha.125",
+		"@mui/material": "^5.11.16",
+		"axios": "^1.3.4",
+		"bootstrap": "latest",
+		"open-props": "latest",
+		"react": "latest",
+		"react-dom": "latest",
+		"react-hook-form": "latest",
+		"react-router-dom": "latest",
+		"react-use": "latest",
+		"sass": "latest",
+		"sort-package-json": "latest",
+		"ts-jest": "^29.0.5",
+		"typescript": "latest",
+		"vite": "latest",
+		"vite-plugin-svgr": "latest",
+		"zustand": "latest"
+	},
+	"devDependencies": {
+		"@commitlint/cli": "latest",
+		"@commitlint/config-conventional": "latest",
+		"@commitlint/cz-commitlint": "latest",
+		"@cypress/vite-dev-server": "latest",
+		"@svgr/cli": "latest",
+		"@swc/jest": "latest",
+		"@testing-library/dom": "latest",
+		"@testing-library/jest-dom": "latest",
+		"@testing-library/react": "latest",
+		"@testing-library/user-event": "^14.4.3",
+		"@types/jest": "latest",
+		"@types/node": "latest",
+		"@types/react": "latest",
+		"@types/react-dom": "latest",
+		"@types/testing-library__user-event": "latest",
+		"@typescript-eslint/eslint-plugin": "latest",
+		"@typescript-eslint/parser": "latest",
+		"@vitejs/plugin-legacy": "latest",
+		"@vitejs/plugin-react": "latest",
+		"cypress": "latest",
+		"eslint": "latest",
+		"eslint-config-prettier": "latest",
+		"eslint-import-resolver-typescript": "latest",
+		"eslint-plugin-cypress": "latest",
+		"eslint-plugin-import": "latest",
+		"eslint-plugin-jest": "latest",
+		"eslint-plugin-jest-dom": "latest",
+		"eslint-plugin-jsx-a11y": "latest",
+		"eslint-plugin-prettier": "latest",
+		"eslint-plugin-react": "latest",
+		"eslint-plugin-react-hooks": "latest",
+		"eslint-plugin-simple-import-sort": "latest",
+		"eslint-plugin-testing-library": "latest",
+		"identity-obj-proxy": "^3.0.0",
+		"jest": "latest",
+		"jest-environment-jsdom": "latest",
+		"lint-staged": "latest"
+	}
 }

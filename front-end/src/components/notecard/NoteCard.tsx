@@ -39,7 +39,9 @@ const NoteCard = ({ note, removeNote, refetch }: NoteCardProps) => {
 			>
 				<CardContent className={styles['card-body']}>
 					{note.title && (
-						<Typography variant="h5">{note.title}</Typography>
+						<Typography variant="h5" color={'black'}>
+							{note.title}
+						</Typography>
 					)}
 					<Typography className={styles['description']}>
 						{note.description}

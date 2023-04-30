@@ -37,7 +37,7 @@ const Notes = () => {
 				/>
 			</div>
 			<Masonry
-				columns={{ sm: 1, md: 3, lg: 4, xl: 6 }}
+				columns={{ sm: 1, md: 2, lg: 3, xl: 4 }}
 				spacing={2}
 				className={styles['notes']}
 			>
