@@ -97,14 +97,13 @@ export const createNote = async (
 }
 
 export const updateNote = async (
-	data: { title: string; description: string },
+	data: { title: string; description: string; id: string },
 	token: string | undefined,
 	email: string | undefined,
-	id: string | undefined,
 ) => {
-	const response = axios
-		.patch(
-			`http://localhost:3000/articles/${id}`,
+	try {
+		const response = await axios.patch(
+			`http://localhost:3000/articles/${data.id}`,
 			{
 				title: data.title,
 				description: data.description,
@@ -118,20 +117,10 @@ export const updateNote = async (
 				},
 			},
 		)
-		.catch(function (error) {
-			if (error.response) {
-				console.log(error.response.data)
-				console.log(error.response.status)
-				console.log(error.response.headers)
-			} else if (error.request) {
-				console.log(error.request)
-			} else {
-				console.log('Error', error.message)
-			}
-			console.log(error.config)
-		})
-
-	return response
+		return response
+	} catch (error) {
+		console.log(error)
+	}
 }
 
 export const deleteNote = async (id: string, token: string | undefined) => {

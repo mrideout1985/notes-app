@@ -1,6 +1,5 @@
 import { Article } from '@/api/hooks/getUserNotes'
 import { Button, Card, CardContent, Typography } from '@mui/material'
-import { useState } from 'react'
 import { Edit, Trash } from '../icons'
 import NoteCardModal from '../notecard-modal/NoteCardModal'
 import styles from './NoteCard.module.scss'
@@ -8,12 +7,24 @@ import styles from './NoteCard.module.scss'
 export interface NoteCardProps {
 	note: Article
 	removeNote: (id: string) => void
-	refetch: () => void
+	updateNote: () => void
+	register: any
+	handleClose: () => void
+	handleOpen: () => void
+	open: boolean
+	setValue: any
 }
 
-const NoteCard = ({ note, removeNote, refetch }: NoteCardProps) => {
-	const [openModal, setOpenModal] = useState(false)
-
+const NoteCard = ({
+	note,
+	removeNote,
+	updateNote,
+	register,
+	handleClose,
+	handleOpen,
+	open,
+	setValue,
+}: NoteCardProps) => {
 	const determineCardSize = () => {
 		const description = note.description
 		if (description.length < 150) {
@@ -27,8 +38,6 @@ const NoteCard = ({ note, removeNote, refetch }: NoteCardProps) => {
 		}
 		return 'medium'
 	}
-
-	const toggleModal = () => setOpenModal(!openModal)
 
 	return (
 		<>
@@ -49,22 +58,19 @@ const NoteCard = ({ note, removeNote, refetch }: NoteCardProps) => {
 					<Button onClick={() => removeNote(note.id)}>
 						<Trash />
 					</Button>
-					<Button onClick={() => setOpenModal(true)}>
+					<Button onClick={handleOpen}>
 						<Edit />
 					</Button>
 				</div>
 			</Card>
 			<NoteCardModal
 				title={note.title}
-				toggle={toggleModal}
-				description={note.description}
-				open={openModal}
-				refetch={refetch}
 				id={note.id}
-				handleOnClose={() => setOpenModal(false)}
-				handleOnSubmit={(e) => {
-					e.preventDefault()
-				}}
+				description={note.description}
+				open={open}
+				updateNote={updateNote}
+				register={register}
+				handleClose={handleClose}
 			/>
 		</>
 	)

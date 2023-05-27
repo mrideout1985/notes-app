@@ -1,57 +1,33 @@
-import { updateNote } from '@/api/services/services'
-import useUserStore from '@/stores/authstore'
 import {
 	Box,
 	Button,
 	Card,
 	CardContent,
 	FormGroup,
-	Input,
 	Modal,
+	TextField,
 } from '@mui/material'
-import { FormEventHandler } from 'react'
-import { useForm } from 'react-hook-form'
 import styles from './NoteCardModal.module.scss'
 
 interface NoteCardModalInterface {
 	open: boolean
-	refetch: () => void
-	toggle: any
-	id: string
 	title: string
 	description: string
-	handleOnClose: () => void
-	handleOnSubmit: FormEventHandler<HTMLFormElement>
+	updateNote: any
+	register: any
+	handleClose: () => void
+	id: string
 }
 
 const NoteCardModal = ({
 	open,
-	refetch,
-	toggle,
-	id,
 	title,
 	description,
-	handleOnClose,
+	updateNote,
+	register,
+	handleClose,
+	id,
 }: NoteCardModalInterface) => {
-	const user = useUserStore()
-
-	const { register, handleSubmit, resetField } = useForm()
-
-	const onSubmit = handleSubmit((data) => {
-		if (data.title || data.description !== '') {
-			updateNote(
-				data as any,
-				user.currentUser?.token,
-				user.currentUser?.email,
-				id,
-			)
-		}
-		refetch()
-		resetField('title')
-		resetField('description')
-		handleOnClose()
-	})
-
 	const determineCardSize = () => {
 		if (description.length < 150) {
 			return 'small'
@@ -72,17 +48,17 @@ const NoteCardModal = ({
 					styles[determineCardSize()]
 				}`}
 			>
-				<form onSubmit={onSubmit} className={styles.form}>
+				<form onSubmit={updateNote} className={styles.form}>
 					<CardContent className={styles['card-body']}>
 						<FormGroup>
-							<Input
+							<TextField
 								{...register('title')}
 								className={styles.title}
 								defaultValue={title}
 								aria-label="title"
 								multiline
 							/>
-							<Input
+							<TextField
 								multiline
 								{...register('description')}
 								className={styles.description}
@@ -92,13 +68,11 @@ const NoteCardModal = ({
 							/>
 						</FormGroup>
 					</CardContent>
+					<Box component="div" className={styles['footer']}>
+						<Button type="submit" />
+						<Button onClick={handleClose}>Cancel</Button>
+					</Box>
 				</form>
-				<Box component="div" className={styles['footer']}>
-					<Button variant="contained" type="submit">
-						Complete
-					</Button>
-					<Button onClick={toggle}>Cancel</Button>
-				</Box>
 			</Card>
 		</Modal>
 	)

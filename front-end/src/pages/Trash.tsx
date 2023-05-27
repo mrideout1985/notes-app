@@ -5,6 +5,7 @@ const TrashBin = () => {
 				display: 'flex',
 				gap: '1rem',
 				flexWrap: 'wrap',
+				minHeight: '100%',
 			}}
 		>
 			<div>
