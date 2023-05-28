@@ -8,16 +8,16 @@ import { UpdateArticleDto } from './dto/update-article.dto';
 export class ArticlesService {
   constructor(private prisma: PrismaService) {}
 
-  create(createArticleDto: CreateArticleDto) {
-    return this.prisma.article.create({ data: createArticleDto });
+  async create(createArticleDto: CreateArticleDto) {
+    return await this.prisma.article.create({ data: createArticleDto });
   }
 
-  findAll() {
-    return this.prisma.article.findMany({ where: { published: true } });
+  async findAll() {
+    return await this.prisma.article.findMany({ where: { published: true } });
   }
 
-  findDrafts() {
-    return this.prisma.article.findMany({ where: { published: false } });
+  async findDrafts() {
+    return await this.prisma.article.findMany({ where: { published: false } });
   }
 
   async findUserNotes(
@@ -36,8 +36,25 @@ export class ArticlesService {
     return articles;
   }
 
-  findOne(id: string) {
-    return this.prisma.article.findUnique({ where: { id } });
+  async findUserArchivedNotes(
+    email: string,
+    sortBy?: Prisma.SortOrder,
+  ): Promise<Article[]> {
+    const articles = await this.prisma.article.findMany({
+      where: {
+        authorEmail: email,
+        archived: true,
+      },
+      orderBy: {
+        createdAt: sortBy,
+      },
+    });
+
+    return articles;
+  }
+
+  async findOne(id: string) {
+    return await this.prisma.article.findUnique({ where: { id } });
   }
 
   async update(id: string, updateArticleDto: UpdateArticleDto) {
@@ -49,7 +66,7 @@ export class ArticlesService {
     return updatedArticle;
   }
 
-  remove(id: string) {
-    return this.prisma.article.delete({ where: { id } });
+  async remove(id: string) {
+    return await this.prisma.article.delete({ where: { id } });
   }
 }

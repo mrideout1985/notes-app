@@ -72,6 +72,26 @@ export class ArticlesController {
     return articles;
   }
 
+  @UseGuards(JwtAuthGuard)
+  @ApiSecurity('access-key')
+  @ApiHeader({
+    name: 'access-token',
+    description: 'Access token',
+  })
+  @UseInterceptors(ClassSerializerInterceptor)
+  @ApiOkResponse({ type: ArticleEntity, isArray: true })
+  @Get('my-archived-articles')
+  async getMyArchivedArticles(
+    @Query('email') email: string,
+    @Query('sortBy') sortBy: Prisma.SortOrder,
+  ) {
+    const articles = await this.articlesService.findUserArchivedNotes(
+      email,
+      sortBy,
+    );
+    return articles;
+  }
+
   @Get(':id')
   @ApiOkResponse({ type: ArticleEntity })
   findOne(@Param('id') id: string) {
