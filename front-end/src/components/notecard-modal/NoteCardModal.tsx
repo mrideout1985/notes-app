@@ -27,7 +27,7 @@ const NoteCardModal = ({
 	handleClose,
 	id,
 }: NoteCardModalInterface) => {
-	const { register, handleSubmit } = useForm()
+	const { register, handleSubmit, watch } = useForm()
 
 	return (
 		<Modal className={styles.modal} open={open}>
@@ -56,7 +56,13 @@ const NoteCardModal = ({
 						</FormGroup>
 					</CardContent>
 					<Box component="div" className={styles['footer']}>
-						<Button type="submit" />
+						{watch('title') || watch('description') ? (
+							<Button type="submit">Complete</Button>
+						) : (
+							<Button disabled type="submit">
+								Complete
+							</Button>
+						)}
 						<Button onClick={handleClose}>Cancel</Button>
 					</Box>
 				</form>

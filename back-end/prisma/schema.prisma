@@ -24,4 +24,5 @@ model Article {
   updatedAt   DateTime @updatedAt
   authorEmail String
   author      User     @relation(fields: [authorEmail], references: [email])
+  archived    Boolean  @default(false)
 }
