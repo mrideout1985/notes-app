@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 
 interface UseArticlesOptions {
 	email: string | undefined
+	archived?: boolean
 	sortBy: 'asc' | 'desc'
 }
 
@@ -14,9 +15,14 @@ export interface Article {
 	createdAt: Date
 	updatedAt: Date
 	authorEmail: string
+	archived: boolean
 }
 
-export default function useArticles({ sortBy, email }: UseArticlesOptions) {
+export default function useArticles({
+	sortBy,
+	email,
+	archived,
+}: UseArticlesOptions) {
 	const [articles, setArticles] = useState<Article[]>([])
 	const [loading, setLoading] = useState<boolean>(true)
 	const [error, setError] = useState<string | null>(null)
@@ -25,7 +31,9 @@ export default function useArticles({ sortBy, email }: UseArticlesOptions) {
 	const fetchArticles = async () => {
 		try {
 			const response = await fetch(
-				`http://localhost:3000/articles/my-articles?email=${email}&sortBy=${sortBy}`,
+				`http://localhost:3000/articles/${
+					archived ? `my-archived-articles` : `my-articles`
+				}?email=${email}&sortBy=${sortBy}`,
 
 				{
 					method: 'GET',

@@ -1,9 +1,9 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import Layout from './components/layout/Layout'
+import Archived from './pages/Archived'
 import Login from './pages/Login'
 import Notes from './pages/Notes'
 import Register from './pages/Register'
-import TrashBin from './pages/Trash'
 import Unpublished from './pages/Unpublished'
 
 function PrivateRoute({ children }: any) {
@@ -39,7 +39,7 @@ function App() {
 						path="/trashbin"
 						element={
 							<PrivateRoute>
-								<TrashBin />
+								<Archived />
 							</PrivateRoute>
 						}
 					/>
