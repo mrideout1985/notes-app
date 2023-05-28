@@ -9,9 +9,7 @@ export interface NoteCardProps {
 	description: string
 	id: string
 	removeNote: (id: string) => void
-	updateNote: (id: string, func: any) => void
-	register: any
-	setValue: any
+	updateNote: (id: string, func: any, handleSubmit: any) => void
 }
 
 const NoteCard = ({
@@ -20,10 +18,9 @@ const NoteCard = ({
 	id,
 	removeNote,
 	updateNote,
-	register,
-	setValue,
 }: NoteCardProps) => {
 	const [openModal, setOpenModal] = useState(false)
+
 	const determineCardSize = () => {
 		if (description.length < 150) {
 			return 'small'
@@ -67,7 +64,6 @@ const NoteCard = ({
 					description={description}
 					open={openModal}
 					updateNote={updateNote}
-					register={register}
 					handleClose={() => setOpenModal(false)}
 				/>
 			)}

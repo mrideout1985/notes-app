@@ -5,11 +5,15 @@ import NoteCard from '@/components/notecard/NoteCard'
 import useUserStore from '@/stores/authstore'
 import { Masonry } from '@mui/lab'
 import { useCallback, useState } from 'react'
-import { useForm } from 'react-hook-form'
 import styles from './Notes.module.scss'
 
 interface UseArticlesOptions {
 	sortBy: 'asc' | 'desc'
+}
+
+interface FormValues {
+	title: string
+	description: string
 }
 
 const Notes = () => {
@@ -19,7 +23,6 @@ const Notes = () => {
 		email: store.currentUser?.email,
 		sortBy: sortBy,
 	})
-	const { register, handleSubmit, resetField, setValue } = useForm()
 
 	const removeNote = async (id: string) => {
 		await deleteNote(id, store.currentUser?.token).then((res) => {
@@ -30,8 +33,8 @@ const Notes = () => {
 	}
 
 	const updateUserNote = useCallback(
-		(id: string, func: any) =>
-			handleSubmit(async (data) => {
+		(id: string, func: any, handleSubmit: any) =>
+			handleSubmit(async (data: FormValues) => {
 				if (data.title || data.description !== '') {
 					await updateNote(
 						data as { title: string; description: string },
@@ -41,8 +44,6 @@ const Notes = () => {
 					).then((res) => {
 						if (res?.status === 200) {
 							refetch()
-							resetField('description')
-							resetField('title')
 							func()
 						}
 					})
@@ -72,8 +73,6 @@ const Notes = () => {
 								removeNote={removeNote}
 								key={note.id}
 								updateNote={updateUserNote}
-								register={register}
-								setValue={setValue}
 								description={note.description}
 								title={note.title}
 								id={note.id}

@@ -7,6 +7,7 @@ import {
 	Modal,
 	TextField,
 } from '@mui/material'
+import { useForm } from 'react-hook-form'
 import styles from './NoteCardModal.module.scss'
 
 interface NoteCardModalInterface {
@@ -14,7 +15,6 @@ interface NoteCardModalInterface {
 	title: string | undefined
 	description: string
 	updateNote: any
-	register: any
 	handleClose: () => void
 	id: string
 }
@@ -24,33 +24,16 @@ const NoteCardModal = ({
 	title,
 	description,
 	updateNote,
-	register,
 	handleClose,
 	id,
 }: NoteCardModalInterface) => {
-	const determineCardSize = () => {
-		if (description.length < 150) {
-			return 'small'
-		}
-		if (description.length > 150 && description.length < 250) {
-			return 'medium'
-		}
-		if (description.length > 250) {
-			return 'large'
-		}
-
-		return 'medium'
-	}
+	const { register, handleSubmit } = useForm()
 
 	return (
 		<Modal className={styles.modal} open={open}>
-			<Card
-				className={`${styles['note-card']} ${
-					styles[determineCardSize()]
-				}`}
-			>
+			<Card className={styles['note-card']}>
 				<form
-					onSubmit={updateNote(id, handleClose)}
+					onSubmit={updateNote(id, handleClose, handleSubmit)}
 					className={styles.form}
 				>
 					<CardContent className={styles['card-body']}>
