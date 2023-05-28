@@ -7,7 +7,6 @@ interface SideBarProps {
 }
 
 const Sidebar = ({ open }: SideBarProps) => {
-	console.log(open)
 	return (
 		<div className={styles.sidebar} aria-expanded={open}>
 			<div className={styles.links}>

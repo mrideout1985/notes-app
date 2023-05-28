@@ -97,13 +97,14 @@ export const createNote = async (
 }
 
 export const updateNote = async (
-	data: { title: string; description: string; id: string },
+	data: { title: string; description: string },
 	token: string | undefined,
 	email: string | undefined,
+	id: string,
 ) => {
 	try {
 		const response = await axios.patch(
-			`http://localhost:3000/articles/${data.id}`,
+			`http://localhost:3000/articles/${id}`,
 			{
 				title: data.title,
 				description: data.description,

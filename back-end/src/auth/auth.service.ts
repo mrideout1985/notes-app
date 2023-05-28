@@ -42,8 +42,6 @@ export class AuthService {
       httpOnly: true,
     });
 
-    console.log(user);
-
     return {
       ...token,
       user,

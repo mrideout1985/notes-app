@@ -11,7 +11,7 @@ import styles from './NoteCardModal.module.scss'
 
 interface NoteCardModalInterface {
 	open: boolean
-	title: string
+	title: string | undefined
 	description: string
 	updateNote: any
 	register: any
@@ -38,6 +38,7 @@ const NoteCardModal = ({
 		if (description.length > 250) {
 			return 'large'
 		}
+
 		return 'medium'
 	}
 
@@ -48,7 +49,10 @@ const NoteCardModal = ({
 					styles[determineCardSize()]
 				}`}
 			>
-				<form onSubmit={updateNote} className={styles.form}>
+				<form
+					onSubmit={updateNote(id, handleClose)}
+					className={styles.form}
+				>
 					<CardContent className={styles['card-body']}>
 						<FormGroup>
 							<TextField

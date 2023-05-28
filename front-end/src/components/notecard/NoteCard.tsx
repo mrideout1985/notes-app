@@ -1,32 +1,30 @@
-import { Article } from '@/api/hooks/getUserNotes'
 import { Button, Card, CardContent, Typography } from '@mui/material'
+import { useState } from 'react'
 import { Edit, Trash } from '../icons'
 import NoteCardModal from '../notecard-modal/NoteCardModal'
 import styles from './NoteCard.module.scss'
 
 export interface NoteCardProps {
-	note: Article
+	title: string | undefined
+	description: string
+	id: string
 	removeNote: (id: string) => void
-	updateNote: () => void
+	updateNote: (id: string, func: any) => void
 	register: any
-	handleClose: () => void
-	handleOpen: () => void
-	open: boolean
 	setValue: any
 }
 
 const NoteCard = ({
-	note,
+	title,
+	description,
+	id,
 	removeNote,
 	updateNote,
 	register,
-	handleClose,
-	handleOpen,
-	open,
 	setValue,
 }: NoteCardProps) => {
+	const [openModal, setOpenModal] = useState(false)
 	const determineCardSize = () => {
-		const description = note.description
 		if (description.length < 150) {
 			return 'small'
 		}
@@ -36,6 +34,7 @@ const NoteCard = ({
 		if (description.length > 250) {
 			return 'large'
 		}
+
 		return 'medium'
 	}
 
@@ -47,31 +46,31 @@ const NoteCard = ({
 				}`}
 			>
 				<CardContent className={styles['card-body']}>
-					{note.title && (
-						<Typography variant="h5">{note.title}</Typography>
-					)}
+					{title && <Typography variant="h5">{title}</Typography>}
 					<Typography className={styles['description']}>
-						{note.description}
+						{description}
 					</Typography>
 				</CardContent>
 				<div className={styles['footer']}>
-					<Button onClick={() => removeNote(note.id)}>
+					<Button onClick={() => removeNote(id)}>
 						<Trash />
 					</Button>
-					<Button onClick={handleOpen}>
+					<Button onClick={() => setOpenModal(true)}>
 						<Edit />
 					</Button>
 				</div>
 			</Card>
-			<NoteCardModal
-				title={note.title}
-				id={note.id}
-				description={note.description}
-				open={open}
-				updateNote={updateNote}
-				register={register}
-				handleClose={handleClose}
-			/>
+			{openModal && (
+				<NoteCardModal
+					title={title}
+					id={id}
+					description={description}
+					open={openModal}
+					updateNote={updateNote}
+					register={register}
+					handleClose={() => setOpenModal(false)}
+				/>
+			)}
 		</>
 	)
 }
