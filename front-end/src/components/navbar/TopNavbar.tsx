@@ -32,7 +32,7 @@ const TopNavBar = ({ sideBarOpen }: TopNavbar) => {
 						<MenuIcon />
 					</IconButton>
 					<NavLink className={styles.brand} to="/">
-						<i>N</i>otes <BookOpen height={'4rem'} width={'4rem'} />
+						<i>N</i>otes <BookOpen height={60} width={60} />
 					</NavLink>
 
 					<UserNavDropdown

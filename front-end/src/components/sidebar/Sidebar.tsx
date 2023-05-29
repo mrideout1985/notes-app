@@ -1,5 +1,7 @@
+import ArchiveIcon from '@mui/icons-material/Archive'
+import NoteIcon from '@mui/icons-material/Note'
 import { NavLink } from 'react-router-dom'
-import { BookOpen, Trash } from '../icons'
+
 import styles from './Sidebar.module.scss'
 
 interface SideBarProps {
@@ -16,7 +18,7 @@ const Sidebar = ({ open }: SideBarProps) => {
 					}
 					to={'/'}
 				>
-					<BookOpen className={styles.icon} />
+					<NoteIcon className={styles.icon} />
 					<div className={styles.text}>
 						<p>Notes</p>
 					</div>
@@ -27,9 +29,9 @@ const Sidebar = ({ open }: SideBarProps) => {
 						isActive ? styles.active : styles.notActive
 					}
 				>
-					<Trash className={styles.icon} />
+					<ArchiveIcon className={styles.icon} />
 					<div className={styles.text}>
-						<p>Trash</p>
+						<p>Archived</p>
 					</div>
 				</NavLink>
 			</div>
