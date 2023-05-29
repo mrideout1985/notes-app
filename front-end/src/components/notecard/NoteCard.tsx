@@ -1,6 +1,9 @@
-import { Button, Card, CardContent, Typography } from '@mui/material'
+import ArchiveIcon from '@mui/icons-material/Archive'
+import DeleteIcon from '@mui/icons-material/Delete'
+import EditIcon from '@mui/icons-material/Edit'
+import UnarchiveIcon from '@mui/icons-material/Unarchive'
+import { Card, CardContent, IconButton, Typography } from '@mui/material'
 import { useState } from 'react'
-import { Edit, Trash } from '../icons'
 import NoteCardModal from '../notecard-modal/NoteCardModal'
 import styles from './NoteCard.module.scss'
 
@@ -10,6 +13,7 @@ export interface NoteCardProps {
 	id: string
 	removeNote: (id: string) => void
 	updateNote: (id: string, func: any, handleSubmit: any) => void
+	archiveNote: (id: string) => void
 }
 
 const NoteCard = ({
@@ -18,6 +22,7 @@ const NoteCard = ({
 	id,
 	removeNote,
 	updateNote,
+	archiveNote,
 }: NoteCardProps) => {
 	const [openModal, setOpenModal] = useState(false)
 
@@ -35,6 +40,21 @@ const NoteCard = ({
 		return 'medium'
 	}
 
+	const handleRenderArchiveButton = () => {
+		if (window.location.pathname === '/archived') {
+			return (
+				<IconButton onClick={() => archiveNote(id)}>
+					<UnarchiveIcon />
+				</IconButton>
+			)
+		}
+		return (
+			<IconButton onClick={() => archiveNote(id)}>
+				<ArchiveIcon />
+			</IconButton>
+		)
+	}
+
 	return (
 		<>
 			<Card
@@ -49,12 +69,13 @@ const NoteCard = ({
 					</Typography>
 				</CardContent>
 				<div className={styles['footer']}>
-					<Button onClick={() => removeNote(id)}>
-						<Trash />
-					</Button>
-					<Button onClick={() => setOpenModal(true)}>
-						<Edit />
-					</Button>
+					<IconButton size="small" onClick={() => removeNote(id)}>
+						<DeleteIcon />
+					</IconButton>
+					{handleRenderArchiveButton()}
+					<IconButton size="small" onClick={() => setOpenModal(true)}>
+						<EditIcon />
+					</IconButton>
 				</div>
 			</Card>
 			{openModal && (

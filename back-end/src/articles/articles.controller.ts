@@ -116,4 +116,30 @@ export class ArticlesController {
   remove(@Param('id') id: string) {
     return this.articlesService.remove(id);
   }
+
+  @UseGuards(JwtAuthGuard)
+  @ApiSecurity('access-key')
+  @ApiHeader({
+    name: 'access-token',
+    description: 'Access token',
+  })
+  @UseInterceptors(ClassSerializerInterceptor)
+  @Patch('add-to-archive/:id')
+  @ApiOkResponse({ type: ArticleEntity })
+  addToArchive(@Param('id') id: string) {
+    return this.articlesService.archive(id, { archived: true });
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @ApiSecurity('access-key')
+  @ApiHeader({
+    name: 'access-token',
+    description: 'Access token',
+  })
+  @UseInterceptors(ClassSerializerInterceptor)
+  @Patch('remove-from-archive/:id')
+  @ApiOkResponse({ type: ArticleEntity })
+  removeFromArchive(@Param('id') id: string) {
+    return this.articlesService.archive(id, { archived: false });
+  }
 }

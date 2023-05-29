@@ -17,7 +17,10 @@ export interface Article {
 	archived: boolean
 }
 
-export default function useGetUserNotes({ sortBy, email }: UseArticlesOptions) {
+export default function useHandleGetArchivedNotes({
+	sortBy,
+	email,
+}: UseArticlesOptions) {
 	const [articles, setArticles] = useState<Article[]>([])
 	const [loading, setLoading] = useState<boolean>(true)
 	const [error, setError] = useState<string | null>(null)
@@ -26,7 +29,8 @@ export default function useGetUserNotes({ sortBy, email }: UseArticlesOptions) {
 	const fetchArticles = async () => {
 		try {
 			const response = await fetch(
-				`http://localhost:3000/articles/my-articles/?email=${email}&sortBy=${sortBy}`,
+				`http://localhost:3000/articles/my-archived-articles/?email=${email}&sortBy=${sortBy}`,
+
 				{
 					method: 'GET',
 					headers: {
@@ -35,8 +39,11 @@ export default function useGetUserNotes({ sortBy, email }: UseArticlesOptions) {
 					},
 				},
 			)
+
 			if (!response.ok) {
-				throw new Error(`Failed to fetch articles: ${response.status}`)
+				throw new Error(
+					`Failed to fetch archived articles: ${response.status}`,
+				)
 			}
 			const data = await response.json()
 			setArticles(data)

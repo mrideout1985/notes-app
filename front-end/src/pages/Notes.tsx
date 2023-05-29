@@ -1,10 +1,11 @@
-import useArticles from '@/api/hooks/getUserNotes'
+import useGetUserNotes from '@/api/hooks/getUserNotes'
+import useHandleArchiveNotes from '@/api/hooks/useHandleArchive'
 import { deleteNote, updateNote } from '@/api/services/services'
 import CreateNote from '@/components/forms/CreateNoteForm'
 import NoteCard from '@/components/notecard/NoteCard'
 import useUserStore from '@/stores/authstore'
 import { Masonry } from '@mui/lab'
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import styles from './Notes.module.scss'
 
 interface UseArticlesOptions {
@@ -19,7 +20,8 @@ interface FormValues {
 const Notes = () => {
 	const store = useUserStore()
 	const [sortBy, setSortBy] = useState<UseArticlesOptions['sortBy']>('desc')
-	const { articles, refetch, error, loading } = useArticles({
+	const { handleArchiveNotes } = useHandleArchiveNotes()
+	const { articles, refetch, error, loading } = useGetUserNotes({
 		email: store.currentUser?.email,
 		sortBy: sortBy,
 	})
@@ -52,6 +54,14 @@ const Notes = () => {
 		[],
 	)
 
+	const handleAddToArchive = (id: string) => {
+		handleArchiveNotes(id, true)
+	}
+
+	useEffect(() => {
+		refetch()
+	}, [articles])
+
 	return (
 		<>
 			<div className={styles['note-page-layout']}>
@@ -72,6 +82,7 @@ const Notes = () => {
 							<NoteCard
 								removeNote={removeNote}
 								key={note.id}
+								archiveNote={handleAddToArchive}
 								updateNote={updateUserNote}
 								description={note.description}
 								title={note.title}

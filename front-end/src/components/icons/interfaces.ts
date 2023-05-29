@@ -1,6 +1,6 @@
 export interface SvgProps {
-	width?: string
-	height?: string
+	width?: number
+	height?: number
 	stroke?: string
 	strokeWidth?: string
 	fill?: string

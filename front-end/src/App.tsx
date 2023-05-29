@@ -36,7 +36,7 @@ function App() {
 						}
 					/>
 					<Route
-						path="/trashbin"
+						path="/archived"
 						element={
 							<PrivateRoute>
 								<Archived />

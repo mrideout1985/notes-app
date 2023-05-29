@@ -27,6 +27,7 @@ export class ArticlesService {
     const articles = await this.prisma.article.findMany({
       where: {
         authorEmail: email,
+        archived: false,
       },
       orderBy: {
         createdAt: sortBy,
@@ -64,6 +65,15 @@ export class ArticlesService {
     });
 
     return updatedArticle;
+  }
+
+  async archive(id: string, archiveArticleDto: { archived: boolean }) {
+    const archiveArticle = await this.prisma.article.update({
+      where: { id },
+      data: archiveArticleDto,
+    });
+
+    return archiveArticle;
   }
 
   async remove(id: string) {

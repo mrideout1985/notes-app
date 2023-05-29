@@ -24,4 +24,7 @@ export class ArticleEntity implements Article {
 
   @ApiProperty()
   authorEmail: string;
+
+  @ApiProperty()
+  archived: boolean;
 }
