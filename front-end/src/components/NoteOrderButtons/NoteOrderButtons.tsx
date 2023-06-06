@@ -16,7 +16,11 @@ const NoteOrderButtons = ({ sortBy, setSortBy }: NoteOrderButtonsProps) => {
 
 	return (
 		<div className={styles['button_group']}>
-			<button onClick={() => handleToggleSortBy(sortBy)} color="white">
+			<button
+				aria-label="note order toggle button"
+				onClick={() => handleToggleSortBy(sortBy)}
+				color="white"
+			>
 				{sortBy === 'desc' ? (
 					<ChevronUp size={23} stroke="#FFF" />
 				) : (

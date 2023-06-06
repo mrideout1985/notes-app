@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { mutate } from 'swr'
 
 export const register = async (email: string, password: string) => {
 	const response = axios
@@ -77,7 +78,7 @@ export const createNote = async (
 	token: any,
 	email: string | undefined,
 ) => {
-	const response = axios.post(
+	const response = await axios.post(
 		'http://localhost:3000/articles',
 		{
 			title: data.title,
@@ -93,7 +94,9 @@ export const createNote = async (
 		},
 	)
 
-	return await response
+	mutate({ data: response.data })
+
+	return response
 }
 
 export const updateNote = async (

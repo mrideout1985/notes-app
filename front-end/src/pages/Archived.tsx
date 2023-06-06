@@ -4,7 +4,9 @@ import { deleteNote, updateNote } from '@/api/services/services'
 import NoteCard from '@/components/notecard/NoteCard'
 import useUserStore from '@/stores/authstore'
 import { Masonry } from '@mui/lab'
-import { useCallback, useEffect, useState } from 'react'
+import { Typography } from '@mui/material'
+import { useCallback, useState } from 'react'
+import { mutate } from 'swr'
 import styles from './Notes.module.scss'
 
 interface UseArticlesOptions {
@@ -45,6 +47,7 @@ const Archived = () => {
 					).then((res) => {
 						if (res?.status === 200) {
 							refetch()
+							mutate(articles)
 							func()
 						}
 					})
@@ -57,10 +60,6 @@ const Archived = () => {
 		handleArchiveNotes(id, false)
 	}
 
-	useEffect(() => {
-		refetch()
-	}, [articles])
-
 	return (
 		<>
 			<div className={styles['note-page-layout']}>
@@ -69,19 +68,25 @@ const Archived = () => {
 					spacing={2}
 					className={styles['notes']}
 				>
-					{articles.map((note) => {
-						return (
-							<NoteCard
-								removeNote={removeNote}
-								key={note.id}
-								updateNote={updateUserNote}
-								description={note.description}
-								title={note.title}
-								id={note.id}
-								archiveNote={handleRemoveFromArchive}
-							/>
-						)
-					})}
+					{articles === undefined ? (
+						<Typography variant="h4" sx={{ textAlign: 'center' }}>
+							No Archived Notes
+						</Typography>
+					) : (
+						articles.map((note) => {
+							return (
+								<NoteCard
+									removeNote={removeNote}
+									key={note.id}
+									updateNote={updateUserNote}
+									description={note.description}
+									title={note.title}
+									id={note.id}
+									archiveNote={handleRemoveFromArchive}
+								/>
+							)
+						})
+					)}
 				</Masonry>
 			</div>
 		</>

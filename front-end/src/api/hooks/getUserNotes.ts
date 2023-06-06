@@ -1,6 +1,5 @@
 import useUserStore from '@/stores/authstore'
-import { useEffect, useState } from 'react'
-
+import useSWR from 'swr'
 interface UseArticlesOptions {
 	email: string | undefined
 	sortBy: 'asc' | 'desc'
@@ -17,46 +16,33 @@ export interface Article {
 	archived: boolean
 }
 
-export default function useGetUserNotes({ sortBy, email }: UseArticlesOptions) {
-	const [articles, setArticles] = useState<Article[]>([])
-	const [loading, setLoading] = useState<boolean>(true)
-	const [error, setError] = useState<string | null>(null)
-	const jwtToken = useUserStore((state) => state.currentUser?.token)
-
-	const fetchArticles = async () => {
-		try {
-			const response = await fetch(
-				`http://localhost:3000/articles/my-articles/?email=${email}&sortBy=${sortBy}`,
-				{
-					method: 'GET',
-					headers: {
-						'Content-Type': 'application/json',
-						Authorization: `Bearer ${jwtToken}`,
-					},
-				},
-			)
-			if (!response.ok) {
-				throw new Error(`Failed to fetch articles: ${response.status}`)
-			}
-			const data = await response.json()
-			setArticles(data)
-		} catch (error) {
-			if (error instanceof Error) {
-				setError(error.message)
-			}
-		} finally {
-			setLoading(false)
-		}
+const fetcher =
+	({ token }: { token: string | undefined }) =>
+	async (url: string) => {
+		return await fetch(url, {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${token}`,
+			},
+		}).then((res) => res.json())
 	}
 
-	useEffect(() => {
-		fetchArticles()
-	}, [sortBy])
+const useGetUserNotes = ({ email, sortBy }: UseArticlesOptions) => {
+	const user = useUserStore()
+	const fetcherWithToken = fetcher({ token: user.currentUser?.token })
+	const { data, error, isLoading, isValidating, mutate } = useSWR(
+		`http://localhost:3000/articles/my-articles/?email=${email}&sortBy=${sortBy}`,
+		fetcherWithToken,
+	)
 
-	const refetch = () => {
-		setLoading(true)
-		fetchArticles()
+	return {
+		notes: data,
+		isLoading,
+		isValidating,
+		mutate,
+		error,
 	}
-
-	return { articles, loading, error, refetch }
 }
+
+export default useGetUserNotes

@@ -1,18 +1,19 @@
 import useGetUserNotes from '@/api/hooks/getUserNotes'
 import useHandleArchiveNotes from '@/api/hooks/useHandleArchive'
-import { deleteNote, updateNote } from '@/api/services/services'
+import { createNote, deleteNote, updateNote } from '@/api/services/services'
 import CreateNote from '@/components/forms/CreateNoteForm'
-import NoteCard from '@/components/notecard/NoteCard'
+import NoteCard, { NoteCardProps } from '@/components/notecard/NoteCard'
 import useUserStore from '@/stores/authstore'
 import { Masonry } from '@mui/lab'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useState } from 'react'
+import { UseFormHandleSubmit } from 'react-hook-form'
 import styles from './Notes.module.scss'
 
 interface UseArticlesOptions {
 	sortBy: 'asc' | 'desc'
 }
 
-interface FormValues {
+export interface FormValues {
 	title: string
 	description: string
 }
@@ -21,15 +22,39 @@ const Notes = () => {
 	const store = useUserStore()
 	const [sortBy, setSortBy] = useState<UseArticlesOptions['sortBy']>('desc')
 	const { handleArchiveNotes } = useHandleArchiveNotes()
-	const { articles, refetch, error, loading } = useGetUserNotes({
+	const user = useUserStore()
+
+	const { notes, error, isLoading, mutate } = useGetUserNotes({
 		email: store.currentUser?.email,
 		sortBy: sortBy,
 	})
 
+	const createUserNote = useCallback(
+		(
+			handleSubmit: UseFormHandleSubmit<FormValues>,
+			isFocused: React.Dispatch<React.SetStateAction<boolean>>,
+		) =>
+			handleSubmit(async (data: FormValues) => {
+				if (data.title || data.description !== '') {
+					createNote(
+						data,
+						user.currentUser?.token,
+						user.currentUser?.email,
+					).then((res) => {
+						if (res.status === 201) {
+							isFocused(false)
+							mutate()
+						}
+					})
+				}
+			}),
+		[],
+	)
+
 	const removeNote = async (id: string) => {
 		await deleteNote(id, store.currentUser?.token).then((res) => {
 			if (res.status === 200) {
-				refetch()
+				mutate()
 			}
 		})
 	}
@@ -45,8 +70,8 @@ const Notes = () => {
 						id,
 					).then((res) => {
 						if (res?.status === 200) {
-							refetch()
 							func()
+							mutate()
 						}
 					})
 				}
@@ -55,21 +80,35 @@ const Notes = () => {
 	)
 
 	const handleAddToArchive = (id: string) => {
-		handleArchiveNotes(id, true)
+		handleArchiveNotes(id, true).then((res) => {
+			mutate()
+		})
 	}
 
-	useEffect(() => {
-		refetch()
-	}, [articles])
+	const handleDisplayNotes = () => {
+		if (notes !== undefined) {
+			return notes.map((note: NoteCardProps) => (
+				<NoteCard
+					removeNote={removeNote}
+					key={note.id}
+					archiveNote={handleAddToArchive}
+					updateNote={updateUserNote}
+					description={note.description}
+					title={note.title}
+					id={note.id}
+				/>
+			))
+		}
+	}
 
 	return (
 		<>
 			<div className={styles['note-page-layout']}>
 				<div className={styles['create-note-container']}>
 					<CreateNote
-						refetch={refetch}
 						setSortBy={setSortBy}
 						sortBy={sortBy}
+						createUserNote={createUserNote}
 					/>
 				</div>
 				<Masonry
@@ -77,19 +116,7 @@ const Notes = () => {
 					spacing={2}
 					className={styles['notes']}
 				>
-					{articles.map((note) => {
-						return (
-							<NoteCard
-								removeNote={removeNote}
-								key={note.id}
-								archiveNote={handleAddToArchive}
-								updateNote={updateUserNote}
-								description={note.description}
-								title={note.title}
-								id={note.id}
-							/>
-						)
-					})}
+					{handleDisplayNotes()}
 				</Masonry>
 			</div>
 		</>

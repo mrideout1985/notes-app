@@ -1,8 +1,7 @@
-import { createNote } from '@/api/services/services'
-import useUserStore from '@/stores/authstore'
+import { FormValues } from '@/pages/Notes'
 import { Box, FormGroup, Input } from '@mui/material'
 import { useRef, useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { UseFormHandleSubmit, useForm } from 'react-hook-form'
 import { useClickAway } from 'react-use'
 import NoteOrderButtons from '../NoteOrderButtons/NoteOrderButtons'
 import styles from './CreateNoteForm.module.scss'
@@ -15,35 +14,28 @@ interface FormData {
 interface CreateNoteInterface {
 	sortBy: 'asc' | 'desc'
 	setSortBy: React.Dispatch<React.SetStateAction<'desc' | 'asc'>>
-	refetch: any
+	createUserNote: (
+		handleSubmit: UseFormHandleSubmit<FormValues>,
+		setFocused: React.Dispatch<React.SetStateAction<boolean>>,
+	) => (
+		e?: React.BaseSyntheticEvent<object, any, any> | undefined,
+	) => Promise<void>
 }
 
-const CreateNote = ({ refetch, sortBy, setSortBy }: CreateNoteInterface) => {
+const CreateNote = ({
+	sortBy,
+	setSortBy,
+	createUserNote,
+}: CreateNoteInterface) => {
 	const [focused, setFocused] = useState(false)
-	const user = useUserStore()
 	const submitRef = useRef(null)
-
 	const form = useForm<FormData>()
-
-	const onSubmit = form.handleSubmit((data) => {
-		if (data.title || data.description !== '') {
-			createNote(
-				data,
-				user.currentUser?.token,
-				user.currentUser?.email,
-			).then((res) => {
-				if (res) {
-					form.reset()
-					refetch()
-					setFocused(false)
-				}
-			})
-		}
-	})
+	const onSubmit = createUserNote(form.handleSubmit, setFocused)
 
 	const handleClickAway = () => {
 		if (form.formState.touchedFields) {
 			onSubmit()
+			form.reset()
 		}
 		setFocused(false)
 	}
@@ -64,6 +56,7 @@ const CreateNote = ({ refetch, sortBy, setSortBy }: CreateNoteInterface) => {
 							className={styles.title}
 							hidden={!focused}
 							aria-label="title"
+							placeholder="Title"
 						/>
 						<div className={styles.inputwithtoggle}>
 							<Input

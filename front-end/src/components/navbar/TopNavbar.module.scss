@@ -8,6 +8,17 @@
 			gap: 1rem;
 			min-width: 100%;
 
+			button {
+				svg {
+					color: var(--pink-6);
+				}
+
+				&:focus {
+					outline: none;
+					box-shadow: 0px 0px 0px 3px var(--blue-6);
+				}
+			}
+
 			.brand {
 				font-family: 'Pacifico', cursive;
 				font-size: 3rem;
@@ -20,11 +31,18 @@
 					transform: translateY(-0.25rem);
 				}
 
+				&:focus {
+					outline: none;
+					box-shadow: 0px 0px 0px 3px var(--blue-6);
+				}
+
 				svg {
 					display: inline;
-					margin-left: -0.5rem;
+					margin-left: -1rem;
+					stroke-width: 0.2rem;
 					vertical-align: sub;
 					justify-self: start;
+					color: var(--pink-6);
 				}
 			}
 		}

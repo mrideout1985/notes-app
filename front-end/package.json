@@ -50,6 +50,7 @@
 		"react-use": "latest",
 		"sass": "latest",
 		"sort-package-json": "latest",
+		"swr": "^2.1.5",
 		"ts-jest": "^29.0.5",
 		"typescript": "latest",
 		"vite": "latest",
