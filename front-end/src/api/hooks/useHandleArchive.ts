@@ -5,7 +5,9 @@ import { useState } from 'react'
 const useHandleArchiveNotes = (mutate: any) => {
 	const [loading, setLoading] = useState<boolean>(true)
 	const [error, setError] = useState<string | null>(null)
-	const jwtToken = useUserStore((state) => state.currentUser?.token)
+	const jwtToken = useUserStore(
+		(state: { currentUser: { token: string } }) => state.currentUser?.token,
+	)
 
 	const handleArchiveNotes = async (id: string, archive: boolean) => {
 		try {

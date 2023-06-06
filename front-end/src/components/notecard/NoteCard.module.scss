@@ -4,6 +4,10 @@
 	box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
 	padding: 0.5rem;
 	width: auto;
+	&:focus {
+		box-shadow: 0px 0px 0px 3px var(--blue-6);
+		outline: 0;
+	}
 
 	.card-body {
 		.title {
@@ -38,8 +42,7 @@
 			padding: 0;
 
 			&:focus {
-				background: none;
-				outline: none;
+				box-shadow: 0px 0px 0px 3px var(--blue-6);
 			}
 
 			> svg {
@@ -64,10 +67,6 @@
 	.card-body {
 		min-height: 125px;
 
-		.title {
-			/* Add any specific styles for small cards */
-		}
-
 		.description {
 			display: -webkit-box;
 			-webkit-line-clamp: 3;
@@ -81,9 +80,6 @@
 .medium {
 	.card-body {
 		min-height: 250px;
-
-		.title {
-		}
 
 		.description {
 			display: -webkit-box;
@@ -99,9 +95,6 @@
 	.card-body {
 		min-height: 250px;
 		max-height: 600px;
-
-		.title {
-		}
 
 		.description {
 			display: -webkit-box;

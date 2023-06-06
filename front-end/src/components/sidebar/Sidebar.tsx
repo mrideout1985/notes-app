@@ -1,7 +1,6 @@
 import ArchiveIcon from '@mui/icons-material/Archive'
 import NoteIcon from '@mui/icons-material/Note'
 import { NavLink } from 'react-router-dom'
-
 import styles from './Sidebar.module.scss'
 
 interface SideBarProps {

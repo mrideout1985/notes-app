@@ -42,13 +42,19 @@ const NoteCard = ({
 	const handleRenderArchiveButton = () => {
 		if (window.location.pathname === '/archived') {
 			return (
-				<IconButton onClick={() => archiveNote(id)}>
+				<IconButton
+					aria-label={'Restore note from archive button'}
+					onClick={() => archiveNote(id)}
+				>
 					<UnarchiveIcon />
 				</IconButton>
 			)
 		}
 		return (
-			<IconButton onClick={() => archiveNote(id)}>
+			<IconButton
+				onClick={() => archiveNote(id)}
+				aria-label={'Archive note button'}
+			>
 				<ArchiveIcon />
 			</IconButton>
 		)
@@ -60,23 +66,39 @@ const NoteCard = ({
 				className={`${styles['note-card']} ${
 					styles[determineCardSize()]
 				}`}
+				tabIndex={0}
 			>
 				<CardContent className={styles['card-body']}>
 					{title && (
-						<Typography variant="h5" className={styles.title}>
+						<Typography
+							variant="h5"
+							className={styles.title}
+							aria-label={'Card Title'}
+						>
 							{title}
 						</Typography>
 					)}
-					<Typography className={styles['description']}>
+					<Typography
+						className={styles['description']}
+						aria-label={'Card Description'}
+					>
 						{description}
 					</Typography>
 				</CardContent>
 				<div className={styles['footer']}>
-					<IconButton size="small" onClick={() => removeNote(id)}>
+					<IconButton
+						size="small"
+						onClick={() => removeNote(id)}
+						aria-label={'Delete Button'}
+					>
 						<DeleteIcon />
 					</IconButton>
 					{handleRenderArchiveButton()}
-					<IconButton size="small" onClick={() => setOpenModal(true)}>
+					<IconButton
+						aria-label={'Edit Button'}
+						size="small"
+						onClick={() => setOpenModal(true)}
+					>
 						<EditIcon />
 					</IconButton>
 				</div>
