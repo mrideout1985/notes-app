@@ -1,12 +1,11 @@
 import useHandleGetArchivedNotes from '@/api/hooks/getUserArchivedNotes'
 import useHandleArchiveNotes from '@/api/hooks/useHandleArchive'
 import { deleteNote, updateNote } from '@/api/services/services'
-import NoteCard from '@/components/notecard/NoteCard'
+import NoteCard, { NoteCardProps } from '@/components/notecard/NoteCard'
 import useUserStore from '@/stores/authstore'
 import { Masonry } from '@mui/lab'
 import { Typography } from '@mui/material'
 import { useCallback, useState } from 'react'
-import { mutate } from 'swr'
 import styles from './Notes.module.scss'
 
 interface UseArticlesOptions {
@@ -21,16 +20,19 @@ interface FormValues {
 const Archived = () => {
 	const store = useUserStore()
 	const [sortBy, setSortBy] = useState<UseArticlesOptions['sortBy']>('desc')
-	const { articles, error, loading, refetch } = useHandleGetArchivedNotes({
-		email: store.currentUser?.email,
-		sortBy: sortBy,
-	})
-	const { handleArchiveNotes } = useHandleArchiveNotes()
+
+	const { error, isLoading, isValidating, mutate, notes } =
+		useHandleGetArchivedNotes({
+			email: store.currentUser?.email,
+			sortBy: sortBy,
+		})
+
+	const { handleArchiveNotes } = useHandleArchiveNotes(mutate)
 
 	const removeNote = async (id: string) => {
 		await deleteNote(id, store.currentUser?.token).then((res) => {
 			if (res.status === 200) {
-				refetch()
+				mutate()
 			}
 		})
 	}
@@ -46,18 +48,38 @@ const Archived = () => {
 						id,
 					).then((res) => {
 						if (res?.status === 200) {
-							refetch()
-							mutate(articles)
+							mutate()
 							func()
 						}
 					})
 				}
 			}),
+
 		[],
 	)
 
 	const handleRemoveFromArchive = (id: string) => {
-		handleArchiveNotes(id, false)
+		handleArchiveNotes(id, false).then((res) => {
+			if (res.status === 200) {
+				mutate()
+			}
+		})
+	}
+
+	const handleDisplayNotes = () => {
+		if (notes !== undefined) {
+			return notes.map((note: NoteCardProps) => (
+				<NoteCard
+					removeNote={removeNote}
+					key={note.id}
+					archiveNote={handleRemoveFromArchive}
+					updateNote={updateUserNote}
+					description={note.description}
+					title={note.title}
+					id={note.id}
+				/>
+			))
+		}
 	}
 
 	return (
@@ -68,25 +90,7 @@ const Archived = () => {
 					spacing={2}
 					className={styles['notes']}
 				>
-					{articles === undefined ? (
-						<Typography variant="h4" sx={{ textAlign: 'center' }}>
-							No Archived Notes
-						</Typography>
-					) : (
-						articles.map((note) => {
-							return (
-								<NoteCard
-									removeNote={removeNote}
-									key={note.id}
-									updateNote={updateUserNote}
-									description={note.description}
-									title={note.title}
-									id={note.id}
-									archiveNote={handleRemoveFromArchive}
-								/>
-							)
-						})
-					)}
+					{handleDisplayNotes()}
 				</Masonry>
 			</div>
 		</>

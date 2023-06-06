@@ -27,16 +27,15 @@ const NoteCard = ({
 	const [openModal, setOpenModal] = useState(false)
 
 	const determineCardSize = () => {
-		if (description.length < 150) {
+		if (description.length < 100) {
 			return 'small'
 		}
-		if (description.length > 150 && description.length < 250) {
+		if (description.length >= 100 && description.length <= 350) {
 			return 'medium'
 		}
-		if (description.length > 250) {
+		if (description.length > 350) {
 			return 'large'
 		}
-
 		return 'medium'
 	}
 
@@ -63,7 +62,11 @@ const NoteCard = ({
 				}`}
 			>
 				<CardContent className={styles['card-body']}>
-					{title && <Typography variant="h5">{title}</Typography>}
+					{title && (
+						<Typography variant="h5" className={styles.title}>
+							{title}
+						</Typography>
+					)}
 					<Typography className={styles['description']}>
 						{description}
 					</Typography>

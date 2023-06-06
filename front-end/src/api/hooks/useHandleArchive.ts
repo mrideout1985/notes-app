@@ -2,7 +2,7 @@ import useUserStore from '@/stores/authstore'
 import axios from 'axios'
 import { useState } from 'react'
 
-const useHandleArchiveNotes = () => {
+const useHandleArchiveNotes = (mutate: any) => {
 	const [loading, setLoading] = useState<boolean>(true)
 	const [error, setError] = useState<string | null>(null)
 	const jwtToken = useUserStore((state) => state.currentUser?.token)
@@ -25,6 +25,7 @@ const useHandleArchiveNotes = () => {
 				},
 			)
 			if (response.status === 200) {
+				mutate()
 				return response.data
 			}
 		} catch (error) {

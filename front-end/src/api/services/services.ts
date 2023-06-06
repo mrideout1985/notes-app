@@ -94,8 +94,6 @@ export const createNote = async (
 		},
 	)
 
-	mutate({ data: response.data })
-
 	return response
 }
 

@@ -2,39 +2,31 @@
 	border-radius: 8px;
 	position: relative;
 	box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
-	padding: 1rem;
+	padding: 0.5rem;
 	width: auto;
 
 	.card-body {
-		word-break: break-word;
-		overflow: hidden;
-		text-overflow: ellipsis;
-
 		.title {
 			font-family: 'Arial', sans-serif;
+			display: -webkit-box;
+			-webkit-line-clamp: 3;
+			-webkit-box-orient: vertical;
+			overflow: hidden;
+			text-overflow: ellipsis;
 			font-size: 24px;
-			color: #333;
+			color: var(--gray-9);
 			margin-bottom: 10px;
 		}
 
 		.description {
 			font-size: 16px;
-			height: max-content;
 		}
 	}
 
 	.footer {
-		position: absolute;
-		width: 100%;
-		opacity: 1;
-		transition: all 0.25s ease-in;
-		bottom: 0.25rem;
-		left: 0rem;
 		display: flex;
-		padding: 0.5rem;
 		justify-content: space-between;
-		background-color: white;
-
+		align-items: flex-end;
 		&:hover {
 			opacity: 1;
 		}
@@ -51,6 +43,7 @@
 
 			> svg {
 				stroke: var(--gray-9);
+				stroke-width: 1.5px;
 				width: 26px;
 				height: 26px;
 				fill: none;
@@ -67,11 +60,18 @@
 
 .small {
 	.card-body {
-		min-height: 150px;
+		min-height: 125px;
 
 		.title {
-			.title {
-			}
+			/* Add any specific styles for small cards */
+		}
+
+		.description {
+			display: -webkit-box;
+			-webkit-line-clamp: 3;
+			-webkit-box-orient: vertical;
+			overflow: hidden;
+			text-overflow: ellipsis;
 		}
 	}
 }
@@ -79,12 +79,34 @@
 .medium {
 	.card-body {
 		min-height: 250px;
+
+		.title {
+		}
+
+		.description {
+			display: -webkit-box;
+			-webkit-line-clamp: 10;
+			-webkit-box-orient: vertical;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
 	}
 }
 
 .large {
 	.card-body {
-		min-height: 350px;
-		max-height: 650px;
+		min-height: 250px;
+		max-height: 600px;
+
+		.title {
+		}
+
+		.description {
+			display: -webkit-box;
+			-webkit-line-clamp: 24;
+			-webkit-box-orient: vertical;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
 	}
 }

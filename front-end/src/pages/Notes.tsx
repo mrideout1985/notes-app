@@ -21,13 +21,14 @@ export interface FormValues {
 const Notes = () => {
 	const store = useUserStore()
 	const [sortBy, setSortBy] = useState<UseArticlesOptions['sortBy']>('desc')
-	const { handleArchiveNotes } = useHandleArchiveNotes()
 	const user = useUserStore()
 
 	const { notes, error, isLoading, mutate } = useGetUserNotes({
 		email: store.currentUser?.email,
 		sortBy: sortBy,
 	})
+
+	const { handleArchiveNotes } = useHandleArchiveNotes(mutate)
 
 	const createUserNote = useCallback(
 		(
