@@ -6,6 +6,8 @@ import { Card, CardContent, IconButton, Typography } from '@mui/material'
 import { useState } from 'react'
 import NoteCardModal from '../notecard-modal/NoteCardModal'
 import styles from './NoteCard.module.scss'
+import ModalFormFields from '../forms/modal-form-fields/ModalFormFields'
+import ModalFormController from '../forms/modal-form-controller/ModalFormController'
 
 export interface NoteCardProps {
 	title: string | undefined

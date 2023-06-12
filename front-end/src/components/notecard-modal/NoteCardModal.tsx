@@ -9,6 +9,7 @@ import {
 } from '@mui/material'
 import { useForm } from 'react-hook-form'
 import styles from './NoteCardModal.module.scss'
+import { FormMethod } from 'react-router-dom'
 
 interface NoteCardModalInterface {
 	open: boolean
