@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { mutate } from 'swr'
 
 export const register = async (email: string, password: string) => {
 	const response = axios
@@ -15,7 +14,14 @@ export const register = async (email: string, password: string) => {
 				},
 			},
 		)
-		.catch(function (error) {
+		.then((res) => {
+			if (res) {
+				return res.data.res
+			}
+		})
+		.catch((error) => {
+			console.log(error)
+
 			if (error) {
 				return error
 			}
@@ -45,7 +51,9 @@ export const login = async (email: string, password: string) => {
 			}
 		})
 		.catch((error) => {
+			console.log(error)
 			if (error) {
+				console.log(error)
 				return error
 			}
 		})

@@ -23,7 +23,7 @@ export class AuthController {
       createUserDto,
     );
     if (!result.success) {
-      throw new HttpException(result.message, HttpStatus.BAD_REQUEST);
+      throw new HttpException(result.message, HttpStatus.CONFLICT);
     }
     return result;
   }

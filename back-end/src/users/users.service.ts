@@ -43,8 +43,12 @@ export class UsersService {
     });
 
     if (userInDb) {
-      throw new HttpException('user_already_exist', HttpStatus.CONFLICT);
+      throw new HttpException(
+        'Email already exists in the database',
+        HttpStatus.CONFLICT,
+      );
     }
+
     return await this.prisma.user.create({
       data: {
         email: userDto.email,

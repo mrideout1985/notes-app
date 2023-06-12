@@ -5,9 +5,12 @@ import Login from './pages/Login'
 import Notes from './pages/Notes'
 import Register from './pages/Register'
 import Unpublished from './pages/Unpublished'
+import useUserStore from './stores/authstore'
 
 function PrivateRoute({ children }: any) {
-	if (localStorage.key(1) !== 'token') {
+	const user = useUserStore()
+
+	if (user.currentUser?.token === null) {
 		return <Navigate to="/login" />
 	}
 

@@ -1,0 +1,23 @@
+.container {
+	background-color: var(--gray-2);
+	border-radius: 5px;
+	width: 25em;
+	height: 22em;
+	padding: 1em;
+
+	form {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		gap: 1em;
+
+		h4 {
+			font-weight: 900;
+		}
+
+		button {
+			width: 100%;
+		}
+	}
+}
