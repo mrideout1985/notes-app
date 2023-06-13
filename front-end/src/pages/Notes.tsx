@@ -9,6 +9,7 @@ import { useCallback, useState } from 'react'
 import { UseFormHandleSubmit } from 'react-hook-form'
 import styles from './Notes.module.scss'
 import { useForm } from 'react-hook-form'
+import { Box, CircularProgress } from '@mui/material'
 
 interface UseArticlesOptions {
 	sortBy: 'asc' | 'desc'
@@ -87,40 +88,48 @@ const Notes = () => {
 		})
 	}
 
-	const handleDisplayNotes = () => {
-		if (notes !== undefined) {
-			return notes.map((note: NoteCardProps) => (
-				<NoteCard
-					removeNote={removeNote}
-					key={note.id}
-					archiveNote={handleAddToArchive}
-					updateNote={updateUserNote}
-					description={note.description}
-					title={note.title}
-					id={note.id}
-				/>
-			))
-		}
-	}
-
 	return (
 		<>
-			<div className={styles['note-page-layout']}>
-				<div className={styles['create-note-container']}>
-					<CreateNote
-						setSortBy={setSortBy}
-						sortBy={sortBy}
-						createUserNote={createUserNote}
+			{!notes ? (
+				<Box
+					sx={{
+						display: 'flex',
+						justifyContent: 'center',
+						alignItems: 'center',
+						height: '100vh',
+						width: '100%',
+						zIndex: 100,
+					}}
+				>
+					<CircularProgress color="error" />
+				</Box>
+			) : (
+				<div className={styles['note-page-layout']}>
+					<div className={styles['create-note-container']}>
+						<CreateNote
+							setSortBy={setSortBy}
+							sortBy={sortBy}
+							createUserNote={createUserNote}
+						/>
+					</div>
+					<Masonry
+						columns={{ sm: 1, md: 3, lg: 4, xl: 6 }}
+						spacing={2}
+						className={styles['notes']}
+						children={notes.map((note: NoteCardProps) => (
+							<NoteCard
+								removeNote={removeNote}
+								key={note.id}
+								archiveNote={handleAddToArchive}
+								updateNote={updateUserNote}
+								description={note.description}
+								title={note.title}
+								id={note.id}
+							/>
+						))}
 					/>
 				</div>
-				<Masonry
-					columns={{ sm: 1, md: 3, lg: 4, xl: 6 }}
-					spacing={2}
-					className={styles['notes']}
-				>
-					{handleDisplayNotes()}
-				</Masonry>
-			</div>
+			)}
 		</>
 	)
 }

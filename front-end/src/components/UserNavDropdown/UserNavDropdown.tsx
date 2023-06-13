@@ -9,6 +9,7 @@ import {
 	Typography,
 } from '@mui/material'
 import { useState } from 'react'
+import { NavLink } from 'react-router-dom'
 
 interface UserNavDropdownInteface {
 	handleLogout: () => void
@@ -37,8 +38,6 @@ const UserNavDropdown = ({
 		setAnchorElUser(null)
 	}
 
-	const settings = ['Profile', 'My account']
-
 	return (
 		currentUser && (
 			<Box sx={{ flexGrow: 0 }}>
@@ -66,13 +65,12 @@ const UserNavDropdown = ({
 					open={Boolean(anchorElUser)}
 					onClose={handleCloseUserMenu}
 				>
-					{settings.map((setting) => (
-						<MenuItem key={setting} onClick={handleCloseUserMenu}>
-							<Typography textAlign="center">
-								{setting}
-							</Typography>
-						</MenuItem>
-					))}
+					<MenuItem onClick={handleCloseUserMenu}>
+						<Typography textAlign="center">
+							<NavLink to="/profile">Profile</NavLink>
+						</Typography>
+					</MenuItem>
+
 					<MenuItem>
 						<Typography onClick={handleLogout}>Logout</Typography>
 					</MenuItem>
