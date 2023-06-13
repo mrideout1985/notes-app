@@ -12,7 +12,7 @@ const Sidebar = ({ open }: SideBarProps) => {
 		<div className={styles.sidebar} aria-expanded={open}>
 			<div className={styles.links}>
 				<NavLink
-					className={({ isActive }) =>
+					className={({ isActive }: { isActive: boolean }) =>
 						isActive ? styles.active : styles.notActive
 					}
 					to={'/'}
@@ -24,7 +24,7 @@ const Sidebar = ({ open }: SideBarProps) => {
 				</NavLink>
 				<NavLink
 					to="/archived"
-					className={({ isActive }) =>
+					className={({ isActive }: { isActive: boolean }) =>
 						isActive ? styles.active : styles.notActive
 					}
 				>

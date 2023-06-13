@@ -45,7 +45,7 @@ const UserNavDropdown = ({
 					<IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
 						<Avatar
 							alt="Remy Sharp"
-							src="/static/images/avatar/2.jpg"
+							src="src/assets/images/rideout.png"
 						/>
 					</IconButton>
 				</Tooltip>
@@ -66,9 +66,7 @@ const UserNavDropdown = ({
 					onClose={handleCloseUserMenu}
 				>
 					<MenuItem onClick={handleCloseUserMenu}>
-						<Typography textAlign="center">
-							<NavLink to="/profile">Profile</NavLink>
-						</Typography>
+						<NavLink to="/profile">Profile</NavLink>
 					</MenuItem>
 
 					<MenuItem>
