@@ -16,4 +16,7 @@ export class UserEntity implements User {
 
   @ApiProperty()
   password: string;
+
+  @ApiProperty()
+  profilePicture: string;
 }

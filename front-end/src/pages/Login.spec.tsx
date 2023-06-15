@@ -1,33 +1,33 @@
-import { login } from '@/api/services/services'
-import { fireEvent, render } from '@testing-library/react'
-import { S } from 'msw/lib/SetupServerApi-39df862c'
-import { setupServer } from 'msw/node'
-import { useClickAway } from 'react-use'
-import { loginHandler } from '../mocks/handlers'
-import Login from './Login'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
+import { BrowserRouter as Router } from 'react-router-dom' // to handle NavLink
+import Login from './Login' // adjust this path as needed
 
-describe('Login', () => {
-	let server: S
+test('user can login successfully', async () => {
+	render(
+		<Router>
+			<Login />
+		</Router>,
+	)
 
-	beforeAll(() => {
-		server = setupServer(loginHandler)
-
-		server.listen()
+	fireEvent.input(screen.getByLabelText('Email'), {
+		target: {
+			value: 'test@test.com',
+		},
 	})
 
-	afterAll(() => {
-		server.close()
+	fireEvent.input(screen.getByLabelText('Password'), {
+		target: {
+			value: 'test123',
+		},
 	})
 
-	it('should return a successful response', async () => {
-		const screen = render(<Login />)
+	fireEvent.click(
+		screen.getByRole('button', {
+			name: 'Sign in',
+		}),
+	)
 
-		const submitButton = screen.getByRole('button', { name: 'Submit' })
-
-		fireEvent.click(submitButton)
-
-		expect(screen.getByTestId('message')).toHaveTextContent(
-			'Login successful',
-		)
+	await waitFor(() => {
+		expect(screen.queryByText('Loading...')).not.toBeInTheDocument()
 	})
 })

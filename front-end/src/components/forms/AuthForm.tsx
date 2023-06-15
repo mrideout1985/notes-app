@@ -1,9 +1,9 @@
-import useAuth from '@/api/hooks/useAuth'
-import useUserStore from '@/stores/authstore'
 import { Box, Button, Grid, TextField, Typography } from '@mui/material'
 import { FC } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { NavLink, useNavigate } from 'react-router-dom'
+import useAuth from '../../api/hooks/useAuth'
+import useUserStore from '../../stores/authstore'
 import styles from './AuthForm.module.scss'
 
 type AuthFormProps = {
@@ -45,6 +45,8 @@ const AuthForm: FC<AuthFormProps> = ({ action }) => {
 			}
 		})
 	}
+
+	if (loading) return <p>Loading...</p>
 
 	return (
 		<Box className={styles.container}>

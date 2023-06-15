@@ -10,11 +10,13 @@ export type User = {
 export type State = {
 	currentUser: User | null
 	setCurrentUser: ({ email, token, id }: User) => void
+	resetUser: () => void
+	replaceState: (newState: State) => void
 }
 
 const useUserStore = create<State>()(
 	persist(
-		(set) => ({
+		(set, get) => ({
 			currentUser: null,
 			setCurrentUser: ({ email, token, id }) =>
 				set({
@@ -24,6 +26,8 @@ const useUserStore = create<State>()(
 						id,
 					},
 				}),
+			resetUser: () => set({ currentUser: null }),
+			replaceState: (newState: State) => set({ ...get(), ...newState }),
 		}),
 		{ name: 'storage' },
 	),

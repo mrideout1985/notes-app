@@ -1,8 +1,5 @@
-/* eslint-disable jest/no-focused-tests */
-/* eslint-disable testing-library/render-result-naming-convention */
 import { render } from '@testing-library/react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-
 import TopNavBar from './TopNavbar'
 
 type MockLocalStorage = {

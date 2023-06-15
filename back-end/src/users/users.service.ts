@@ -83,4 +83,11 @@ export class UsersService {
       where: { email },
     });
   }
+
+  async uploadAvatar(id: string, avatar: string): Promise<any> {
+    return await this.prisma.user.update({
+      where: { id },
+      data: {},
+    });
+  }
 }
