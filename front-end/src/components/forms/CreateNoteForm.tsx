@@ -1,8 +1,8 @@
-import { FormValues } from '@/pages/Notes'
 import { Box, FormGroup, Input } from '@mui/material'
 import { useRef, useState } from 'react'
 import { UseFormHandleSubmit, useForm } from 'react-hook-form'
 import { useClickAway } from 'react-use'
+import { FormValues } from '../../pages/Notes'
 import NoteOrderButtons from '../NoteOrderButtons/NoteOrderButtons'
 import styles from './CreateNoteForm.module.scss'
 
@@ -47,8 +47,8 @@ const CreateNote = ({
 	useClickAway(submitRef, handleClickAway)
 
 	return (
-		<Box ref={submitRef} className={styles.container}>
-			<form onSubmit={onSubmit} className={styles.form}>
+		<Box className={styles.container}>
+			<form ref={submitRef} onSubmit={onSubmit} className={styles.form}>
 				<FormGroup className={styles.formgroup}>
 					<Box className={styles.inputgroup}>
 						<Input

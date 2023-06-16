@@ -1,0 +1,54 @@
+.container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	width: 100%;
+
+	.form {
+		input {
+			width: 30em;
+		}
+
+		.title {
+			&:hover {
+				&::before {
+					border-bottom: 2px solid var(--pink-6);
+				}
+			}
+			&::before {
+				border-bottom: 2px solid var(--pink-6);
+			}
+
+			&::after {
+				border-bottom: 2px solid var(--yellow-5);
+			}
+
+			&[hidden] {
+				display: none;
+			}
+		}
+
+		.inputwithtoggle {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+
+			.description {
+				&:hover {
+					&::before {
+						border-bottom: 2px solid var(--pink-6);
+					}
+				}
+				&::before {
+					border-bottom: 2px solid var(--pink-6);
+				}
+
+				&::after {
+					border-bottom: 2px solid var(--yellow-5);
+				}
+			}
+		}
+	}
+}
