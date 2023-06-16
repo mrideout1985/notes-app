@@ -1,8 +1,9 @@
-import useUserStore from '@/stores/authstore'
 import MenuIcon from '@mui/icons-material/Menu'
 import { AppBar, Box, IconButton, Toolbar } from '@mui/material'
+import { useEffect } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
-import { logout } from '../../api/services/services'
+import useLogout from '../../api/hooks/useLogout'
+import useUserStore from '../../stores/authstore'
 import UserNavDropdown from '../UserNavDropdown/UserNavDropdown'
 import { BookOpen } from '../icons'
 import styles from './TopNavbar.module.scss'
@@ -13,10 +14,18 @@ interface TopNavbar {
 
 const TopNavBar = ({ sideBarOpen }: TopNavbar) => {
 	const navigate = useNavigate()
-	const { currentUser } = useUserStore()
+	const { execute, loading } = useLogout()
+	const { currentUser, resetUser } = useUserStore()
+
+	useEffect(() => {
+		if (!loading && !currentUser?.token) {
+			navigate('/login')
+		}
+	}, [loading, currentUser, navigate])
 
 	const handleLogout = async () => {
-		await logout()
+		execute()
+		resetUser()
 		navigate('/login')
 	}
 

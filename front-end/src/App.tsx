@@ -1,13 +1,12 @@
+import { Box, Typography } from '@mui/material'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
-import { Typography, Box } from '@mui/material'
 import Layout from './components/layout/Layout'
+import './index.scss'
 import Archived from './pages/Archived'
 import Login from './pages/Login'
 import Notes from './pages/Notes'
 import Register from './pages/Register'
 import useUserStore from './stores/authstore'
-import './index.scss'
-import Profile from './pages/Profile'
 
 function PrivateRoute({ children }: any) {
 	const user = useUserStore()
@@ -43,14 +42,6 @@ function App() {
 						element={
 							<PrivateRoute>
 								<Archived />
-							</PrivateRoute>
-						}
-					/>
-					<Route
-						path="/profile"
-						element={
-							<PrivateRoute>
-								<Profile />
 							</PrivateRoute>
 						}
 					/>
