@@ -36,7 +36,7 @@ const NoteCard = ({
 		if (description.length > 350) {
 			return 'large'
 		}
-		return 'medium'
+		return 'small'
 	}
 
 	const handleRenderArchiveButton = () => {
@@ -67,6 +67,7 @@ const NoteCard = ({
 					styles[determineCardSize()]
 				}`}
 				tabIndex={0}
+				elevation={4}
 			>
 				<CardContent className={styles['card-body']}>
 					{title && (

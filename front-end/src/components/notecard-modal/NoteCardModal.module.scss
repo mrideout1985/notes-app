@@ -16,12 +16,30 @@
 		.form {
 			.card-body {
 				.title {
-					font-family: 'Arial', sans-serif;
 					font-size: 24px;
 					color: #333;
 					outline: none;
 					border: none;
 					width: 100%;
+
+					&:hover {
+						&::before {
+							border: none;
+							border: none;
+						}
+					}
+
+					&::before {
+						border: none;
+						outline: none;
+						display: none;
+					}
+
+					&::after {
+						border: none;
+						outline: none;
+						display: none;
+					}
 				}
 
 				.description {

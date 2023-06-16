@@ -9,7 +9,6 @@ import {
 } from '@mui/material'
 import { useForm } from 'react-hook-form'
 import styles from './NoteCardModal.module.scss'
-import { FormMethod } from 'react-router-dom'
 
 interface NoteCardModalInterface {
 	open: boolean
@@ -41,9 +40,14 @@ const NoteCardModal = ({
 						<FormGroup>
 							<TextField
 								{...register('title')}
+								variant="standard"
 								className={styles.title}
 								defaultValue={title}
 								aria-label="title"
+								placeholder="Title"
+								InputProps={{
+									disableUnderline: true,
+								}}
 								multiline
 							/>
 							<TextField
@@ -53,6 +57,10 @@ const NoteCardModal = ({
 								placeholder="Take a note..."
 								defaultValue={description}
 								aria-label="description"
+								variant="standard"
+								InputProps={{
+									disableUnderline: true,
+								}}
 							/>
 						</FormGroup>
 					</CardContent>
