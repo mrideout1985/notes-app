@@ -1,7 +1,7 @@
 import MenuIcon from '@mui/icons-material/Menu'
 import { AppBar, Box, IconButton, Toolbar } from '@mui/material'
 import { useEffect } from 'react'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { NavLink, useLocation, useNavigate } from 'react-router-dom'
 import useLogout from '../../api/hooks/useLogout'
 import useUserStore from '../../stores/authstore'
 import UserNavDropdown from '../UserNavDropdown/UserNavDropdown'
@@ -16,10 +16,13 @@ const TopNavBar = ({ sideBarOpen }: TopNavbar) => {
 	const navigate = useNavigate()
 	const { execute, loading } = useLogout()
 	const { currentUser, resetUser } = useUserStore()
+	const { pathname } = useLocation()
 
 	useEffect(() => {
 		if (!loading && !currentUser?.token) {
-			navigate('/login')
+			if (pathname !== '/login' && pathname !== '/register') {
+				navigate('/login')
+			}
 		}
 	}, [loading, currentUser, navigate])
 

@@ -38,8 +38,8 @@ const UserNavDropdown = ({
 	return (
 		<Box sx={{ flexGrow: 0 }}>
 			<Tooltip title="Open settings">
-				<IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-					<Avatar />
+				<IconButton onClick={handleOpenUserMenu} sx={{ p: 0, m: 0 }}>
+					{currentUser?.email ? <Avatar /> : <Avatar />}
 				</IconButton>
 			</Tooltip>
 			{currentUser && (
@@ -49,11 +49,11 @@ const UserNavDropdown = ({
 					anchorEl={anchorElUser}
 					anchorOrigin={{
 						vertical: 'bottom',
-						horizontal: 'left',
+						horizontal: 'center',
 					}}
 					transformOrigin={{
-						vertical: 'bottom',
-						horizontal: 'right',
+						vertical: 'top',
+						horizontal: 'center',
 					}}
 				>
 					<MenuItem>
