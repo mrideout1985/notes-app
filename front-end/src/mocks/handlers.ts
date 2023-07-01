@@ -20,4 +20,20 @@ export const handlers = [
 			)
 		}
 	}),
+
+	rest.post('/api/auth/login', (req, res, ctx) => {
+		return res(
+			ctx.json({
+				data: {
+					user: { email: 'test@test.com', id: '1' },
+					Authorization: 'token',
+				},
+			}),
+			ctx.status(201),
+		)
+	}),
+
+	rest.post('/api/auth/register', (req, res, ctx) => {
+		return res(ctx.json({ status: 201 }))
+	}),
 ]

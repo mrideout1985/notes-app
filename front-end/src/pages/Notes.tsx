@@ -1,7 +1,7 @@
 import { Masonry } from '@mui/lab'
 import { Box, CircularProgress } from '@mui/material'
 import { useCallback, useState } from 'react'
-import { UseFormHandleSubmit } from 'react-hook-form'
+import { UseFormHandleSubmit, UseFormReset } from 'react-hook-form'
 import useGetUserNotes from '../api/hooks/getUserNotes'
 import useHandleArchiveNotes from '../api/hooks/useHandleArchive'
 import { createNote, deleteNote, updateNote } from '../api/services/services'
@@ -35,6 +35,7 @@ const Notes = () => {
 		(
 			handleSubmit: UseFormHandleSubmit<FormValues>,
 			isFocused: React.Dispatch<React.SetStateAction<boolean>>,
+			reset: UseFormReset<FormValues>,
 		) =>
 			handleSubmit(async (data: FormValues) => {
 				if (data.title || data.description !== '') {
@@ -45,6 +46,7 @@ const Notes = () => {
 					).then((res) => {
 						if (res.status === 201) {
 							isFocused(false)
+							reset()
 							mutate()
 						}
 					})
@@ -87,9 +89,9 @@ const Notes = () => {
 		})
 	}
 
-	return (
-		<>
-			{!notes ? (
+	const handleRenderCard = () => {
+		if (!notes) {
+			return (
 				<Box
 					sx={{
 						display: 'flex',
@@ -102,35 +104,34 @@ const Notes = () => {
 				>
 					<CircularProgress color="error" />
 				</Box>
-			) : (
-				<div className={styles['note-page-layout']}>
-					<div className={styles['create-note-container']}>
-						<CreateNote
-							setSortBy={setSortBy}
-							sortBy={sortBy}
-							createUserNote={createUserNote}
+			)
+		}
+		return (
+			<Box className={styles['note-page-layout']}>
+				<Box className={styles['create-note-container']}>
+					<CreateNote createUserNote={createUserNote} />
+				</Box>
+				<Masonry
+					columns={{ sm: 1, md: 3, lg: 4, xl: 6 }}
+					spacing={2}
+					className={styles['notes']}
+					children={notes.map((note: NoteCardProps) => (
+						<NoteCard
+							removeNote={removeNote}
+							key={note.id}
+							archiveNote={handleAddToArchive}
+							updateNote={updateUserNote}
+							description={note.description}
+							title={note.title}
+							id={note.id}
 						/>
-					</div>
-					<Masonry
-						columns={{ sm: 1, md: 3, lg: 4, xl: 6 }}
-						spacing={2}
-						className={styles['notes']}
-						children={notes.map((note: NoteCardProps) => (
-							<NoteCard
-								removeNote={removeNote}
-								key={note.id}
-								archiveNote={handleAddToArchive}
-								updateNote={updateUserNote}
-								description={note.description}
-								title={note.title}
-								id={note.id}
-							/>
-						))}
-					/>
-				</div>
-			)}
-		</>
-	)
+					))}
+				/>
+			</Box>
+		)
+	}
+
+	return handleRenderCard()
 }
 
 export default Notes

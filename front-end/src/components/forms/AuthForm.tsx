@@ -18,7 +18,7 @@ const AuthForm: FC<AuthFormProps> = ({ action }) => {
 		setError,
 	} = useForm<{ email: string; password: string }>({ mode: 'onBlur' })
 	const user = useUserStore()
-	const { execute, loading } = useAuth(action)
+	const { execute } = useAuth(action)
 	const navigate = useNavigate()
 
 	const onSubmit = (data: Record<'email' | 'password', string>) => {
@@ -46,8 +46,6 @@ const AuthForm: FC<AuthFormProps> = ({ action }) => {
 		})
 	}
 
-	if (loading) return <p>Loading...</p>
-
 	return (
 		<Box className={styles.container}>
 			<form onSubmit={handleSubmit(onSubmit)}>
@@ -70,7 +68,7 @@ const AuthForm: FC<AuthFormProps> = ({ action }) => {
 						name="email"
 						control={control}
 						defaultValue=""
-						rules={{ required: 'This field is required' }}
+						rules={{ required: 'Email is required' }}
 						render={({ field }) => (
 							<Grid item xs>
 								<TextField
@@ -90,7 +88,7 @@ const AuthForm: FC<AuthFormProps> = ({ action }) => {
 						name="password"
 						control={control}
 						defaultValue=""
-						rules={{ required: 'This field is required' }}
+						rules={{ required: 'Password is required' }}
 						render={({ field }) => (
 							<Grid item>
 								<TextField

@@ -3,7 +3,6 @@ import { useRef, useState } from 'react'
 import { UseFormHandleSubmit, useForm } from 'react-hook-form'
 import { useClickAway } from 'react-use'
 import { FormValues } from '../../pages/Notes'
-import NoteOrderButtons from '../NoteOrderButtons/NoteOrderButtons'
 import styles from './CreateNoteForm.module.scss'
 
 interface FormData {
@@ -12,8 +11,6 @@ interface FormData {
 }
 
 interface CreateNoteInterface {
-	sortBy: 'asc' | 'desc'
-	setSortBy: React.Dispatch<React.SetStateAction<'desc' | 'asc'>>
 	createUserNote: (
 		handleSubmit: UseFormHandleSubmit<FormValues>,
 		setFocused: React.Dispatch<React.SetStateAction<boolean>>,
@@ -22,11 +19,7 @@ interface CreateNoteInterface {
 	) => Promise<void>
 }
 
-const CreateNote = ({
-	sortBy,
-	setSortBy,
-	createUserNote,
-}: CreateNoteInterface) => {
+const CreateNote = ({ createUserNote }: CreateNoteInterface) => {
 	const [focused, setFocused] = useState(false)
 	const submitRef = useRef(null)
 	const form = useForm<FormData>()
@@ -65,10 +58,6 @@ const CreateNote = ({
 								onFocus={handleFocus}
 								placeholder="Take a note..."
 								aria-label="description"
-							/>
-							<NoteOrderButtons
-								setSortBy={setSortBy}
-								sortBy={sortBy}
 							/>
 						</div>
 					</Box>

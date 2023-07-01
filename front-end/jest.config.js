@@ -38,6 +38,10 @@ module.exports = {
     "jsx",
     "node",
   ],
+  "unmockedModulePathPatterns": [
+  "<rootDir>/node_modules/react",
+  "<rootDir>/node_modules/fbjs"
+],
 
   resetMocks: true,
 };
