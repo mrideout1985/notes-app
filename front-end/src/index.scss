@@ -1,5 +1,5 @@
 @import 'open-props/style';
-@import 'open-props/normalize';
+@import 'open-props/animations';
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Nabla&family=Pacifico&family=Quicksand&family=Roboto&family=VT323&display=swap'); // font-family: 'Pacifico', cursive;
@@ -16,9 +16,6 @@
  * 1. Correct the line height in all browsers.
  * 2. Prevent adjustments of font size after orientation changes in iOS.
  */
-
-#root {
-}
 
 html,
 body {

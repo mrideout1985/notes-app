@@ -1,5 +1,5 @@
 import { Box, Typography } from '@mui/material'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom'
 import Layout from './components/layout/Layout'
 import './index.scss'
 import Archived from './pages/Archived'
@@ -13,9 +13,15 @@ function PrivateRoute({ children }: any) {
 
 	if (user.currentUser?.token === undefined) {
 		return (
-			<Box display="flex" justifyContent="center" alignItems="center">
-				<Typography color="hotpink" variant="h2">
-					HALT PEASANT!
+			<Box
+				display="flex"
+				justifyContent="center"
+				alignItems="center"
+				flexDirection="column"
+				width="100%"
+			>
+				<Typography variant="h4">
+					You are not logged in. Redirecting
 				</Typography>
 			</Box>
 		)

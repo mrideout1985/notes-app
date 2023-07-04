@@ -106,6 +106,7 @@ const Notes = () => {
 				</Box>
 			)
 		}
+
 		return (
 			<Box className={styles['note-page-layout']}>
 				<Box className={styles['create-note-container']}>
@@ -115,17 +116,20 @@ const Notes = () => {
 					columns={{ sm: 1, md: 3, lg: 4, xl: 6 }}
 					spacing={2}
 					className={styles['notes']}
-					children={notes.map((note: NoteCardProps) => (
-						<NoteCard
-							removeNote={removeNote}
-							key={note.id}
-							archiveNote={handleAddToArchive}
-							updateNote={updateUserNote}
-							description={note.description}
-							title={note.title}
-							id={note.id}
-						/>
-					))}
+					children={
+						notes &&
+						notes.map((note: NoteCardProps) => (
+							<NoteCard
+								removeNote={removeNote}
+								key={note.id}
+								archiveNote={handleAddToArchive}
+								updateNote={updateUserNote}
+								description={note.description}
+								title={note.title}
+								id={note.id}
+							/>
+						))
+					}
 				/>
 			</Box>
 		)

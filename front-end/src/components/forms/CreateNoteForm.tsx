@@ -1,6 +1,6 @@
 import { Box, FormGroup, Input } from '@mui/material'
 import { useRef, useState } from 'react'
-import { UseFormHandleSubmit, useForm } from 'react-hook-form'
+import { UseFormHandleSubmit, UseFormReset, useForm } from 'react-hook-form'
 import { useClickAway } from 'react-use'
 import { FormValues } from '../../pages/Notes'
 import styles from './CreateNoteForm.module.scss'
@@ -14,6 +14,7 @@ interface CreateNoteInterface {
 	createUserNote: (
 		handleSubmit: UseFormHandleSubmit<FormValues>,
 		setFocused: React.Dispatch<React.SetStateAction<boolean>>,
+		reset: UseFormReset<FormValues>,
 	) => (
 		e?: React.BaseSyntheticEvent<object, any, any> | undefined,
 	) => Promise<void>
@@ -23,7 +24,7 @@ const CreateNote = ({ createUserNote }: CreateNoteInterface) => {
 	const [focused, setFocused] = useState(false)
 	const submitRef = useRef(null)
 	const form = useForm<FormData>()
-	const onSubmit = createUserNote(form.handleSubmit, setFocused)
+	const onSubmit = createUserNote(form.handleSubmit, setFocused, form.reset)
 
 	const handleClickAway = () => {
 		if (form.formState.touchedFields) {

@@ -1,5 +1,5 @@
 import { Box, Button, Grid, TextField, Typography } from '@mui/material'
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { NavLink, useNavigate } from 'react-router-dom'
 import useAuth from '../../api/hooks/useAuth'
@@ -18,10 +18,12 @@ const AuthForm: FC<AuthFormProps> = ({ action }) => {
 		setError,
 	} = useForm<{ email: string; password: string }>({ mode: 'onBlur' })
 	const user = useUserStore()
-	const { execute } = useAuth(action)
+	const [responseError, setResponseError] = useState<string | undefined>('')
+	const { execute, loading } = useAuth(action)
 	const navigate = useNavigate()
 
 	const onSubmit = (data: Record<'email' | 'password', string>) => {
+		setResponseError('')
 		execute(data).then((res) => {
 			if (res?.status === 409) {
 				setError('email', { message: 'Email already exists' })
@@ -39,9 +41,15 @@ const AuthForm: FC<AuthFormProps> = ({ action }) => {
 					token: res.data.Authorization,
 					id: res.data.user.id,
 				})
-				setError('email', { message: '' })
+				setError('email', { message: res.data.message })
 				navigate('/')
 				setError('password', { message: '' })
+			}
+
+			if (res?.status === 401) {
+				setResponseError(
+					'Invalid credentials, please check your email and password and try again',
+				)
 			}
 		})
 	}
@@ -113,6 +121,13 @@ const AuthForm: FC<AuthFormProps> = ({ action }) => {
 							{action === 'register' ? 'Sign up' : 'Sign in'}
 						</Button>
 					</Grid>
+					{responseError && (
+						<Grid item>
+							<Typography color="error">
+								{responseError}
+							</Typography>
+						</Grid>
+					)}
 				</Grid>
 			</form>
 		</Box>
