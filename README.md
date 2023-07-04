@@ -1,6 +1,4 @@
-#Notes App
-
-#To Spin Everything Up
+# H1 Notes App
 
 From root, go to the back-end folder.
 
