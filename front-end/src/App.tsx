@@ -1,5 +1,5 @@
 import { Box, Typography } from '@mui/material'
-import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Layout from './components/layout/Layout'
 import './index.scss'
 import Archived from './pages/Archived'

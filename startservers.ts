@@ -1,9 +1,11 @@
-import run from "concurrently";
+const run = require("concurrently");
 
 // Define the commands to run
 const commands = [
-  { command: "cd path/to/frontend && npm start", name: "Frontend" },
-  { command: "cd path/to/backend && npm run dev", name: "Backend" },
+  { command: "cd front-end && npm run dev", name: "Frontend" },
+  { command: "cd back-end && docker compose up -d", name: "Docker" },
+  { command: "cd back-end && npm run start:dev", name: "Backend" },
+  { command: "cd back-end && npx prisma db push", name: "Prisma" },
 ];
 
 // Start the servers using the `concurrently` package
