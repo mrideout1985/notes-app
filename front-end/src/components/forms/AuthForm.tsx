@@ -1,4 +1,14 @@
-import { Box, Button, Grid, TextField, Typography } from '@mui/material'
+import {
+	Box,
+	Button,
+	Card,
+	CardContent,
+	Divider,
+	Grid,
+	InputLabel,
+	TextField,
+	Typography,
+} from '@mui/material'
 import { FC, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { NavLink, useNavigate } from 'react-router-dom'
@@ -19,7 +29,7 @@ const AuthForm: FC<AuthFormProps> = ({ action }) => {
 	} = useForm<{ email: string; password: string }>({ mode: 'onBlur' })
 	const user = useUserStore()
 	const [responseError, setResponseError] = useState<string | undefined>('')
-	const { execute, loading } = useAuth(action)
+	const { execute } = useAuth(action)
 	const navigate = useNavigate()
 
 	const onSubmit = (data: Record<'email' | 'password', string>) => {
@@ -55,64 +65,97 @@ const AuthForm: FC<AuthFormProps> = ({ action }) => {
 	}
 
 	return (
-		<Box className={styles.container}>
-			<form onSubmit={handleSubmit(onSubmit)}>
-				<Typography variant="h4">
-					{action === 'register' ? 'Create an account' : 'Sign in'}
-				</Typography>
-				{action === 'login' ? (
-					<Typography>
-						<NavLink to={'/register'}>Create an account </NavLink>
-						to start taking notes
+		<Card
+			className={styles.card}
+			elevation={5}
+			component="form"
+			onSubmit={handleSubmit(onSubmit)}
+		>
+			<CardContent className={styles.content}>
+				<Box className={styles.header}>
+					<Typography
+						variant="h4"
+						className={`${styles.h4} ${styles.h4_visible}`}
+					>
+						{action === 'register' ? 'Sign up' : 'Sign in'}
 					</Typography>
-				) : (
-					<Typography>
-						Already have an account?
-						<NavLink to={'/login'}> Sign in</NavLink>
-					</Typography>
-				)}
-				<Grid container direction="column" marginBottom={2} spacing={3}>
-					<Controller
-						name="email"
-						control={control}
-						defaultValue=""
-						rules={{ required: 'Email is required' }}
-						render={({ field }) => (
-							<Grid item xs>
-								<TextField
-									type={'email'}
-									label={'Email'}
-									name={field.name}
-									onChange={field.onChange}
-									fullWidth
-									error={errors['email'] ? true : false}
-									helperText={errors['email']?.message}
-								/>
-							</Grid>
-						)}
-					/>
-
-					<Controller
-						name="password"
-						control={control}
-						defaultValue=""
-						rules={{ required: 'Password is required' }}
-						render={({ field }) => (
-							<Grid item>
-								<TextField
-									type={'password'}
-									label={'Password'}
-									name={field.name}
-									value={field.value}
-									onChange={field.onChange}
-									fullWidth
-									error={errors['password'] ? true : false}
-									helperText={errors['password']?.message}
-								/>
-							</Grid>
-						)}
-					/>
-					<Grid item>
+					{action === 'login' ? (
+						<Typography>
+							<NavLink to={'/register'}>Sign up </NavLink>
+							to start taking notes
+						</Typography>
+					) : (
+						<Typography>
+							Already have an account?
+							<NavLink to={'/login'}> Sign in</NavLink>
+						</Typography>
+					)}
+				</Box>
+				<Divider className={styles.divider} />
+				<Box className={styles.form_container}>
+					<Grid
+						container
+						direction="column"
+						marginBottom={2}
+						spacing={3}
+					>
+						<Controller
+							name="email"
+							control={control}
+							defaultValue=""
+							rules={{ required: 'Email is required' }}
+							render={({ field }) => (
+								<Grid item xs>
+									<InputLabel htmlFor="email">
+										Email
+									</InputLabel>
+									<TextField
+										id="email"
+										type={'email'}
+										InputLabelProps={{
+											shrink: true,
+										}}
+										name={field.name}
+										onChange={field.onChange}
+										fullWidth
+										error={errors['email'] ? true : false}
+										helperText={errors['email']?.message}
+									/>
+								</Grid>
+							)}
+						/>
+						<Controller
+							name="password"
+							control={control}
+							defaultValue=""
+							rules={{ required: 'Password is required' }}
+							render={({ field }) => (
+								<Grid item>
+									<InputLabel htmlFor="password">
+										Password
+									</InputLabel>
+									<TextField
+										id="password"
+										type={'password'}
+										InputLabelProps={{
+											shrink: true,
+										}}
+										name={field.name}
+										value={field.value}
+										onChange={field.onChange}
+										fullWidth
+										error={
+											errors['password'] ? true : false
+										}
+										helperText={errors['password']?.message}
+									/>
+								</Grid>
+							)}
+						/>
+					</Grid>
+				</Box>
+				<Box className={styles.footer}>
+					<Box className={styles.button_container}>
 						<Button
 							variant="contained"
 							color="primary"
@@ -120,17 +163,17 @@ const AuthForm: FC<AuthFormProps> = ({ action }) => {
 						>
 							{action === 'register' ? 'Sign up' : 'Sign in'}
 						</Button>
-					</Grid>
+					</Box>
 					{responseError && (
-						<Grid item>
+						<Box>
 							<Typography color="error">
 								{responseError}
 							</Typography>
-						</Grid>
+						</Box>
 					)}
-				</Grid>
-			</form>
-		</Box>
+				</Box>
+			</CardContent>
+		</Card>
 	)
 }
 
