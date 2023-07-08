@@ -69,6 +69,7 @@ const AuthForm: FC<AuthFormProps> = ({ action }) => {
 			className={styles.card}
 			elevation={5}
 			component="form"
+			noValidate
 			onSubmit={handleSubmit(onSubmit)}
 		>
 			<CardContent className={styles.content}>
@@ -103,7 +104,21 @@ const AuthForm: FC<AuthFormProps> = ({ action }) => {
 							name="email"
 							control={control}
 							defaultValue=""
-							rules={{ required: 'Email is required' }}
+							rules={{
+								required: 'Email is required',
+
+								validate: (value) => {
+									if (value.length > 100) {
+										return 'Email cannot be more than 100 characters'
+									}
+
+									if (!value.includes('@')) {
+										return 'Invalid email address'
+									}
+
+									return true
+								},
+							}}
 							render={({ field }) => (
 								<Grid item xs>
 									<InputLabel htmlFor="email">
@@ -128,7 +143,24 @@ const AuthForm: FC<AuthFormProps> = ({ action }) => {
 							name="password"
 							control={control}
 							defaultValue=""
-							rules={{ required: 'Password is required' }}
+							rules={{
+								required: 'Password is required',
+								validate: (value) => {
+									if (value.length < 8) {
+										return 'Password must be at least 8 characters long'
+									}
+
+									if (value.length > 100) {
+										return 'Password is too long'
+									}
+
+									if (value === 'password') {
+										return 'Password cannot be "password"'
+									}
+
+									return true
+								},
+							}}
 							render={({ field }) => (
 								<Grid item>
 									<InputLabel htmlFor="password">
