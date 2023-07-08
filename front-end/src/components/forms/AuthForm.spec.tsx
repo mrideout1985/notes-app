@@ -3,19 +3,6 @@ import userEvent from '@testing-library/user-event'
 import { BrowserRouter as Router } from 'react-router-dom'
 import AuthForm from './AuthForm'
 
-// const mockNavigate = jest.fn()
-
-// jest.mock('react-router-dom', () => ({
-// 	...(jest.requireActual('react-router-dom') as any),
-// 	useNavigate: () => ({
-// 		navigate: () => mockNavigate,
-// 	}),
-// }))
-
-// const originalState = useUserStore.getState()
-
-const mockSubmit = jest.fn()
-
 describe('AuthForm Component', () => {
 	it('form validation works correctly', async () => {
 		render(
@@ -66,7 +53,7 @@ describe('AuthForm Component', () => {
 			</Router>,
 		)
 
-		expect(screen.getByRole('link')).toHaveTextContent('Create an account')
+		expect(screen.getByRole('link')).toHaveTextContent('Sign up')
 		expect(
 			screen.getByRole('button', {
 				name: 'Sign in',
