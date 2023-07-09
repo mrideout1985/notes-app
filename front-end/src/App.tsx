@@ -1,10 +1,10 @@
 import { Box, Typography } from '@mui/material'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Layout from './components/layout/Layout'
-import Archived from './pages/Archived'
-import Login from './pages/Login'
-import Notes from './pages/Notes'
-import Register from './pages/Register'
+import Archived from './pages/archived/Archived'
+import Login from './pages/login/Login'
+import Notes from './pages/notes/Notes'
+import Register from './pages/register/Register'
 import useUserStore from './stores/authstore'
 
 function PrivateRoute({ children }: any) {

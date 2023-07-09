@@ -2,7 +2,6 @@
 	flex-shrink: 0;
 	background-color: var(--gray-10);
 	transition: width 0.25s ease-in-out;
-	gap: 1rem;
 
 	&[aria-expanded='true'] {
 		width: auto;

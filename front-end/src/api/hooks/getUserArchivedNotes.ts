@@ -1,5 +1,5 @@
-import useUserStore from '@/stores/authstore'
 import useSWR from 'swr'
+import useUserStore from '../../stores/authstore'
 
 interface UseArticlesOptions {
 	email: string | undefined

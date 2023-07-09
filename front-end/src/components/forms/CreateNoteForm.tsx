@@ -2,7 +2,7 @@ import { Box, FormGroup, Input } from '@mui/material'
 import { useRef, useState } from 'react'
 import { UseFormHandleSubmit, UseFormReset, useForm } from 'react-hook-form'
 import { useClickAway } from 'react-use'
-import { FormValues } from '../../pages/Notes'
+import { FormValues } from '../../pages/notes/Notes'
 import styles from './CreateNoteForm.module.scss'
 
 interface FormData {
@@ -49,7 +49,7 @@ const CreateNote = ({ createUserNote }: CreateNoteInterface) => {
 							{...form.register('title')}
 							className={styles.title}
 							hidden={!focused}
-							aria-label="title"
+							aria-label="title of note"
 							placeholder="Title"
 						/>
 						<div className={styles.inputwithtoggle}>
@@ -58,7 +58,7 @@ const CreateNote = ({ createUserNote }: CreateNoteInterface) => {
 								className={styles.description}
 								onFocus={handleFocus}
 								placeholder="Take a note..."
-								aria-label="description"
+								aria-label="description of note"
 							/>
 						</div>
 					</Box>

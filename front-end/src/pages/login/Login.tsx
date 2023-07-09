@@ -1,5 +1,5 @@
-import AuthForm from '../components/forms/AuthForm'
-import styles from '../styles/pagestyles/AuthPage.module.scss'
+import AuthForm from '../../components/forms/AuthForm'
+import styles from './Login.module.scss'
 export interface AuthValues {
 	email: string
 	password: string

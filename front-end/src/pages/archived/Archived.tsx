@@ -1,12 +1,11 @@
-import useHandleGetArchivedNotes from '@/api/hooks/getUserArchivedNotes'
-import useHandleArchiveNotes from '@/api/hooks/useHandleArchive'
-import { deleteNote, updateNote } from '@/api/services/services'
-import NoteCard, { NoteCardProps } from '@/components/notecard/NoteCard'
-import useUserStore from '@/stores/authstore'
 import { Masonry } from '@mui/lab'
-import { Typography } from '@mui/material'
 import { useCallback, useState } from 'react'
-import styles from './Notes.module.scss'
+import useGetArchivedUserNotes from '../../api/hooks/getUserArchivedNotes'
+import useHandleArchiveNotes from '../../api/hooks/useHandleArchive'
+import { deleteNote, updateNote } from '../../api/services/services'
+import NoteCard, { NoteCardProps } from '../../components/notecard/NoteCard'
+import useUserStore from '../../stores/authstore'
+import styles from './Archived.module.scss'
 
 interface UseArticlesOptions {
 	sortBy: 'asc' | 'desc'
@@ -22,7 +21,7 @@ const Archived = () => {
 	const [sortBy, setSortBy] = useState<UseArticlesOptions['sortBy']>('desc')
 
 	const { error, isLoading, isValidating, mutate, notes } =
-		useHandleGetArchivedNotes({
+		useGetArchivedUserNotes({
 			email: store.currentUser?.email,
 			sortBy: sortBy,
 		})

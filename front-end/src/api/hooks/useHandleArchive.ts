@@ -1,13 +1,11 @@
-import useUserStore from '@/stores/authstore'
 import axios from 'axios'
 import { useState } from 'react'
+import useUserStore from '../../stores/authstore'
 
 const useHandleArchiveNotes = (mutate: any) => {
 	const [loading, setLoading] = useState<boolean>(true)
 	const [error, setError] = useState<string | null>(null)
-	const jwtToken = useUserStore(
-		(state: { currentUser: { token: string } }) => state.currentUser?.token,
-	)
+	const jwtToken = useUserStore((state: any) => state.currentUser?.token)
 
 	const handleArchiveNotes = async (id: string, archive: boolean) => {
 		try {

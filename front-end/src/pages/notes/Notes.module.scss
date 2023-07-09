@@ -1,0 +1,18 @@
+.note-page-layout {
+	width: 100%;
+	min-height: 100%;
+
+	.create-note-container {
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 1rem;
+		padding: 1rem;
+	}
+
+	.notes {
+		width: 100%;
+		margin: 0;
+	}
+}

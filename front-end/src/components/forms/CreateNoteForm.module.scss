@@ -14,15 +14,15 @@
 		.title {
 			&:hover {
 				&::before {
-					border-bottom: 2px solid var(--pink-6);
+					border-bottom: 4px solid var(--pink-6);
 				}
 			}
 			&::before {
-				border-bottom: 2px solid var(--pink-6);
+				border-bottom: 4px solid var(--pink-6);
 			}
 
 			&::after {
-				border-bottom: 2px solid var(--yellow-5);
+				border-bottom: 4px solid var(--blue-5);
 			}
 
 			&[hidden] {
@@ -38,15 +38,15 @@
 			.description {
 				&:hover {
 					&::before {
-						border-bottom: 2px solid var(--pink-6);
+						border-bottom: 4px solid var(--pink-6);
 					}
 				}
 				&::before {
-					border-bottom: 2px solid var(--pink-6);
+					border-bottom: 4px solid var(--pink-6);
 				}
 
 				&::after {
-					border-bottom: 2px solid var(--yellow-5);
+					border-bottom: 4px solid var(--blue-5);
 				}
 			}
 		}
