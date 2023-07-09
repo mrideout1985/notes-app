@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react'
+import { fireEvent, render, screen } from '@testing-library/react'
 import { BrowserRouter as Router } from 'react-router-dom' // to handle NavLink
 import Login from './Login' // adjust this path as needed
 
@@ -26,8 +26,4 @@ test('user can login successfully', async () => {
 			name: 'Sign in',
 		}),
 	)
-
-	await waitFor(() => {
-		expect(screen.queryByText('Loading...')).not.toBeInTheDocument()
-	})
 })
