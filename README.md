@@ -2,7 +2,7 @@
 
 Make Sure you have docker installed.
 
-Navigate to root
+In the terminal of the root folder, run:
 
 > npm start - to start a dev environment and poke around.
 
