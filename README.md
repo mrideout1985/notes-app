@@ -1,6 +1,8 @@
 # H1 Notes App
 
-Just run
+Make Sure you have docker installed.
+
+Navigate to root
 
 > npm start - to start a dev environment and poke around.
 
