@@ -134,7 +134,10 @@ const AuthForm: FC<AuthFormProps> = ({ action }) => {
 										onChange={field.onChange}
 										fullWidth
 										error={errors['email'] ? true : false}
-										helperText={errors['email']?.message}
+										helperText={
+											errors['email']?.message ||
+											responseError
+										}
 									/>
 								</Grid>
 							)}
@@ -196,13 +199,6 @@ const AuthForm: FC<AuthFormProps> = ({ action }) => {
 							{action === 'register' ? 'Sign up' : 'Sign in'}
 						</Button>
 					</Box>
-					{responseError && (
-						<Box>
-							<Typography color="error">
-								{responseError}
-							</Typography>
-						</Box>
-					)}
 				</Box>
 			</CardContent>
 		</Card>
