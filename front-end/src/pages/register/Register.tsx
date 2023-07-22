@@ -1,4 +1,4 @@
-import AuthForm from '../../components/forms/AuthForm'
+import AuthForm from '../../components/forms/authform/AuthForm'
 import styles from './Register.module.scss'
 
 export interface AuthValues {

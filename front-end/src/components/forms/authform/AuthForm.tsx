@@ -12,9 +12,11 @@ import {
 import { FC, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { NavLink, useNavigate } from 'react-router-dom'
-import useAuth from '../../api/hooks/useAuth'
-import useUserStore from '../../stores/authstore'
+import useAuth from '../../../api/hooks/useAuth'
+import useUserStore from '../../../stores/authstore'
 import styles from './AuthForm.module.scss'
+import AuthFormHeader from './authformHeader/AuthFormHeader'
+import AuthFormFooter from './authformFooter/AuthFormFooter'
 
 type AuthFormProps = {
 	action: 'register' | 'login'
@@ -28,9 +30,10 @@ const AuthForm: FC<AuthFormProps> = ({ action }) => {
 		setError,
 	} = useForm<{ email: string; password: string }>({ mode: 'onBlur' })
 	const user = useUserStore()
-	const [responseError, setResponseError] = useState<string | undefined>('')
-	const { execute } = useAuth(action)
 	const navigate = useNavigate()
+	const { execute } = useAuth(action)
+
+	const [responseError, setResponseError] = useState<string | undefined>('')
 
 	const onSubmit = (data: Record<'email' | 'password', string>) => {
 		setResponseError('')
@@ -73,25 +76,7 @@ const AuthForm: FC<AuthFormProps> = ({ action }) => {
 			onSubmit={handleSubmit(onSubmit)}
 		>
 			<CardContent className={styles.content}>
-				<Box className={styles.header}>
-					<Typography
-						variant="h4"
-						className={`${styles.h4} ${styles.h4_visible}`}
-					>
-						{action === 'register' ? 'Sign up' : 'Sign in'}
-					</Typography>
-					{action === 'login' ? (
-						<Typography>
-							<NavLink to={'/register'}>Sign up </NavLink>
-							to start taking notes
-						</Typography>
-					) : (
-						<Typography>
-							Already have an account?
-							<NavLink to={'/login'}> Sign in</NavLink>
-						</Typography>
-					)}
-				</Box>
+				<AuthFormHeader action={action} />
 				<Divider className={styles.divider} />
 				<Box className={styles.form_container}>
 					<Grid
@@ -189,17 +174,7 @@ const AuthForm: FC<AuthFormProps> = ({ action }) => {
 						/>
 					</Grid>
 				</Box>
-				<Box className={styles.footer}>
-					<Box className={styles.button_container}>
-						<Button
-							variant="contained"
-							color="primary"
-							type="submit"
-						>
-							{action === 'register' ? 'Sign up' : 'Sign in'}
-						</Button>
-					</Box>
-				</Box>
+				<AuthFormFooter action={action} />
 			</CardContent>
 		</Card>
 	)
