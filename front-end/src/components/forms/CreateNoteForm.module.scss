@@ -8,23 +8,21 @@
 
 	.form {
 		input {
-			width: 30em;
+			width: 30rem;
+			&::placeholder {
+				color: black;
+			}
+
+			&:hover {
+				outline: var(--pink-6) auto 5px;
+			}
+
+			&:focus {
+				outline: none;
+			}
 		}
 
 		.title {
-			&:hover {
-				&::before {
-					border-bottom: 2px solid var(--pink-6);
-				}
-			}
-			&::before {
-				border-bottom: 2px solid var(--pink-6);
-			}
-
-			&::after {
-				border-bottom: 2px solid var(--blue-5);
-			}
-
 			&[hidden] {
 				display: none;
 			}
@@ -36,18 +34,7 @@
 			justify-content: center;
 
 			.description {
-				&:hover {
-					&::before {
-						border-bottom: 2px solid var(--pink-6);
-					}
-				}
-				&::before {
-					border-bottom: 2px solid var(--pink-6);
-				}
-
-				&::after {
-					border-bottom: 2px solid var(--blue-5);
-				}
+				margin-top: 0.25rem;
 			}
 		}
 	}

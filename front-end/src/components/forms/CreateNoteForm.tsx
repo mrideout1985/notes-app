@@ -1,4 +1,4 @@
-import { Box, FormGroup, Input } from '@mui/material'
+import { Box, FormGroup, TextField } from '@mui/material'
 import { useRef, useState } from 'react'
 import { UseFormHandleSubmit, UseFormReset, useForm } from 'react-hook-form'
 import { useClickAway } from 'react-use'
@@ -21,9 +21,11 @@ interface CreateNoteInterface {
 }
 
 const CreateNote = ({ createUserNote }: CreateNoteInterface) => {
-	const [focused, setFocused] = useState(false)
 	const submitRef = useRef(null)
 	const form = useForm<FormData>()
+
+	const [focused, setFocused] = useState(false)
+
 	const onSubmit = createUserNote(form.handleSubmit, setFocused, form.reset)
 
 	const handleClickAway = () => {
@@ -45,20 +47,22 @@ const CreateNote = ({ createUserNote }: CreateNoteInterface) => {
 			<form ref={submitRef} onSubmit={onSubmit} className={styles.form}>
 				<FormGroup className={styles.formgroup}>
 					<Box className={styles.inputgroup}>
-						<Input
+						<TextField
 							{...form.register('title')}
 							className={styles.title}
 							hidden={!focused}
 							aria-label="title of note"
 							placeholder="Title"
+							variant="outlined"
 						/>
 						<div className={styles.inputwithtoggle}>
-							<Input
+							<TextField
 								{...form.register('description')}
 								className={styles.description}
 								onFocus={handleFocus}
 								placeholder="Take a note..."
 								aria-label="description of note"
+								variant="outlined"
 							/>
 						</div>
 					</Box>
