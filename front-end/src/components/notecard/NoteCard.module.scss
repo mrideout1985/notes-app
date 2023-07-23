@@ -19,14 +19,14 @@
 	.card-body {
 		.title {
 			font-family: 'Arial', sans-serif;
+			line-break: anywhere;
+			color: var(--gray-9);
+			margin-bottom: 10px;
 			display: -webkit-box;
-			-webkit-line-clamp: 3;
+			-webkit-line-clamp: 2;
 			-webkit-box-orient: vertical;
 			overflow: hidden;
 			text-overflow: ellipsis;
-			font-size: 24px;
-			color: var(--gray-9);
-			margin-bottom: 10px;
 		}
 
 		.description {
@@ -71,6 +71,8 @@
 
 .small {
 	.card-body {
+		.title {
+		}
 		.description {
 			display: -webkit-box;
 			-webkit-line-clamp: 2;
