@@ -48,6 +48,7 @@ const NoteCardModal = ({
 								InputProps={{
 									disableUnderline: true,
 								}}
+								fullWidth
 								multiline
 							/>
 							<TextField
@@ -58,6 +59,7 @@ const NoteCardModal = ({
 								defaultValue={description}
 								aria-label="description"
 								variant="standard"
+								fullWidth
 								InputProps={{
 									disableUnderline: true,
 								}}
