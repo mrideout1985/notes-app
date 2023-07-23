@@ -1,6 +1,6 @@
 import { Box, Button } from '@mui/material'
 import { FC } from 'react'
-import styles from '../AuthForm.module.scss'
+import styles from './AuthFormFooter.module.scss'
 
 type FooterProps = {
 	action: 'register' | 'login'

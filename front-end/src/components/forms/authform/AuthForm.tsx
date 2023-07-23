@@ -12,7 +12,7 @@ import {
 	Typography,
 } from '@mui/material'
 import { AlertTitle } from '@mui/material'
-import { FC, useState } from 'react'
+import { FC, useRef, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import useAuth from '../../../api/hooks/useAuth'
@@ -97,7 +97,7 @@ const AuthForm: FC<AuthFormProps> = ({ action }) => {
 			>
 				<CardContent className={styles.content}>
 					<AuthFormHeader action={action} />
-					<Divider className={styles.divider} />
+					<Divider sx={{ margin: 0 }} />
 					<Box className={styles.form_container}>
 						<Grid
 							container
@@ -166,8 +166,8 @@ const AuthForm: FC<AuthFormProps> = ({ action }) => {
 							/>
 						</Grid>
 					</Box>
-					<AuthFormFooter action={action} />
 				</CardContent>
+				<AuthFormFooter action={action} />
 			</Card>
 			<Dialog open={responseError ? true : false}>
 				<Alert onClose={handleCloseAlert} severity="error">
