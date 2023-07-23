@@ -1,7 +1,7 @@
 import { Box, Typography } from '@mui/material'
 import { FC } from 'react'
 import { NavLink } from 'react-router-dom'
-import styles from './AuthForm.module.scss'
+import styles from './AuthFormHeader.module.scss'
 
 type AuthFormHeaderProps = {
 	action: 'register' | 'login'

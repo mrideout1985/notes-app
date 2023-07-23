@@ -26,6 +26,18 @@
 				display: block;
 				cursor: pointer;
 			}
+
+			p {
+				color: var(--red-8);
+			}
+
+			p[id='email-helper-text']::first-letter {
+				text-transform: capitalize;
+			}
+
+			p[id='password-helper-text']::first-letter {
+				text-transform: capitalize;
+			}
 		}
 	}
 }
