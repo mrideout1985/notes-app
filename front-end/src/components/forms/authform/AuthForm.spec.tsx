@@ -1,9 +1,9 @@
-import { render, screen, waitFor, within } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { BrowserRouter as Router } from 'react-router-dom'
-import AuthForm from './AuthForm'
-import { server } from '../../../mocks/server'
 import { rest } from 'msw'
+import { BrowserRouter as Router } from 'react-router-dom'
+import { server } from '../../../mocks/server'
+import AuthForm from './AuthForm'
 
 describe('AuthForm Component', () => {
 	it('displays form validation message if the field is empty when form is submitted', async () => {
