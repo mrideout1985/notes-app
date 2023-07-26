@@ -1,9 +1,21 @@
-# H1 Notes App
+# 📒 Notes App
 
-Make Sure you have docker installed.
+Welcome to Notes App, a feature-rich, easy-to-use notes manager that's sure to boost your productivity. Here's a quick guide to get you started!
 
-In the terminal of the root folder, run:
+![Screenshot](image.png)
 
-> npm start - to start a dev environment and poke around.
+## 🛠️ Prerequisites
 
-Currently the back end is running on localhost:3000 and front end is on 3001.
+Before you begin, make sure you meet the following requirements:
+
+- You have a machine with Docker installed. If not, please [install Docker](https://docs.docker.com/get-docker/) first.
+
+## 🚀 Getting Started
+
+Setting up your environment and getting started is as simple as running a single command.
+
+Open your terminal, navigate to the root folder of this project and run:
+
+```sh
+npm start
+```

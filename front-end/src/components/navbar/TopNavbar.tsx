@@ -41,7 +41,7 @@ const TopNavBar = ({ sideBarOpen }: TopNavbar) => {
 						aria-label="Toggle sidebar"
 						onClick={sideBarOpen}
 					>
-						<MenuIcon />
+						<MenuIcon fontSize="small" />
 					</IconButton>
 					<NavLink className={styles.brand} to="/">
 						<i>N</i>otes <BookOpen height={60} width={60} />

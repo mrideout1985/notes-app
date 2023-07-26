@@ -3,17 +3,14 @@
 	padding: 1rem;
 	width: auto;
 
-	&:hover {
+	&:focus {
+		box-shadow: 0px 0px 0px 3px var(--blue-6);
+		outline: 0;
 		.footer {
 			button {
 				opacity: 1;
 			}
 		}
-	}
-
-	&:focus {
-		box-shadow: 0px 0px 0px 3px var(--blue-6);
-		outline: 0;
 	}
 
 	.card-body {
@@ -30,7 +27,6 @@
 		}
 
 		.description {
-			line-break: anywhere;
 			font-size: 16px;
 		}
 	}
