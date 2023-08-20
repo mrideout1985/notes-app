@@ -3,7 +3,7 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
 import UnarchiveIcon from '@mui/icons-material/Unarchive'
 import { Card, CardContent, IconButton, Typography } from '@mui/material'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import NoteCardModal from '../notecard-modal/NoteCardModal'
 import styles from './NoteCard.module.scss'
 
@@ -25,6 +25,43 @@ const NoteCard = ({
 	archiveNote,
 }: NoteCardProps) => {
 	const [openModal, setOpenModal] = useState(false)
+	const noteCardFocus = useRef<HTMLDivElement>(null)
+	const firstFocusableElement = useRef<HTMLButtonElement>(null)
+	const lastFocusableElement = useRef<HTMLButtonElement>(null)
+
+	
+	useEffect(() => {
+		const handleKeyDown = (e: KeyboardEvent) => {
+		  if (!noteCardFocus.current?.contains(e.target as Node)) {
+			return;
+		  }
+	
+		  const focusableElements: NodeListOf<HTMLElement> = noteCardFocus.current?.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+		  const firstFocusableElement: HTMLElement = focusableElements[0];
+		  const lastFocusableElement: HTMLElement = focusableElements[focusableElements.length - 1];
+	
+		  if (e.key === 'Tab' && !e.shiftKey && document.activeElement === lastFocusableElement) {
+			firstFocusableElement.focus();
+			e.preventDefault();
+		  } else if (e.key === 'Tab' && e.shiftKey && document.activeElement === firstFocusableElement) {
+			lastFocusableElement.focus();
+			e.preventDefault();
+		  }
+
+		  if (e.key === 'Escape') {
+			noteCardFocus.current?.focus();
+		  }
+
+		
+		};
+	
+		document.addEventListener('keydown', handleKeyDown);
+	
+		return () => {
+		  document.removeEventListener('keydown', handleKeyDown);
+		};
+	  }, []);
+
 
 	const determineCardSize = () => {
 		if (description.length < 100) {
@@ -68,6 +105,7 @@ const NoteCard = ({
 				}`}
 				tabIndex={0}
 				elevation={4}
+				ref={noteCardFocus}
 			>
 				<CardContent className={styles['card-body']}>
 					{title && (
@@ -91,6 +129,8 @@ const NoteCard = ({
 						size="small"
 						onClick={() => removeNote(id)}
 						aria-label={'Delete Button'}
+						ref={firstFocusableElement}
+
 					>
 						<DeleteIcon />
 					</IconButton>
@@ -99,6 +139,7 @@ const NoteCard = ({
 						aria-label={'Edit Button'}
 						size="small"
 						onClick={() => setOpenModal(true)}
+						ref={lastFocusableElement}
 					>
 						<EditIcon />
 					</IconButton>
