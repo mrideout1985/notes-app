@@ -2,7 +2,7 @@
 
 Welcome to Notes App, a feature-rich, easy-to-use notes manager that's sure to boost your productivity. Here's a quick guide to get you started!
 
-![Screenshot](image.png)
+https://i.imgur.com/IyMCMAs.png
 
 ## 🛠️ Prerequisites
 
