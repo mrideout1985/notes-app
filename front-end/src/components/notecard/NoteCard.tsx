@@ -29,39 +29,47 @@ const NoteCard = ({
 	const firstFocusableElement = useRef<HTMLButtonElement>(null)
 	const lastFocusableElement = useRef<HTMLButtonElement>(null)
 
-	
 	useEffect(() => {
 		const handleKeyDown = (e: KeyboardEvent) => {
-		  if (!noteCardFocus.current?.contains(e.target as Node)) {
-			return;
-		  }
-	
-		  const focusableElements: NodeListOf<HTMLElement> = noteCardFocus.current?.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
-		  const firstFocusableElement: HTMLElement = focusableElements[0];
-		  const lastFocusableElement: HTMLElement = focusableElements[focusableElements.length - 1];
-	
-		  if (e.key === 'Tab' && !e.shiftKey && document.activeElement === lastFocusableElement) {
-			firstFocusableElement.focus();
-			e.preventDefault();
-		  } else if (e.key === 'Tab' && e.shiftKey && document.activeElement === firstFocusableElement) {
-			lastFocusableElement.focus();
-			e.preventDefault();
-		  }
+			if (!noteCardFocus.current?.contains(e.target as Node)) {
+				return
+			}
 
-		  if (e.key === 'Escape') {
-			noteCardFocus.current?.focus();
-		  }
+			const focusableElements: NodeListOf<HTMLElement> =
+				noteCardFocus.current?.querySelectorAll(
+					'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+				)
+			const firstFocusableElement: HTMLElement = focusableElements[0]
+			const lastFocusableElement: HTMLElement =
+				focusableElements[focusableElements.length - 1]
 
-		
-		};
-	
-		document.addEventListener('keydown', handleKeyDown);
-	
+			if (
+				e.key === 'Tab' &&
+				!e.shiftKey &&
+				document.activeElement === lastFocusableElement
+			) {
+				firstFocusableElement.focus()
+				e.preventDefault()
+			} else if (
+				e.key === 'Tab' &&
+				e.shiftKey &&
+				document.activeElement === firstFocusableElement
+			) {
+				lastFocusableElement.focus()
+				e.preventDefault()
+			}
+
+			if (e.key === 'Escape') {
+				noteCardFocus.current?.focus()
+			}
+		}
+
+		document.addEventListener('keydown', handleKeyDown)
+
 		return () => {
-		  document.removeEventListener('keydown', handleKeyDown);
-		};
-	  }, []);
-
+			document.removeEventListener('keydown', handleKeyDown)
+		}
+	}, [])
 
 	const determineCardSize = () => {
 		if (description.length < 100) {
@@ -130,7 +138,6 @@ const NoteCard = ({
 						onClick={() => removeNote(id)}
 						aria-label={'Delete Button'}
 						ref={firstFocusableElement}
-
 					>
 						<DeleteIcon />
 					</IconButton>
