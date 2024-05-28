@@ -12,7 +12,7 @@ Before you begin, make sure you meet the following requirements:
 
 ## 🚀 Getting Started
 
-Setting up your environment and getting started is as simple as running a single command.
+Open Docker Desktop.
 
 Open your terminal, navigate to the root folder of this project and run:
 
