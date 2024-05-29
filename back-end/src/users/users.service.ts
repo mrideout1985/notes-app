@@ -66,7 +66,6 @@ export class UsersService {
       throw new HttpException('invalid_credentials', HttpStatus.UNAUTHORIZED);
     }
 
-    // compare passwords
     const areEqual = await compare(password, user.password);
 
     if (!areEqual) {

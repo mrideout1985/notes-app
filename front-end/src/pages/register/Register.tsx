@@ -1,4 +1,4 @@
-import AuthForm from '../../components/forms/authform/AuthForm'
+import AuthForm from '../../components/forms/authform/AuthFormFields'
 import styles from './Register.module.scss'
 
 export interface AuthValues {
@@ -7,11 +7,7 @@ export interface AuthValues {
 }
 
 const Register = () => {
-	return (
-		<div className={styles.container}>
-			<AuthForm action="register" />
-		</div>
-	)
+	return <div className={styles.container}></div>
 }
 
 export default Register

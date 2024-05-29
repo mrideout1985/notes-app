@@ -32,10 +32,8 @@ export class AuthService {
   }
 
   async login(loginUserDto: LoginUserDto, response: any): Promise<any> {
-    // find user in db
     const user = await this.usersService.findByLogin(loginUserDto);
 
-    // generate and sign token
     const token = this._createToken({ email: user.email });
 
     response.cookie('token', token.Authorization, {

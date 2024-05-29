@@ -3,4 +3,19 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+
+	.paper {
+		min-width: 500px;
+		padding: 1rem;
+
+		.formfields {
+		}
+
+		.actions {
+			width: 100%;
+			display: flex;
+			justify-content: flex-end;
+			margin-top: 1rem;
+		}
+	}
 }
