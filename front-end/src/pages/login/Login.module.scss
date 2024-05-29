@@ -16,6 +16,10 @@
 			display: flex;
 			justify-content: flex-end;
 			margin-top: 1rem;
+
+			button {
+				background-color: var(--pink-6);
+			}
 		}
 	}
 }

@@ -30,10 +30,6 @@ const Login = () => {
 		login.execute(data)
 	}
 
-	const responseError = new Map([
-		['invalid_credentials', 'Please check credentials and try again'],
-	])
-
 	return (
 		<div className={styles.container}>
 			<Paper
@@ -48,17 +44,16 @@ const Login = () => {
 						formState={form.formState}
 					/>
 				</Box>
+				{login.responseError && (
+					<Typography mt={1} color="red">
+						{login.responseError}
+					</Typography>
+				)}
 				<Box className={styles.actions}>
 					<Button variant="contained" type="submit">
 						Login
 					</Button>
 				</Box>
-				{login.responseError && (
-					<Typography color="red">
-						{responseError.get(login.responseError) ??
-							'Network Error'}
-					</Typography>
-				)}
 			</Paper>
 		</div>
 	)

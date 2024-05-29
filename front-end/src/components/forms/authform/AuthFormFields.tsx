@@ -4,9 +4,14 @@ import { Control, Controller, FormState } from 'react-hook-form'
 interface AuthFormFields {
 	control: Control<{ email: string; password: string }>
 	formState: FormState<{ email: string; password: string }>
+	disabledPasswordHelperText?: boolean
 }
 
-const AuthFormFields = ({ control, formState }: AuthFormFields) => {
+const AuthFormFields = ({
+	control,
+	formState,
+	disabledPasswordHelperText,
+}: AuthFormFields) => {
 	return (
 		<Stack gap={2}>
 			<Controller
@@ -49,7 +54,11 @@ const AuthFormFields = ({ control, formState }: AuthFormFields) => {
 							onChange={field.onChange}
 							fullWidth
 							error={Boolean(formState.errors.password)}
-							helperText={formState.errors.password?.message}
+							helperText={
+								disabledPasswordHelperText
+									? null
+									: formState.errors.password?.message
+							}
 						/>
 					</Box>
 				)}
