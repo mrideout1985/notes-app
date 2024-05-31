@@ -31,16 +31,19 @@ const fetcher =
 const useGetUserNotes = ({ email, sortBy }: UseArticlesOptions) => {
 	const user = useUserStore()
 	const fetcherWithToken = fetcher({ token: user.currentUser?.token })
-	const { data, error, isLoading, isValidating, mutate } = useSWR(
-		`http://localhost:3000/articles/my-articles/?email=${email}&sortBy=${sortBy}`,
-		fetcherWithToken,
+	const key = ['my-articles', email, sortBy]
+	const { data, error, isLoading, isValidating } = useSWR(
+		key,
+		([, email, sortBy]) =>
+			fetcherWithToken(
+				`http://localhost:3000/articles/my-articles/?email=${email}&sortBy=${sortBy}`,
+			),
 	)
 
 	return {
 		notes: data,
 		isLoading,
 		isValidating,
-		mutate,
 		error,
 	}
 }

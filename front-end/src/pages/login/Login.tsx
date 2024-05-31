@@ -44,15 +44,19 @@ const Login = () => {
 						formState={form.formState}
 					/>
 				</Box>
-				{login.responseError && (
-					<Typography mt={1} color="red">
-						{login.responseError}
-					</Typography>
-				)}
-				<Box className={styles.actions}>
-					<Button variant="contained" type="submit">
-						Login
-					</Button>
+				<Box className={styles.footer}>
+					<Box className={styles.responseError}>
+						{login.responseError && (
+							<Typography mt={1} color="red">
+								{login.responseError}
+							</Typography>
+						)}
+					</Box>
+					<Box className={styles.actions}>
+						<Button variant="contained" type="submit">
+							Login
+						</Button>
+					</Box>
 				</Box>
 			</Paper>
 		</div>

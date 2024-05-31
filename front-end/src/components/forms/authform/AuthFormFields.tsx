@@ -1,5 +1,6 @@
 import { Box, InputLabel, Stack, TextField } from '@mui/material'
 import { Control, Controller, FormState } from 'react-hook-form'
+import styles from './AuthFormFields.module.scss'
 
 interface AuthFormFields {
 	control: Control<{ email: string; password: string }>
@@ -13,14 +14,20 @@ const AuthFormFields = ({
 	disabledPasswordHelperText,
 }: AuthFormFields) => {
 	return (
-		<Stack gap={2}>
+		<Stack gap={2} className={styles['authformfields__container']}>
 			<Controller
 				name="email"
 				control={control}
 				render={({ field }) => (
-					<Box>
-						<InputLabel htmlFor="email">Email</InputLabel>
+					<Box className={styles['authformfields__email']}>
+						<InputLabel
+							className={styles['authformfields__email-label']}
+							htmlFor="email"
+						>
+							Email
+						</InputLabel>
 						<TextField
+							className={styles['authformfields__email-input']}
 							id="email"
 							type={'email'}
 							InputLabelProps={{
@@ -40,9 +47,15 @@ const AuthFormFields = ({
 				name="password"
 				control={control}
 				render={({ field }) => (
-					<Box>
-						<InputLabel htmlFor="password">Password</InputLabel>
+					<Box className={styles['authformfields__password']}>
+						<InputLabel
+							className={styles['authformfields__password-label']}
+							htmlFor="password"
+						>
+							Password
+						</InputLabel>
 						<TextField
+							className={styles['authformfields__password-input']}
 							id="password"
 							type={'password'}
 							InputLabelProps={{

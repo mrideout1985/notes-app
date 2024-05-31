@@ -96,7 +96,7 @@ const Register = () => {
 	]
 
 	return (
-		<div className={styles.container}>
+		<Box className={styles.container}>
 			<Paper
 				component="form"
 				onSubmit={form.handleSubmit(onSubmit)}
@@ -143,18 +143,22 @@ const Register = () => {
 						</Paper>
 					</Popper>
 				</Box>
-				{register.responseError && (
-					<Typography mt={1} color="red">
-						{register.responseError}
-					</Typography>
-				)}
-				<Box className={styles.actions}>
-					<Button variant="contained" type="submit">
-						Register
-					</Button>
+				<Box className={styles.footer}>
+					<Box className={styles.responseError}>
+						{register.responseError && (
+							<Typography mt={1} color="red">
+								{register.responseError}
+							</Typography>
+						)}
+					</Box>
+					<Box className={styles.actions}>
+						<Button variant="contained" type="submit">
+							Register
+						</Button>
+					</Box>
 				</Box>
 			</Paper>
-		</div>
+		</Box>
 	)
 }
 

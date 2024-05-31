@@ -9,6 +9,7 @@ import CreateNote from '../../components/forms/CreateNoteForm'
 import NoteCard, { NoteCardProps } from '../../components/notecard/NoteCard'
 import useUserStore from '../../stores/authstore'
 import styles from './Notes.module.scss'
+import { mutate } from 'swr'
 
 interface UseArticlesOptions {
 	sortBy: 'asc' | 'desc'
@@ -24,7 +25,7 @@ const Notes = () => {
 	const [sortBy, setSortBy] = useState<UseArticlesOptions['sortBy']>('desc')
 	const user = useUserStore()
 
-	const { notes, error, isLoading, mutate } = useGetUserNotes({
+	const { notes, error, isLoading } = useGetUserNotes({
 		email: store.currentUser?.email,
 		sortBy: sortBy,
 	})
@@ -47,7 +48,11 @@ const Notes = () => {
 						if (res.status === 201) {
 							isFocused(false)
 							reset()
-							mutate()
+							mutate([
+								'my-articles',
+								user.currentUser?.email,
+								sortBy,
+							])
 						}
 					})
 				}
@@ -58,7 +63,7 @@ const Notes = () => {
 	const removeNote = async (id: string) => {
 		await deleteNote(id, store.currentUser?.token).then((res) => {
 			if (res.status === 200) {
-				mutate()
+				mutate(['my-articles', user.currentUser?.email, sortBy])
 			}
 		})
 	}
@@ -75,7 +80,11 @@ const Notes = () => {
 					).then((res) => {
 						if (res?.status === 200) {
 							func()
-							mutate()
+							mutate([
+								'my-articles',
+								user.currentUser?.email,
+								sortBy,
+							])
 						}
 					})
 				}
@@ -85,7 +94,7 @@ const Notes = () => {
 
 	const handleAddToArchive = (id: string) => {
 		handleArchiveNotes(id, true).then((res) => {
-			mutate()
+			mutate(['my-articles', user.currentUser?.email, sortBy])
 		})
 	}
 
