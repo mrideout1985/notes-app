@@ -1,14 +1,16 @@
 import { Box, Typography } from '@mui/material'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import Layout from './components/layout/Layout'
-import Archived from './pages/archived/Archived'
-import Login from './pages/login/Login'
-import Notes from './pages/notes/Notes'
-import Register from './pages/register/Register'
+import Layout from './components/Layout/Layout'
+import Archived from './pages/Archived/Archived'
+import Login from './pages/Login/Login'
+import Notes from './pages/Notes/Notes'
+import Register from './pages/Register/Register'
 import useUserStore from './stores/authstore'
+import { PropsWithChildren } from 'react'
 
-function PrivateRoute({ children }: any) {
+const PrivateRoute: React.FC<PropsWithChildren> = ({ children }) => {
 	const user = useUserStore()
+	console.log(user)
 
 	if (user.currentUser?.token === undefined) {
 		return (
@@ -25,6 +27,7 @@ function PrivateRoute({ children }: any) {
 			</Box>
 		)
 	}
+
 	return children
 }
 

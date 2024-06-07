@@ -1,4 +1,4 @@
-import { ChevronDown, ChevronUp } from '../icons'
+import { ChevronDown, ChevronUp } from '../Icons'
 import styles from './NoteOrderButtons.module.scss'
 export interface NoteOrderButtonsProps {
 	sortBy: 'asc' | 'desc'

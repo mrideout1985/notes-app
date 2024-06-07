@@ -13,10 +13,11 @@ import {
 } from '@mui/material'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
-import AuthFormFields from '../../components/forms/authform/AuthFormFields'
-import useRegister from '../../api/hooks/auth/register'
+import AuthFormFields from '../../components/Forms/AuthForm/AuthFormFields'
+import useRegister from '../../api/hooks/auth/useRegister'
 import styles from './Register.module.scss'
 import { useRef } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 
 export interface AuthValues {
 	email: string
@@ -24,7 +25,12 @@ export interface AuthValues {
 }
 
 const Register = () => {
-	const register = useRegister()
+	const navigate = useNavigate()
+	const register = useRegister({
+		onSuccess: () => {
+			navigate('/login')
+		},
+	})
 	const schema = yup.object().shape({
 		email: yup.string().email().required(),
 		password: yup
@@ -152,7 +158,15 @@ const Register = () => {
 						)}
 					</Box>
 					<Box className={styles.actions}>
-						<Button variant="contained" type="submit">
+						<Link color="black" to="/login">
+							Login
+						</Link>
+						<Button
+							disabled={register.loading}
+							size="small"
+							variant="contained"
+							type="submit"
+						>
 							Register
 						</Button>
 					</Box>

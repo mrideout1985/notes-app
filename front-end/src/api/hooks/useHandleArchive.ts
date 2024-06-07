@@ -20,7 +20,7 @@ const useHandleArchiveNotes = (mutate: any) => {
 					method: 'GET',
 					headers: {
 						'Content-Type': 'application/json',
-						Authorization: `Bearer ${jwtToken}`,
+						authorization: `Bearer ${jwtToken}`,
 					},
 				},
 			)

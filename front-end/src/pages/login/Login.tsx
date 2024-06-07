@@ -2,9 +2,11 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { Box, Button, Paper, Typography } from '@mui/material'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
-import AuthFormFields from '../../components/forms/authform/AuthFormFields'
+import AuthFormFields from '../../components/Forms/AuthForm/AuthFormFields'
 import styles from './Login.module.scss'
-import useLogin from '../../api/hooks/useLogin'
+import useLogin from '../../api/hooks/auth/useLogin'
+import { Link, useNavigate } from 'react-router-dom'
+import useUserStore from '../../stores/authstore'
 
 export interface AuthValues {
 	email: string
@@ -12,7 +14,12 @@ export interface AuthValues {
 }
 
 const Login = () => {
-	const login = useLogin()
+	const navigate = useNavigate()
+	const login = useLogin({
+		onSuccess: () => {
+			navigate('/')
+		},
+	})
 	const schema = yup.object().shape({
 		email: yup.string().email().required(),
 		password: yup.string().max(32).required().min(8),
@@ -53,7 +60,15 @@ const Login = () => {
 						)}
 					</Box>
 					<Box className={styles.actions}>
-						<Button variant="contained" type="submit">
+						<Link color="black" to="/register">
+							Register
+						</Link>
+						<Button
+							disabled={login.loading}
+							size="small"
+							variant="contained"
+							type="submit"
+						>
 							Login
 						</Button>
 					</Box>

@@ -36,7 +36,7 @@ export class AuthService {
 
     const token = this._createToken({ email: user.email });
 
-    response.cookie('token', token.Authorization, {
+    response.cookie('token', token.authorization, {
       httpOnly: true,
     });
 
@@ -48,16 +48,16 @@ export class AuthService {
 
   private _createToken({ email }): {
     expiresIn: string;
-    Authorization: string;
+    authorization: string;
   } {
     const user: JwtPayload = { email };
-    const Authorization = this.jwtService.sign(user, {
+    const authorization = this.jwtService.sign(user, {
       expiresIn: process.env.EXPIRESIN,
     });
 
     return {
       expiresIn: process.env.EXPIRESIN,
-      Authorization,
+      authorization,
     };
   }
 

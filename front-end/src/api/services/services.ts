@@ -16,7 +16,7 @@ export const createNote = async (
 			withCredentials: true,
 			headers: {
 				'Content-Type': 'application/json',
-				Authorization: 'Bearer ' + token,
+				authorization: 'Bearer ' + token,
 			},
 		},
 	)
@@ -42,7 +42,7 @@ export const updateNote = async (
 				withCredentials: true,
 				headers: {
 					'Content-Type': 'application/json',
-					Authorization: 'Bearer ' + token,
+					authorization: 'Bearer ' + token,
 				},
 			},
 		)
@@ -57,7 +57,7 @@ export const deleteNote = async (id: string, token: string | undefined) => {
 		withCredentials: true,
 		headers: {
 			'Content-Type': 'application/json',
-			Authorization: 'Bearer ' + token,
+			authorization: 'Bearer ' + token,
 		},
 	})
 	return await response

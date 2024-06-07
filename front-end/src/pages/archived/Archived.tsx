@@ -3,7 +3,7 @@ import { useCallback, useState } from 'react'
 import useGetArchivedUserNotes from '../../api/hooks/getUserArchivedNotes'
 import useHandleArchiveNotes from '../../api/hooks/useHandleArchive'
 import { deleteNote, updateNote } from '../../api/services/services'
-import NoteCard, { NoteCardProps } from '../../components/notecard/NoteCard'
+import NoteCard, { NoteCardProps } from '../../components/NoteCard/NoteCard'
 import useUserStore from '../../stores/authstore'
 import styles from './Archived.module.scss'
 

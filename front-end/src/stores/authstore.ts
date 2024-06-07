@@ -1,4 +1,4 @@
-import create from 'zustand'
+import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
 export type User = {
@@ -12,6 +12,7 @@ export type State = {
 	setCurrentUser: ({ email, token, id }: User) => void
 	resetUser: () => void
 	replaceState: (newState: State) => void
+	isAuthorized: boolean
 }
 
 const useUserStore = create<State>()(
@@ -28,6 +29,7 @@ const useUserStore = create<State>()(
 				}),
 			resetUser: () => set({ currentUser: null }),
 			replaceState: (newState: State) => set({ ...get(), ...newState }),
+			isAuthorized: false,
 		}),
 		{ name: 'storage' },
 	),

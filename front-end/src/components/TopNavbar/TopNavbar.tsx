@@ -2,10 +2,10 @@ import MenuIcon from '@mui/icons-material/Menu'
 import { AppBar, Box, IconButton, Toolbar } from '@mui/material'
 import { useEffect } from 'react'
 import { NavLink, useLocation, useNavigate } from 'react-router-dom'
-import useLogout from '../../api/hooks/useLogout'
+import useLogout from '../../api/hooks/auth/useLogout'
 import useUserStore from '../../stores/authstore'
 import UserNavDropdown from '../UserNavDropdown/UserNavDropdown'
-import { BookOpen } from '../icons'
+import { BookOpen } from '../Icons'
 import styles from './TopNavbar.module.scss'
 
 interface TopNavbar {

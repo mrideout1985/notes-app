@@ -1,18 +1,17 @@
 import { rest } from 'msw'
 
-const login = rest.post('http://localhost:3000/auth/login', (req, res, ctx) => {
-	const { email, password } = JSON.parse(req.body as string)
+export const loginHandler = rest.post(
+	'http://localhost:3000/auth/login',
+	(req, res, ctx) => {
+		return res(ctx.status(201))
+	},
+)
 
-	if (password === 'bigtestypassword' && email === 'test@test.com') {
-		return res(
-			ctx.status(201),
-			ctx.json({
-				status: 'success',
-				user: { email: 'test@test.com', id: '1' },
-				Authorization: 'Bearer token',
-			}),
-		)
-	}
-})
+export const registerHandler = rest.post(
+	'http://localhost:3000/auth/register',
+	(req, res, ctx) => {
+		return res(ctx.status(201))
+	},
+)
 
-export const handlers = [login]
+export const handlers = [loginHandler, registerHandler]

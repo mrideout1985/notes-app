@@ -2,8 +2,8 @@ import { useState } from 'react'
 import { Outlet } from 'react-router-dom'
 
 import { Box } from '@mui/material'
-import TopNavBar from '../navbar/TopNavbar'
-import Sidebar from '../sidebar/Sidebar'
+import TopNavBar from '../TopNavbar/TopNavbar'
+import Sidebar from '../Sidebar/Sidebar'
 import styles from './Layout.module.scss'
 
 const Layout = () => {

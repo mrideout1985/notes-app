@@ -2,7 +2,7 @@ import { Box, FormGroup, TextField } from '@mui/material'
 import { useRef, useState } from 'react'
 import { UseFormHandleSubmit, UseFormReset, useForm } from 'react-hook-form'
 import { useClickAway } from 'react-use'
-import { FormValues } from '../../pages/notes/Notes'
+import { FormValues } from '../../pages/Notes/Notes'
 import styles from './CreateNoteForm.module.scss'
 
 interface FormData {

@@ -5,8 +5,8 @@ import { UseFormHandleSubmit, UseFormReset } from 'react-hook-form'
 import useGetUserNotes from '../../api/hooks/getUserNotes'
 import useHandleArchiveNotes from '../../api/hooks/useHandleArchive'
 import { createNote, deleteNote, updateNote } from '../../api/services/services'
-import CreateNote from '../../components/forms/CreateNoteForm'
-import NoteCard, { NoteCardProps } from '../../components/notecard/NoteCard'
+import CreateNote from '../../components/Forms/CreateNoteForm'
+import NoteCard, { NoteCardProps } from '../../components/NoteCard/NoteCard'
 import useUserStore from '../../stores/authstore'
 import styles from './Notes.module.scss'
 import { mutate } from 'swr'
@@ -24,6 +24,7 @@ const Notes = () => {
 	const store = useUserStore()
 	const [sortBy, setSortBy] = useState<UseArticlesOptions['sortBy']>('desc')
 	const user = useUserStore()
+	console.log(user.currentUser)
 
 	const { notes, error, isLoading } = useGetUserNotes({
 		email: store.currentUser?.email,

@@ -1,13 +1,12 @@
 import axios from 'axios'
 import { useState } from 'react'
-import useUserStore from '../../stores/authstore'
-import { useNavigate } from 'react-router-dom'
 
 type AuthData = { email: string; password: string }
 
-const useLogin = () => {
-	const user = useUserStore()
-	const navigate = useNavigate()
+const useRegister = (options?: {
+	onSuccess?: () => void
+	onError?: () => void
+}) => {
 	const [loading, setLoading] = useState(false)
 	const [responseError, setResponseError] = useState<string | undefined>(
 		undefined,
@@ -15,10 +14,9 @@ const useLogin = () => {
 
 	const execute = async ({ email, password }: AuthData) => {
 		setLoading(true)
-
 		try {
 			const response = await axios.post(
-				'http://localhost:3000/auth/login',
+				'http://localhost:3000/auth/register',
 				{ email, password },
 				{
 					headers: {
@@ -27,18 +25,15 @@ const useLogin = () => {
 					withCredentials: true,
 				},
 			)
+
 			if (response.status === 201) {
-				user.setCurrentUser({
-					email: response.data.user.email,
-					token: response.data.Authorization,
-					id: response.data.user.id,
-				})
-				navigate('/')
+				options?.onSuccess?.()
 			}
 
 			return response
 		} catch (error) {
 			if (axios.isAxiosError(error)) {
+				options?.onError?.()
 				setResponseError(error.response?.data.message)
 			}
 		} finally {
@@ -46,7 +41,7 @@ const useLogin = () => {
 		}
 	}
 
-	return { ...user, execute, loading, responseError }
+	return { execute, loading, responseError }
 }
 
-export default useLogin
+export default useRegister
