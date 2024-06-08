@@ -4,7 +4,7 @@ import EditIcon from '@mui/icons-material/Edit'
 import UnarchiveIcon from '@mui/icons-material/Unarchive'
 import { Card, CardContent, IconButton, Typography } from '@mui/material'
 import { useEffect, useRef, useState } from 'react'
-import NoteCardModal from '../NoteCardModels/NoteCardModal'
+import NoteCardModal from '../NoteCardModal/NoteCardModal'
 import styles from './NoteCard.module.scss'
 
 export interface NoteCardProps {
